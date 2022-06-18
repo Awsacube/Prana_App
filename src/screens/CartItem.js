@@ -1,0 +1,38 @@
+import { StyleSheet, Text, View ,Image, Button} from 'react-native'
+import { removeItem } from '../features/cartSlice'
+import { Dispatch } from 'react'
+
+import React from 'react'
+import { useDispatch } from 'react-redux'
+
+const CartItem = ({image,name,price,uuid}) => {
+    const dispatch=useDispatch();
+  return (
+    <View style={styles.container}>
+        <View>
+        <Image source={{uri:image}} style={styles.img}/>
+        </View>
+        <View>
+        <Text>{name}</Text>
+        <Text>MRP : {price}</Text>
+        <Text>{quantity}</Text>
+        <Button title="Remove Item" onPress={()=>{dispatch(removeItem(uuid))}}></Button>
+        </View>
+    </View>
+  )
+}
+
+export default CartItem
+
+const styles = StyleSheet.create({
+    container:{
+      flexDirection:'row',
+      marginTop:20,
+    },
+    img:{
+        width:100,
+        height:100,
+        marginRight:20
+    }
+
+})

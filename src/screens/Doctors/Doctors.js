@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, FlatList, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Dimensions } from "react-native";
+import Search from '../../components/Search';
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
@@ -69,10 +70,10 @@ const Doctors=()=> {
 
 
   return (
+    <ScrollView>
     <SafeAreaView>
     <View style={styles.container}>
-      <ScrollView>
-
+      <Search placeholder={"Search Health Problems , Specializations"}/>
         <FlatList
           data={categorylist}
           keyExtractor={(item, index) => item.tc_id}
@@ -130,10 +131,10 @@ const Doctors=()=> {
           />
         </View>
 
-      </ScrollView>
 
     </View>
     </SafeAreaView>
+    </ScrollView>
   );
 };
 

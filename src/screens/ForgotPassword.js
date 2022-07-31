@@ -69,7 +69,7 @@ const styles=StyleSheet.create({
 
     },
     image:{
-        height:'750'
+        height:750
     } 
 })
 

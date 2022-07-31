@@ -44,7 +44,8 @@ export default [
                 // url: 'https://i.ibb.co/hYjK44F/anise-aroma-art-bazaar-277253.jpg',
                 url:offer,
                 // description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                id: 1
+                id: 1,
+                onPress:'https://www.google.co.in/'
 
         },
         {
@@ -52,12 +53,15 @@ export default [
                 // url: 'https://i.ibb.co/JtS24qP/food-inside-bowl-1854037.jpg',
                 url:offer,
                 // description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                id: 2
+                id: 2,
+                onPress:'https://www.google.co.in/'
+
         },
         {
                 url:offer,
                 // title: 'Vegatable Salad', 
                 // url: 'https://i.ibb.co/JxykVBt/flat-lay-photography-of-vegetable-salad-on-plate-1640777.jpg',
                 // description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                id: 3
+                id: 3,
+                onPress:'https://www.google.co.in/'
         }]

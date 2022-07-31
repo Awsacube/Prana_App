@@ -1,17 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { SearchBar } from "@rneui/themed";
 
-
-
-const Search = () => {
+const Carousel = () => {
   return (
     <View>
-        <SearchBar/>
+      <Text>Carousel</Text>
     </View>
   )
 }
 
-export default Search;
+export default Carousel
 
 const styles = StyleSheet.create({})

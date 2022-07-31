@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { getToken } from '../services/AsyncStorageService';
 import {useGetProductQuery} from '../services/userAuthApi';
-import { useAddToCartMutation } from '../services/userAuthApi';
+import { useDeleteCartItemsMutation, useGetAllCartItemsQuery ,useAddToCartMutation} from '../services/userAuthApi'
 import QuantityModalPicker from './QuantityModalPicker';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // import { iteratorSymbol } from 'immer/dist/internal';
@@ -25,9 +25,6 @@ import {cartActions} from '../app/cart-slice';
 import Counter from "react-native-counters";
 import { SelectCountry } from 'react-native-element-dropdown';
 import SelectDropdown from 'react-native-select-dropdown'
-
-
-
 
 
 
@@ -49,13 +46,19 @@ export default function ProductDescription({route}) {
   const { productid }=route.params;
 
   const[userLToken,setUserLToken]=useState()
-  useEffect(()=>{
-    (async()=>{
-      const token=await getToken() //getting token from storage
-      setUserLToken(token) //store token in local storage
-    })()
-   }
-  )
+  // useEffect(()=>{
+  //   (async()=>{
+  //     const token=await getToken() //getting token from storage
+  //     setUserLToken(token) //store token in local storage
+  //   })()
+  //  }
+  // )
+
+  useEffect(async()=>{
+    const token=await getToken() //getting token from storage
+    setUserLToken(token) //store token in local storage
+ },[]
+)
 
   
   // const token =  ConstantId.accessToken ;
@@ -65,22 +68,34 @@ export default function ProductDescription({route}) {
   console.warn(res);
 
   const dispatch=useDispatch();
-  const [cartQueryItems]=useAddToCartMutation();
+  
+  // const [cartQueryItems]=useAddToCartMutation(); //send cart data to backend
 
-  const addToCart=()=>{
-    dispatch(cartActions.addToCart({
-      name,
-      uuid,
-      price,
-      quantity,
-    }))
-      cartData={
-        id:productid,
-        quantity:quantity,
-        token:userLToken}
-      cartQueryItems(cartData);
+  // const addToCart=()=>{
+  //   // dispatch(cartActions.addToCart({
+  //   //   name,
+  //   //   uuid,
+  //   //   price,
+  //   //   quantity,
+  //   // }))
+  //     cartData={
+  //       id:productid,
+  //       quantity:quantity, ///send cart data to bb\ackend
+  //       token:userLToken}
+  //     cartQueryItems(cartData);
+
+  // }
+
+  const [addToCart]=useAddToCartMutation(); //send cart data to backend
+  const { refecth }=useGetAllCartItemsQuery();
+  const cartData={
+  id:productid,
+  quantity:quantity,
+  token:userLToken}
+  const addToCartHandler=async()=>{
+      await addToCart(cartData)
+      refecth();
   }
-
 
   const productDesc=[];
 
@@ -343,7 +358,7 @@ export default function ProductDescription({route}) {
 />
 
             <Button
-            onPress={addToCart}
+            onPress={addToCartHandler}
             title="Add to cart"
             />
         </View>

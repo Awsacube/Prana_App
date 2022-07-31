@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Carousel from '../Carousel';
+// import Carousel from '../../components/Carousel';
 import { dummyData } from '../../../data/data';
+import Carousel from '../Carousel';
 import { Button, SearchBar } from 'react-native-elements';
 import { View, FlatList, StyleSheet, Text, StatusBar, ScrollView , TouchableOpacity,Image} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -18,6 +19,7 @@ import { getToken } from '../../services/AsyncStorageService';
 import Services from '../Services';
 import FeaturedBrands from '../FeaturedBrands'
 import ProductItem from '../ProductItem';
+import Search from '../../components/Search';
 import CartContainer from '../CartContainer';
 import { useDispatch,useSelector } from 'react-redux';
 import { calculateTotals } from '../../features/cartSlice';
@@ -25,8 +27,7 @@ import { calculateTotals } from '../../features/cartSlice';
 import Doctors from '../Doctors/Doctors'
 import Calltoorder from '../Calltoorder';
 
-const HomeScreen = () => {
-
+const HomeScreen = ({navigation}) => {
 
   // const {cartItems}=useSelector((store)=>store.cart)
   const dispatch=useDispatch();
@@ -35,16 +36,16 @@ const HomeScreen = () => {
   //   dispatch(calculateTotals());
   // },[cartItems]);
   
-  const navigation=useNavigation();
+  // const navigation=useNavigation();
   const gotocart=()=>{
     navigation.navigate("CartContainer");
   }
- const cart = useSelector((store)=>store.cart)
- console.warn(cart)
+//  const cart = useSelector((store)=>store.cart)
+//  console.warn(cart)
 
     return (
-        <SafeAreaView style={{flex: 1}}>
-        <ScrollView stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false}>  
+      <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>       
+       <ScrollView stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false}>  
         <Header style={styles.Header} backgroundColor='#fff'
         leftComponent={<Image source={Logo} style={styles.Logo}/>}
         rightComponent={
@@ -81,6 +82,7 @@ const HomeScreen = () => {
         }
       />
             <Calltoorder/>
+            <Search placeholder='Search for Medicines'/>
             <Services/> 
             {/* <Upload/> */}
             <Carousel data={dummyData}/>
@@ -89,18 +91,16 @@ const HomeScreen = () => {
             <FeaturedBrands/>
             {/* <ShopByCategory/> */}
             <Categories/>
-        </ScrollView>
+         </ScrollView>
         </SafeAreaView>
+
     )
 }
 
 
 const styles = StyleSheet.create({
 
-Header:{
-    height:90,
-    marginBottom:11
-},
+
 Logo:{
     width:150,
     height:50

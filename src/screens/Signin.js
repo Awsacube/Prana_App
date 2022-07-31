@@ -19,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import {ConstantId} from './token';
 import Dummy from './Dummy';
 import { SvgUri } from 'react-native-svg';
+import { setCredentials } from '../app/auth-slice'
 
 
 
@@ -45,17 +46,19 @@ const[userName,setUserName]=useState();
         password: password
     }
     
-//  let isSignedIn=false;
+const [signedIn, setsignedIn] = useState(false);
 
     const OnSignInPressed = async () => {
             const formData={email,password}
             const res = await loginUser(formData);
             await storeToken(res.data.token)
+            console.log("logtoken",res.data.token)
             // ConstantId.accessToken = res.data.token;
-                console.log("logtoken",res.data.token)
-                navigation.navigate("HomeScreen"); 
+                console.warn("logtoken",res.data.token)
+                navigation.navigate("HomeScreen");
                 // console.log("Post nav",)
-                // isSignedIn=true;
+                // setsignedIn(true);
+                setCredentials("Raghu",res.data.token)
           }
 
     const onSignupPressed=()=>{

@@ -28,7 +28,7 @@ const Signup = () => {
 
     const {height}=useWindowDimensions();
     const navigation=useNavigation();
-
+    
     const[registerUser]=useRegisterUserMutation();
 
     const OnSignup=async()=>{
@@ -60,10 +60,10 @@ const Signup = () => {
             <Custominput placeholder="FirstName" value={first_name} setValue={setFirstName}/>
             <Custominput placeholder="LastName" value={last_name} setValue={setLastName}/>
             <Custominput placeholder="Email" value={email} setValue={setEmail}/>
-            <View style={styles.phone}>
+            {/* <View style={styles.phone}> */}
             {/* <SelectDropdown data={countriesCode} defaultValue={+91} disabled={true} value={phone_ext} style={styles.phoneCode}/> */}
-            <Custominput placeholder="Mobile" value={phone_number} setValue={setMobile} style={styles.phoneNum}/>
-            </View>
+            <Custominput placeholder="10 digit Mobile Number" value={phone_number} setValue={setMobile} style={styles.phoneNum}/>
+            {/* </View> */}
             <Custominput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
             <Custominput placeholder="Address" value={address} setValue={setAddress}/>
             {/* <Custominput placeholder="Repeat Password" value={passwordRepeat} setValue={setPasswordRepeat} secureTextEntry={true}/>  */}

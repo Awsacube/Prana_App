@@ -99,12 +99,12 @@ export default function App() {
   return (
       <View style={styles.container}>
         {/* <MedicineImagesvg width={120} height={40} /> */}
-        <TextInput
+        {/* <TextInput
           placeholder="Search medicines and health products"
           style={styles.TextInputStyleClass} 
           left={<TextInput.Icon name={() => <Icon name={'search'} size={40} />}/>}
           underlineColor="transparent" 
-        />        
+        />         */}
 {/* <SearchBar
   placeholder="Search Medicine"
   onPress={() => alert("onPress")}

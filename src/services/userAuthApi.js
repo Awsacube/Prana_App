@@ -1,25 +1,21 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { getToken } from '../services/AsyncStorageService';
 
 // Define a service using a base URL and expected endpoints
 export const userAuthApi = createApi({
   reducerPath: 'userAuthApi',
+
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api-pillbox.nextgensolutions.io/api/' ,
-
   // prepareHeaders: (headers, { getState }) => {
-  //   const token = getToken();
-
-  //   // If we have a token set in state, let's assume that we should be passing it.
-  //   if (token) {
-  //     headers.set('Authorization', `Bearer ${token}`)
-  //   }
-  //   console.log("logingheaders",headers)
-  //   console.log(token);
-  //   return headers
-  // },
-
-  
+    // const token = getState().auth.token
+    // If we have a token set in state, let's assume that we should be passing it.
+    // if (token) {
+    //   headers.set('Authorization', `Bearer ${token}`)
+    // }
+    // console.log("logingheaders",headers)
+    // console.log(token);
+    // return headers 
+  // }
 }),
  
   endpoints: (builder) => ({
@@ -156,10 +152,18 @@ export const userAuthApi = createApi({
           }
         }
       }
+    }),
+    getBrands:builder.query({
+      query:()=>'/brands'
     })
   })
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const {useAddToCartMutation,useRegisterUserMutation,useLoginUserMutation,useGetLoggedUserQuery,useUserLogOutMutation,useProductsQuery,useCategoriesQuery,useSubcategoriesQuery,useGetproductsbyfilteridQuery,useGetProductQuery,useGetAllCartItemsQuery,useDeleteCartItemsMutation} = userAuthApi
+export const {useAddToCartMutation,useRegisterUserMutation,useLoginUserMutation,useGetLoggedUserQuery,useUserLogOutMutation,useProductsQuery,useCategoriesQuery,useSubcategoriesQuery,useGetproductsbyfilteridQuery,useGetProductQuery,useGetAllCartItemsQuery,useDeleteCartItemsMutation,useGetBrandsQuery} = userAuthApi
+
+
+// const baseQueryWithReauth=async(args,api,extraOptions)=>{
+//       let result=await baseQuery(args,api,extraOptions)
+// }

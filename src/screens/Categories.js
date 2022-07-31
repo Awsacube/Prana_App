@@ -7,29 +7,38 @@ import { useCategoriesQuery } from '../services/userAuthApi';
 import { getToken } from '../services/AsyncStorageService';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Search from '../components/Search';
 
 export default function Categories() {
 
   const navigation=useNavigation();
 
   const[userLToken,setUserLToken]=useState()
-  useEffect(()=>{
-    (async()=>{
+
+  const [filterData, setfilterData] = useState()
+  const [masterData, setmasterData] = useState()
+
+
+  const[search,setSearch]=useState("Dolo 650")  
+
+ useEffect(async()=>{
       const token=await getToken() //getting token from storage
       setUserLToken(token) //store token in local storage
-    })()  
-  }
+   },[]
   )
 
-  const categorylist = [];
+
+  const [categories, setcategories] = useState([])
+  const categorylist=[];
 
 
     const res=useCategoriesQuery(userLToken);
 
-    console.log(res.data);
+    // console.log("response",res.data);
 
-    if(res.isLoading===false){
+    if(res.isSuccess===true){
       const data=res.data.data;
+
       data.forEach(element => {
         if(element.parent_id===null){
           const name=element.name;
@@ -39,23 +48,27 @@ export default function Categories() {
         }         
         });
     }
-  
+
+    // setmasterData(categorylist)
+    // setfilterData(categorylist)
+
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>
     <ScrollView>
       <View style={styles.container}>
 
-        <Text style={styles.categoryText}>Shop By Category</Text>
-
+        <Text style={styles.categoryText}>All Categories</Text>
+        <Search placeholder='Search Categories' value={search} onChangeText={searchitem=>{setSearch(searchitem)}}/> 
         <View style={{
           marginTop: 8,
-        }}>
+        }}> 
           <FlatList
             data={categorylist}
-            keyExtractor={(item, index) => item.tc_id}
+            keyExtractor={(item, index) => item.uuid}
             vertical
             numColumns={4}
+            // ListHeaderComponent={renderHeader}
             renderItem={({ item, index }) => {
               return (
                 <Pressable onPress={()=>navigation.navigate('SubCategories',{id:item.uuid})}>

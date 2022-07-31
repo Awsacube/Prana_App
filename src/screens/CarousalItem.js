@@ -3,15 +3,14 @@ import { View, StyleSheet, Text, Image, Dimensions } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 
-
 const CarouselItem = ({ item }) => {
     return (
         <View style={styles.cardView}>
-            <Image style={styles.image} source={item.url} />
-            <View style={styles.textView}>
+            <Image style={styles.image} source={item.url} onPress={item.onPress}/>
+            {/* <View style={styles.textView}>
                 <Text style={styles.itemTitle}> {item.title}</Text>
                 <Text style={styles.itemDescription}>{item.description}</Text>
-            </View>
+            </View> */}
         </View>
     )
 }

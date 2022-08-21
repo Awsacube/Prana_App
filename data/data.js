@@ -1,4 +1,4 @@
-import offer from '../src/screens/offer.jpeg'
+import offer from '../src/screens/off2.jpg'
 
 
 export default [
@@ -64,4 +64,5 @@ export default [
                 // description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 id: 3,
                 onPress:'https://www.google.co.in/'
-        }]
+        }
+      ]

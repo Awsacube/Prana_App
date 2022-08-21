@@ -14,26 +14,28 @@ export default function Profile() {
 
    //getandusetoken
    const[userLToken,setUserLToken]=useState()
-   useEffect(()=>{
-     (async()=>{
-       const token=await getToken() //getting token from storage
-       setUserLToken(token) //store token in local storage
-     })()
-   }
-   )
+
+  useEffect(()=>{
+    const getT=async()=>{
+        const token=await getToken() //getting token from storage
+        setUserLToken(token) //store token in local storage
+     }
+      getT()
+    },[]
+    )
 
    const navigation=useNavigation();
 
-   const res = useGetLoggedUserQuery(userLToken)
-   console.warn(res);
+  //  const res = useGetLoggedUserQuery(userLToken)
+  //  console.warn(res);
 
    const profile=[];
 
-   if(res.isLoading===false){
-    const data=res.data
-    console.warn(data.first_name)
-    profile.push(data.first_name);
-  }
+  //  if(res.isLoading===false){
+  //   const data=res.data
+  //   console.warn(data.first_name)
+  //   profile.push(data.first_name);
+  // }
   
 
    
@@ -42,7 +44,8 @@ export default function Profile() {
    const onLogoutPressed=async()=>{
       const res=await logoutUser(userLToken)
       console.log(res)
-      navigation.navigate(Signin);
+      navigation.navigate("Signin");
+      removeToken();
    }
 
   return (
@@ -54,7 +57,7 @@ export default function Profile() {
 
         <Text style={styles.profileText}>{profile[0]}</Text>
       </View>
-
+{/* 
       <View style={{ flexDirection: 'row', margin: 15 }}>
 
         <View style={{ flex: 1, flexDirection: 'row', }}>
@@ -91,10 +94,24 @@ export default function Profile() {
 
         </View>
 
-      </View>
+      </View> */}
 
 
       <View style={styles.listLayout}>
+
+      <View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Edit Profile</Text>
+
+</View>
+
+
 
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
@@ -104,9 +121,131 @@ export default function Profile() {
 
           </View>
 
-          <Text style={styles.textDesign}>Previous Orders</Text>
+          <Text style={styles.textDesign}>Order History</Text>
 
         </View>
+
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Prescriptions</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Wish List</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Need Help</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Wallet</Text>
+
+</View>
+
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Deactivate Profile</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Refer & Earn</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Terms & Conditions</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Privacy Policies</Text>
+
+</View>
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>FAQ's</Text>
+
+</View>
+
+
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Returns</Text>
+
+</View>
 
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
@@ -116,7 +255,7 @@ export default function Profile() {
 
           </View>
 
-          <Text style={styles.textDesign}>Health Doctors</Text>
+          <Text style={styles.textDesign}>Health Records</Text>
 
         </View>
 
@@ -132,30 +271,9 @@ export default function Profile() {
 
         </View>
 
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+      
 
-          <View style={styles.iconDesign}>
-
-            <Icon name="account" size={25} color="#000" />
-
-          </View>
-
-          <Text style={styles.textDesign}>Profile</Text>
-
-        </View>
-
-        <View style={{ flexDirection: 'row', margin: 5 }}>
-
-          <View style={styles.iconDesign}>
-
-            <Icon name="help" size={25} color="#000" />
-
-          </View>
-
-          <Text style={styles.textDesign}>Need Help</Text>
-
-        </View>
-
+        
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
           <View style={styles.iconDesign}>

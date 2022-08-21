@@ -68,7 +68,27 @@ const FeaturedBrands=()=> {
         <View style={{
           marginTop: 20,
         }}>
-          <FlatList
+
+<ScrollView horizontal>
+{categorylist.map((item,index)=>(
+                <View style={styles.catLayout} key={item.uuid}>
+                  <View style={styles.imageLayout}>
+                    <View style={styles.buttonContainer}>
+                      <Image source={{ uri: item.image }} style={styles.image} />
+                    </View>
+                  </View>
+
+                  <Text style={styles.productname}>
+                    {item.name != null ? item.name : ""}
+                  </Text>
+                </View>
+    ) 
+    )
+    }
+</ScrollView>
+
+
+          {/* <FlatList
             data={categorylist}
             keyExtractor={(item, index) => item.tc_id}
             horizontal
@@ -88,7 +108,7 @@ const FeaturedBrands=()=> {
                 </View>
               );
             }}
-          />
+          /> */}
         </View>
       </View>
   );

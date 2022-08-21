@@ -50,6 +50,8 @@ import AppStack from './src/navigation/AppStack';
 
 
 const App = () => {
+
+
     return(
       <NavigationContainer>
       <AppStack/>
@@ -59,7 +61,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-   
+    
 });
 
 export default App;

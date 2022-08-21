@@ -3,6 +3,12 @@ import { View, Text, Image, FlatList, StyleSheet, ScrollView } from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Dimensions } from "react-native";
 import Search from '../../components/Search';
+import Specialization from './Specialization';
+import DocHealthConcern from './DocHealthConcern';
+import DoctorCard from './DoctorCard';
+import { dummyData } from '../../../data/data';
+import Carousel from '../Carousel';
+
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
@@ -32,49 +38,51 @@ const Doctors=()=> {
     // },
   ];
 
-  const specialitylList = [
-    {
-      "name": "General Physician",
-      "image": require('./docassets/stethoscope_bg.png')
-    },
-    {
-      "name": "Skin & Hair",
-      "image": require('./docassets/hairface_bg.png')
-    },
-    {
-      "name": "Women's Health",
-      "image": require('./docassets/pregnant_bg.png')
-    },
-    {
-      "name": "Dental Care",
-      "image": require('./docassets/tooth_bg.png')
-    },
-    {
-      "name": "Child Specialist",
-      "image": require('./docassets/childpatient_bg.png')
-    },
-    {
-      "name": "Ear, Nose,Throat",
-      "image": require('./docassets/throat.png')
-    },
-    {
-      "name": "Mental Wellness",
-      "image": require('./docassets/mental_bg.png')
-    },
-    {
-      "name": "Bones & Joint ",
-      "image": require('./docassets/bone_bg.png')
-    }
-  ];
+  // const specialitylList = [
+  //   {
+  //     "name": "General Physician",
+  //     "image": require('./docassets/stethoscope_bg.png')
+  //   },
+  //   {
+  //     "name": "Skin & Hair",
+  //     "image": require('./docassets/hairface_bg.png')
+  //   },
+  //   {
+  //     "name": "Women's Health",
+  //     "image": require('./docassets/pregnant_bg.png')
+  //   },
+  //   {
+  //     "name": "Dental Care",
+  //     "image": require('./docassets/tooth_bg.png')
+  //   },
+  //   {
+  //     "name": "Child Specialist",
+  //     "image": require('./docassets/childpatient_bg.png')
+  //   },
+  //   {
+  //     "name": "Ear, Nose,Throat",
+  //     "image": require('./docassets/throat.png')
+  //   },
+  //   {
+  //     "name": "Mental Wellness",
+  //     "image": require('./docassets/mental_bg.png')
+  //   },
+  //   {
+  //     "name": "Bones & Joint ",
+  //     "image": require('./docassets/bone_bg.png')
+  //   }
+  // ];
 
 
 
   return (
-    <ScrollView>
     <SafeAreaView>
     <View style={styles.container}>
-      <Search placeholder={"Search Health Problems , Specializations"}/>
         <FlatList
+          LisHeaderComponent={
+            <>
+                     <Search placeholder={"Search Health Problems , Specializations"}/>
+            </>}
           data={categorylist}
           keyExtractor={(item, index) => item.tc_id}
           horizontal
@@ -100,15 +108,15 @@ const Doctors=()=> {
 
 
 
-        <Text style={{
+        {/* <Text style={{
           marginLeft: 15,
           marginTop: 10,
           fontSize: 18,
           color: '#000'
-        }}>Mostly searched specialities</Text>
+        }}>Mostly searched specialities</Text> */}
 
 
-        <View style={{
+        {/* <View style={{
           marginTop: 20,
         }}>
           <FlatList
@@ -130,11 +138,12 @@ const Doctors=()=> {
             }}
           />
         </View>
-
-
+ */}
+        {/* <Carousel data={dummyData}/> */}
+    <Specialization/>
+    <DocHealthConcern/>
     </View>
     </SafeAreaView>
-    </ScrollView>
   );
 };
 
@@ -171,29 +180,6 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
 
-  splLayout: {
-    width: screenwidth / 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignContent: 'center',
-  },
-  splimage: {
-    width: screenwidth / 6,
-    height: screenheight / 11,
-    alignSelf: 'center',
-    borderRadius: 50,
-    backgroundColor: '#D6EAF8'
-  },
-  splname: {
-    fontSize: 12,
-    color: '#000',
-    textAlign: 'center',
-    marginTop: 5,
-    height: 40,
-    justifyContent: 'center',
-    textAlignVertical: 'center'
-  },
 
 
 });

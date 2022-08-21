@@ -3,13 +3,10 @@ import { StyleSheet, Text, View,FlatList ,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Dimensions } from 'react-native'
 import CButton from '../../components/CButton';
-import { useNavigation } from '@react-navigation/native';
 import { brandColor } from '../../constants/constants'
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
-
 
 const allTests=[ {
     "name": "Diabetes Care",
@@ -33,41 +30,42 @@ const allTests=[ {
   },
 ]
 
-const Test = () => {
-  const navigation=useNavigation();
-
+const TestsSquareCard = () => {
   return (
-    <SafeAreaView>
     <View>
-        <Text style={{
+        {/* <Text style={{
           marginLeft: 15,
           marginTop: 10,
           marginBottom:20,
           fontSize: 18,
           color: '#000'
-        }}>Tests</Text>
+        }}>All Tests</Text> */}
        <FlatList
             data={allTests}
             keyExtractor={(item, index) => item.tc_id}
             showsHorizontalScrollIndicator={false}
+            numColumns={2}
+
             renderItem={({ item, index }) => {
-              // let discount=item.discount
-              return (
+            
+                return (
                 <View style={styles.splLayout}>
                 <View style={styles.layoutItems}>
                 <View style={styles.top}>
                 <Text style={styles.name}>
                     {item.name != null ? item.name : ""}
                 </Text>
+                <View style={styles.price}>
+                <Text>₹ {item.price}</Text> 
+                
+                {  item.discount ? 
+                  <Text style={styles.discount}>Save {item.discount}</Text>  : null
+                }
+                </View>
                 <Text>{item.description}</Text>
                 </View>
                 <View style={styles.bottom}>
                 <Text style={styles.price}>`Report in {item.reportTime}`</Text>
-                <Text>₹ {item.price}</Text> 
-                 
-                {  item.discount ? 
-                  <Text style={styles.discount}>Save {item.discount}</Text>  : null
-                }
                 <CButton Text="Book" onPress={()=>console.warn("Booked")}/> 
                 </View>
                 </View>
@@ -76,12 +74,11 @@ const Test = () => {
             }}
           />
     </View>
-    </SafeAreaView>
 
   )
 }
 
-export default Test
+export default TestsSquareCard
 
 const styles = StyleSheet.create({
         
@@ -92,7 +89,8 @@ const styles = StyleSheet.create({
         // alignSelf: 'center',
         // alignContent: 'center',
         backgroundColor:'#fff',
-        marginBottom:10
+        margin:10,
+        width:300
       },
       layoutItems:{
         padding:15
@@ -113,11 +111,11 @@ const styles = StyleSheet.create({
       price:{
         // marginTop:10,
         // marginBottom:10
-        // display:'flex',
-        // flexDirection:'row',
+        display:'flex',
+        flexDirection:'row',
       },
       discount:{
-          // marginLeft:5
+          marginLeft:20
       }
     //   button: {
     //     alignItems: "center",

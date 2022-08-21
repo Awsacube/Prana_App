@@ -16,26 +16,19 @@ export default function SubCategories({route}) {
 
   const navigation=useNavigation();
 
-  // const[userLToken,setUserLToken]=useState()
-
 
   const[userLToken,setUserLToken]=useState()
   
+
   // useEffect(()=>{
-  //   (async()=>{
-  //     const token=await getToken() //getting token from storage
-  //     setUserLToken(token) //store token in local storage
-  //   })()  
-  // }
-  // )
+  //   const getT=async()=>{
+  //       const token=await getToken() //getting token from storage
+  //       setUserLToken(token) //store token in local storage
+  //    }
+  //     getT()
+  //   },[]
+  //   )
 
-  useEffect(async()=>{
-    const token=await getToken() //getting token from storage
-    setUserLToken(token) //store token in local storage
- },[]
-)
-
-  // const token =  ConstantId.accessToken ;
 
   const categorylist = [
         
@@ -46,10 +39,7 @@ export default function SubCategories({route}) {
     id:id}
 
 
-  // console.warn(id);
-  // console.warn(userLToken);
   const res=useSubcategoriesQuery(queryItems);
-  // console.warn(res)
 
   if(res.isLoading===false){
     const data=res.data.data;

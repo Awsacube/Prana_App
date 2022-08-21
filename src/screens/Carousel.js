@@ -24,7 +24,7 @@ function infiniteScroll(dataList){
         
     }, 3000)
 }
-
+// ERROR  TypeError: null is not an object (evaluating 'this.flatList.scrollToOffset')
 
 const Carousel = ({ data }) => {
     const scrollX = new Animated.Value(0)

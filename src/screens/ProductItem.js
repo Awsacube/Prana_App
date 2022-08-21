@@ -15,19 +15,15 @@ export default function ProductItem({route}){
 
  
     const[userLToken,setUserLToken]=useState()
-    // useEffect(()=>{
-    //   (async()=>{
-    //     const token=await getToken() //getting token from storage
-    //     setUserLToken(token) //store token in local storage
-    //   })()
-    // }
-    // )
 
-    useEffect(async()=>{
-      const token=await getToken() //getting token from storage
-      setUserLToken(token) //store token in local storage
-   },[]
-  )
+    useEffect(()=>{
+      const getT=async()=>{
+          const token=await getToken() //getting token from storage
+          setUserLToken(token) //store token in local storage
+       }
+        getT()
+      },[]
+      )
 
   console.log("Logtoken",userLToken);
     
@@ -53,7 +49,6 @@ export default function ProductItem({route}){
         });
     }
   
-    console.warn(productList)
 
     return (
 

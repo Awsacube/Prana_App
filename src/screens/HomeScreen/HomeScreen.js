@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import Carousel from '../../components/Carousel';
+import Geolocation from '@react-native-community/geolocation';
+import { Platform } from 'react-native';
 import { dummyData } from '../../../data/data';
 import Carousel from '../Carousel';
 import { Button, SearchBar } from 'react-native-elements';
@@ -24,10 +26,41 @@ import CartContainer from '../CartContainer';
 import { useDispatch,useSelector } from 'react-redux';
 import { calculateTotals } from '../../features/cartSlice';
 // import { black } from 'react-native-paper/lib/typescript/styles/colors';
-import Doctors from '../Doctors/Doctors'
+import Specialization from '../Doctors/Specialization'
 import Calltoorder from '../Calltoorder';
+import Location from '../Location';
+import { red } from '@mui/material/colors';
 
 const HomeScreen = ({navigation}) => {
+
+  // useEffect(() => {
+    // Update the document title using the browser API
+    // Geolocation.getCurrentPosition(
+
+    //   (info) => {console.warn('location',info)},
+    // (error) => {console.warn('location',error)},
+    // { timeout: 20000 }
+
+// Geolocation.getCurrentPosition((success)=>{console.log(success)}, (e)=>{console.log(e)}, {timeout: 20000});
+
+
+    // );
+    // Geolocation.getCurrentPosition(geo_success, [geo_error], [geo_options]);
+    // const getGeoLocation = () => {
+    //   const config = {
+    //     enableHighAccuracy: true,
+    //     timeout: 2000,
+    //     maximumAge: 3600000,
+    //   };
+    
+    //   Geolocation.getCurrentPosition(
+    //     info => console.log("INFO", info),
+    //     error => console.log("ERRORR", error),
+    //     config,
+    //   );
+    // };
+
+  // });
 
   // const {cartItems}=useSelector((store)=>store.cart)
   const dispatch=useDispatch();
@@ -41,11 +74,10 @@ const HomeScreen = ({navigation}) => {
     navigation.navigate("CartContainer");
   }
 //  const cart = useSelector((store)=>store.cart)
-//  console.warn(cart)
 
     return (
-      <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>       
-       <ScrollView stickyHeaderIndices={[0]} showsVerticalScrollIndicator={false}>  
+      <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>  
+      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
         <Header style={styles.Header} backgroundColor='#fff'
         leftComponent={<Image source={Logo} style={styles.Logo}/>}
         rightComponent={
@@ -82,11 +114,13 @@ const HomeScreen = ({navigation}) => {
         }
       />
             <Calltoorder/>
+            <ScrollView showsVerticalScrollIndicator={false}>  
             <Search placeholder='Search for Medicines'/>
-            <Services/> 
+            {/* <Location/> */}
+            {/* <Services/> */}
             {/* <Upload/> */}
-            <Carousel data={dummyData}/>
-            <Doctors/>
+            {/* <Carousel data={dummyData}/> */}
+            {/* <Specialization/> */}
             <ImmuneBoosters/>
             <FeaturedBrands/>
             {/* <ShopByCategory/> */}
@@ -99,7 +133,9 @@ const HomeScreen = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
-
+Header:{
+  backgroundColor:'#000'
+},
 
 Logo:{
     width:150,

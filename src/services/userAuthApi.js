@@ -19,6 +19,7 @@ export const userAuthApi = createApi({
 }),
  
   endpoints: (builder) => ({
+    //Auth End Points//
     registerUser:builder.mutation({
       query:(user)=>{
         return{
@@ -33,11 +34,12 @@ export const userAuthApi = createApi({
       }
     }),
     loginUser:builder.mutation({
-      query:(user)=>{
+      query:(formData)=>{
+        console.log("formData",formData)
         return{
           url:'auth/login',
           method:'POST',
-          body:user,
+          body:formData,
           headers:{
             //can pass token here
             'Content-type':'application/json',
@@ -69,13 +71,14 @@ export const userAuthApi = createApi({
           }
         }
       }),
+        //Medicine End Points//
     categories:builder.query({
       query:(token)=>{
        return{ url:'/filters',
         method:'GET',
-        headers:{
-          'Authorization':`Bearer ${token}`,
-        }
+        // headers:{
+        //   'Authorization':`Bearer ${token}`,
+        // }
       }
       }
     }),
@@ -84,9 +87,9 @@ export const userAuthApi = createApi({
       return{ 
         url: `/filters?category_id=${queryItems.id}`,
         method:'GET',
-        headers:{
-          'Authorization':`Bearer ${queryItems.token}`,
-        }
+        // headers:{
+        //   'Authorization':`Bearer ${queryItems.token}`,
+        // }
       }
       }
     }),
@@ -112,6 +115,7 @@ export const userAuthApi = createApi({
         }
       }
     }),
+    //Cart End Points//
     addToCart:builder.mutation({
       query:(cartData)=>{
         return{
@@ -153,15 +157,82 @@ export const userAuthApi = createApi({
         }
       }
     }),
+    //Brands End Points//
     getBrands:builder.query({
       query:()=>'/brands'
+    }),
+    //Diagnostics End Points//
+    getDiagnosticsHealthConcerns:builder.query({
+      query:()=>{
+        return{
+          url:'/filters?type=DIAGNOSIS_HEALTH_CONCERN',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+        }
+      }
+    }),
+    //Doctors End Points//
+    getConsultationHealthConcerns:builder.query({
+      query:()=>{
+        return{
+          url:'/filters?type=CONSULTATION_HEALTH_CONCERN',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+        }
+      }
+    }),
+    getConsultationSpecialization:builder.query({
+      query:()=>{
+        return{
+          url:'/filters?type=CONSULTATION_SPECIALIZATION',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+        }
+      }
+    }),
+    getDoctorsBySpecialization:builder.query({
+      query:(queryItems)=>{
+        return{ 
+          url: `/doctor/specialization/${queryItems.id}`,
+          method:'GET',
+          headers:{
+            'Authorization':`Bearer ${queryItems.token}`,
+          }
+        }
+        }
+    }),
+    getDoctor:builder.query({
+      query:(queryItems)=>{
+        return{ 
+          url: `/doctor/${queryItems.id}`,
+          method:'GET',
+          headers:{
+            'Authorization':`Bearer ${queryItems.token}`,
+          }
+        }
+        }
     })
+    // /filters?type=CONSULTATION_SPECIALIZATION
   })
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const {useAddToCartMutation,useRegisterUserMutation,useLoginUserMutation,useGetLoggedUserQuery,useUserLogOutMutation,useProductsQuery,useCategoriesQuery,useSubcategoriesQuery,useGetproductsbyfilteridQuery,useGetProductQuery,useGetAllCartItemsQuery,useDeleteCartItemsMutation,useGetBrandsQuery} = userAuthApi
+export const {
+              useAddToCartMutation,useRegisterUserMutation,useLoginUserMutation,
+              useGetLoggedUserQuery,useUserLogOutMutation,useProductsQuery,
+              useCategoriesQuery,useSubcategoriesQuery,useGetproductsbyfilteridQuery,
+              useGetProductQuery,useGetAllCartItemsQuery,useDeleteCartItemsMutation,
+              useGetBrandsQuery,useGetDiagnosticsHealthConcernsQuery,useGetConsultationSpecializationQuery,useGetConsultationHealthConcernsQuery,
+              useGetDoctorsBySpecializationQuery,useGetDoctorQuery
+              
+            } = userAuthApi
 
 
 // const baseQueryWithReauth=async(args,api,extraOptions)=>{

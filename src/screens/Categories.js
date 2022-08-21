@@ -21,12 +21,16 @@ export default function Categories() {
 
   const[search,setSearch]=useState("Dolo 650")  
 
- useEffect(async()=>{
-      const token=await getToken() //getting token from storage
-      setUserLToken(token) //store token in local storage
-   },[]
-  )
+//  useEffect(()=>{
+//   const getT=async()=>{
+//       const token=await getToken() //getting token from storage
+//       setUserLToken(token) //store token in local storage
+//    }
+//     getT()
+//   },[]
+//   )
 
+  
 
   const [categories, setcategories] = useState([])
   const categorylist=[];
@@ -55,15 +59,31 @@ export default function Categories() {
 
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>
-    <ScrollView>
       <View style={styles.container}>
+      <Text style={styles.categoryText}>All Categories</Text>
+      <Search placeholder='Search Categories' value={search} onChangeText={searchitem=>{setSearch(searchitem)}}/>
 
-        <Text style={styles.categoryText}>All Categories</Text>
-        <Search placeholder='Search Categories' value={search} onChangeText={searchitem=>{setSearch(searchitem)}}/> 
-        <View style={{
+      {categorylist.map((item,index)=>(
+          
+            <Pressable onPress={()=>navigation.navigate('SubCategories',{id:item.uuid})} key={item.uuid}>
+            <View style={styles.catLayout}>
+              <View style={styles.imageLayout}>
+                <Image source={{ uri: item.image }} style={styles.image}/>
+              </View>
+              <Text style={styles.productname}>
+                {item.name != null ? item.name : ""}
+              </Text>
+            </View>
+            </Pressable>
+      ) 
+      )
+      }
+
+
+        {/* <View style={{
           marginTop: 8,
-        }}> 
-          <FlatList
+        }}>  */}
+          {/* <FlatList
             data={categorylist}
             keyExtractor={(item, index) => item.uuid}
             vertical
@@ -85,10 +105,9 @@ export default function Categories() {
                 </Pressable>
                 );
             }}
-          />
-        </View>
+          /> */}
+        {/* </View> */}
       </View>
-    </ScrollView>
     </SafeAreaView>
   );
 };

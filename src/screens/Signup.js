@@ -11,7 +11,6 @@ import Logo from './LOGO.png'
 import SelectDropdown from 'react-native-select-dropdown'
 import { TextInput } from 'react-native-gesture-handler'
 import { useRegisterUserMutation } from '../services/userAuthApi'
-import Signin from './Signin'
 import { storeToken } from '../services/AsyncStorageService'
 
 const countriesCode = ["+91"]

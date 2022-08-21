@@ -48,11 +48,20 @@ const CartContainer = () => {
 
   let cart=[];
 
-  useEffect(async()=>{
-      const token=await getToken() //getting token from storage
-      setUserLToken(token) //store token in local storage
-   },[]
-  )
+  // useEffect(async()=>{
+  //     const token=await getToken() //getting token from storage
+  //     setUserLToken(token) //store token in local storage
+  //  },[]
+  // )
+
+  useEffect(()=>{
+    const getT=async()=>{
+        const token=await getToken() //getting token from storage
+        setUserLToken(token) //store token in local storage
+     }
+      getT()
+    },[]
+    )
 
   const {data,isLoading,isFetching,error,isSuccess,refetch}=useGetAllCartItemsQuery(userLToken,{ refetchOnMountOrArgChange: true })
 

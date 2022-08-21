@@ -48,7 +48,7 @@ export default function App() {
     {
       "name": "Diagnostic",
       "image": diagn,
-      "navigateTo":"Dummy"
+      "navigateTo":"Lab Tests"
     }, 
     {
       "name": "Health product",
@@ -78,24 +78,24 @@ export default function App() {
    ]
  
 
-  useEffect(() => {
-    infiniteScroll(slideImages);
-  });
-  let scrolled;
-  function infiniteScroll(slideImages) {
-    const numberOfData = slideImages.length;
-    let scrollValue = 0
-      scrolled = 0;
+  // useEffect(() => {
+  //   infiniteScroll(slideImages);
+  // });
+  // let scrolled;
+  // function infiniteScroll(slideImages) {
+  //   const numberOfData = slideImages.length;
+  //   let scrollValue = 0
+  //     scrolled = 0;
 
-    setInterval(function () {
-      scrolled++;
-      if (scrolled < numberOfData) scrollValue = scrollValue + width;
-      else {
-        scrollValue = 0;
-        scrolled = 0;
-      }
-    }, 1000);
-  }
+  //   setInterval(function () {
+  //     scrolled++;
+  //     if (scrolled < numberOfData) scrollValue = scrollValue + width;
+  //     else {
+  //       scrollValue = 0;
+  //       scrolled = 0;
+  //     }
+  //   }, 1000);
+  // }
   return (
       <View style={styles.container}>
         {/* <MedicineImagesvg width={120} height={40} /> */}

@@ -109,7 +109,7 @@ export default function ProductDescription({route}) {
   let uuid;
   let description;
 
-  if(res.isLoading===false){
+  if(res.isSuccess===true){
 
     const data=res.data;
          name=res.data.name;

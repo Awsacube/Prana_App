@@ -25,19 +25,20 @@ export default function ProductItem({route}){
       },[]
       )
 
-  console.log("Logtoken",userLToken);
+
+      const queryItems={token:userLToken,
+        id:id}
+  
+    const res= useGetproductsbyfilteridQuery(queryItems,{ refetchOnMountOrArgChange: true });
     
 
   
-    const queryItems={token:userLToken,
-      id:id}
-
-  const res= useGetproductsbyfilteridQuery(queryItems);
+   
 
   console.warn(res)
 
 
-    if(res.isLoading===false){
+    if(res.isSuccess===true){
       const data=res.data.products; 
       data.forEach(element => {
           const name=element.name;

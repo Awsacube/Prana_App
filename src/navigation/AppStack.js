@@ -16,6 +16,12 @@ import Test from '../screens/Diagnostics/Test';
 import DoctorCard from '../screens/Doctors/DoctorCard';
 import DoctorDetails from '../screens/Doctors/DoctorDetails';
 import DocBySpecialization from '../screens/Doctors/DocBySpecialization';
+import AllTests from '../screens/Diagnostics/AllTests';
+import AllPackages from '../screens/Diagnostics/AllPackages';
+import TestsAndPackagesById from '../screens/Diagnostics/TestsAndPackagesById';
+import DiagSearch from '../screens/Diagnostics/DiagSearch';
+import EmptyPage from '../screens/EmptyPage';
+import EditProfile from '../screens/Profile/EditProfile';
 
 
 const Stack=createNativeStackNavigator();
@@ -27,6 +33,7 @@ const AppStack = () => {
       <Stack.Screen name="Location" component={Location}/>
       <Stack.Screen name="Calltoorder" component={Calltoorder}/>
       <Stack.Screen name='Profile' component={Profile}/>
+      <Stack.Screen name="EditProfile" component={EditProfile}/>
       <Stack.Screen name='ProductItem' component={ProductItem}/>
       <Stack.Screen name='SubCategories' component={SubCategories}/>
       <Stack.Screen name='Categories' component={Categories}/>
@@ -36,7 +43,12 @@ const AppStack = () => {
       <Stack.Screen name='Test' component={Test}/>
       <Stack.Screen name='DoctorCard' component={DoctorCard}/>
       <Stack.Screen name='DocBySpecialization' component={DocBySpecialization}/>
-      <Stack.Screen name='DoctorDetails' component={DoctorDetails}/>      
+      <Stack.Screen name='DoctorDetails' component={DoctorDetails}/>
+      <Stack.Screen name='AllTests' component={AllTests}/>
+      <Stack.Screen name='AllPackages' component={AllPackages}/>      
+      <Stack.Screen name='TestsAndPackagesById' component={TestsAndPackagesById}/>
+      <Stack.Screen name='EmptyPage' component={EmptyPage} options={{ headerShown:true }}/>
+      <Stack.Screen name='DiagSearch' component={DiagSearch}/>                                                            
       </Stack.Navigator>
   )
 }

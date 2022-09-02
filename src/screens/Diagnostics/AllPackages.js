@@ -6,53 +6,39 @@ import CButton from '../../components/CButton';
 import { useNavigation } from '@react-navigation/native';
 import { brandColor } from '../../constants/constants'
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { useGetAllPackagesQuery } from '../../services/userAuthApi';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
 
-const FewTests=[ {
-    "name": "Diabetes Care",
-    "price":235,
-    "description":"Diabetic care and etc etc etc etc etc etc",
-    "reportTime":"15 min",
-    "discount":"54%"
-  },
-  {
-    "name": "Diabetes Care",
-    "price":235,
-    "description":"Diabetic care and etc etc etc etc etc etc",
-    "reportTime":"15 min",
-    "discount":"54 %"
-  },
-  {
-    "name": "Diabetes Care",
-    "price":235,
-    "description":"Diabetic care and etc etc etc etc etc etc",
-    "reportTime":"15 min",
-  },
-]
-
-const Test = () => {
+const AllPackages = () => {
   const navigation=useNavigation();
+  const {data,isLoading,isFetching,error,isSuccess,refetch}=useGetAllPackagesQuery()
+
+  console.log("Alltests",data)
+  const allPackages=[];
+
+  {isSuccess &&  data.data.forEach(element => {
+    console.warn(element)
+    const uuid=element.uuid;
+    const name=element.name;
+    const image=element.image;
+    const discount=element.discount;
+    const price=element.price;
+    const tat=element.report_tat;
+    const tatUnit=element.report_tat_unit;
+    const content=element.content;
+    allPackages.unshift({"name":name,"image":image,"uuid":uuid,"price":price,"discount":discount,"content":content,"tat":tat,"tatUnit":tatUnit})
+  });}
 
   return (
     <SafeAreaView>
     <View>
-    <View style={{display:'flex',flexDirection:'row',justifyContent:'space-around'}}>
-        <Text style={{
-          marginLeft: 15,
-          fontSize: 18,
-          color: '#000'
-        }}>Tests</Text>
-        <Text style={styles.vAll} onPress={()=>navigation.navigate('AllTests')}>View All</Text>
-    </View>
        <FlatList
-            data={FewTests}
+            data={allPackages}
             keyExtractor={(item, index) => item.tc_id}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
-              // let discount=item.discount
               return (
                 <View style={styles.splLayout}>
                 <View style={styles.layoutItems}>
@@ -60,14 +46,16 @@ const Test = () => {
                 <Text style={styles.name}>
                     {item.name != null ? item.name : ""}
                 </Text>
+                <Text>
+                    {item.content}
+                </Text>
                 <Text>{item.description}</Text>
                 </View>
+                <Text style={styles.price}>Report in {item.tat} {item.tatUnit}</Text>
                 <View style={styles.bottom}>
-                <Text style={styles.price}>`Report in {item.reportTime}`</Text>
                 <Text>₹ {item.price}</Text> 
-                 
                 {  item.discount ? 
-                  <Text style={styles.discount}>Save {item.discount}</Text>  : null
+                  <Text style={styles.discount}>Discount {item.discount}%</Text>  : null
                 }
                 <CButton Text="Book" onPress={()=>console.warn("Booked")}/> 
                 </View>
@@ -82,7 +70,7 @@ const Test = () => {
   )
 }
 
-export default Test
+export default AllPackages
 
 const styles = StyleSheet.create({
   vAll:{

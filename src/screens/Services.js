@@ -6,7 +6,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 // import HomeSliderCard from "../firstapp/screens/SliderCard";
 import { Dimensions } from "react-native";
 import offer from './offer.jpeg';
-import SearchBar from "react-native-dynamic-search-bar";
+// import SearchBar from "react-native-dynamic-search-bar";
 // import { black } from 'react-native-paper/lib/typescript/styles/colors';
 import {FlatListSlider} from 'react-native-flatlist-slider';
 var screenwidth = Dimensions.get('window').width; //full width

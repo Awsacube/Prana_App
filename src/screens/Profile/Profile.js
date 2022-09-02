@@ -1,5 +1,5 @@
 import React ,{useState,useEffect} from 'react';
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet,Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,14 +8,14 @@ import { removeToken } from '../../services/AsyncStorageService';
 import { useGetLoggedUserQuery } from '../../services/userAuthApi';
 import { useNavigation } from '@react-navigation/native';
 import { useUserLogOutMutation } from '../../services/userAuthApi';
-import Signin from '../Signin';
+
 
 export default function Profile() {
 
-   //getandusetoken
    const[userLToken,setUserLToken]=useState()
+   
 
-  useEffect(()=>{
+   useEffect(()=>{
     const getT=async()=>{
         const token=await getToken() //getting token from storage
         setUserLToken(token) //store token in local storage
@@ -26,16 +26,16 @@ export default function Profile() {
 
    const navigation=useNavigation();
 
-  //  const res = useGetLoggedUserQuery(userLToken)
-  //  console.warn(res);
+   const {data,isSuccess} = useGetLoggedUserQuery(userLToken)
 
    const profile=[];
 
-  //  if(res.isLoading===false){
-  //   const data=res.data
-  //   console.warn(data.first_name)
-  //   profile.push(data.first_name);
-  // }
+   if(isSuccess){
+    // const data=res.data
+    // console.warn(data.first_name)
+    profile.push(data);
+    console.warn(profile);
+  }
   
 
    
@@ -51,12 +51,22 @@ export default function Profile() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-      <View style={{
-        backgroundColor: '#234'
-      }}>
+     
 
-        <Text style={styles.profileText}>{profile[0]}</Text>
-      </View>
+{profile.map((item,index)=>(
+          <View style={styles.productname}>
+            <Text>
+              {item.first_name}
+            </Text>
+            <Text>
+              {item.email}
+            </Text>
+          </View>
+    ) 
+    )
+    }
+
+        {/* <Text style={styles.profileText}>{profile.map((item)=>(item.name))}</Text> */}
 {/* 
       <View style={{ flexDirection: 'row', margin: 15 }}>
 
@@ -95,22 +105,15 @@ export default function Profile() {
         </View>
 
       </View> */}
-
-
       <View style={styles.listLayout}>
-
+      <Pressable onPress={()=>navigation.navigate("EditProfile")}>
       <View style={{ flexDirection: 'row', margin: 5 }}>
-
-<View style={styles.iconDesign}>
-
-  <Icon name="cart-outline" size={25} color="#000" />
-
-</View>
-
-<Text style={styles.textDesign}>Edit Profile</Text>
-
-</View>
-
+      <View style={styles.iconDesign}>
+      <Icon name="cart-outline" size={25} color="#000" />
+      </View>
+      <Text style={styles.textDesign}>Edit Profile</Text>
+      </View>
+      </Pressable>
 
 
         <View style={{ flexDirection: 'row', margin: 5 }}>
@@ -362,6 +365,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 15,
     textAlignVertical: 'center',
-  }
+  },
+  productname: {
+    fontSize: 50,
+    color: '#000',
+    textAlign: 'center',
+    margin: 10,
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-around'
+  },
 
 });

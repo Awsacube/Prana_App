@@ -30,6 +30,7 @@ import Specialization from '../Doctors/Specialization'
 import Calltoorder from '../Calltoorder';
 import Location from '../Location';
 import { red } from '@mui/material/colors';
+import ProductSearch from './ProductSearch';
 
 const HomeScreen = ({navigation}) => {
 
@@ -115,7 +116,7 @@ const HomeScreen = ({navigation}) => {
       />
             <Calltoorder/>
             <ScrollView showsVerticalScrollIndicator={false}>  
-            <Search placeholder='Search for Medicines'/>
+            <Search placeholder={"Search HelthCare Prodcuts"} editable={false} navigate="EmptyPage" component={<ProductSearch/>}/>
             {/* <Location/> */}
             {/* <Services/> */}
             {/* <Upload/> */}

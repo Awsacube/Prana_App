@@ -41,7 +41,7 @@ export default function SubCategories({route}) {
 
   const res=useSubcategoriesQuery(queryItems);
 
-  if(res.isLoading===false){
+  if(res.isSuccess===true){
     const data=res.data.data;
     data.forEach(element => {
         const name=element.name;

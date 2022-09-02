@@ -48,11 +48,6 @@ const CartContainer = () => {
 
   let cart=[];
 
-  // useEffect(async()=>{
-  //     const token=await getToken() //getting token from storage
-  //     setUserLToken(token) //store token in local storage
-  //  },[]
-  // )
 
   useEffect(()=>{
     const getT=async()=>{
@@ -111,7 +106,7 @@ const CartContainer = () => {
       id:cartItemid,
       token:userLToken}
      await deleteCartItems(remove)
-      // refetch();
+      refetch();
   }
 
 

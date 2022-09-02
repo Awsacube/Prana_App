@@ -35,7 +35,7 @@ export const userAuthApi = createApi({
     }),
     loginUser:builder.mutation({
       query:(formData)=>{
-        console.log("formData",formData)
+        // console.log("formData",formData)
         return{
           url:'auth/login',
           method:'POST',
@@ -46,17 +46,6 @@ export const userAuthApi = createApi({
           }
         }
       }
-    }),
-    getLoggedUser:builder.query({ // getting info of user that logged in
-      query:(token)=>{
-        return{
-          url:'users/profile',
-          method:'GET',
-          headers:{
-            'Authorization':`Bearer ${token}`,
-          }
-        }
-      },
     }),
      userLogOut:builder.mutation({ 
         query:(token)=>{
@@ -71,8 +60,32 @@ export const userAuthApi = createApi({
           }
         }
       }),
+      //Profile End Points
+      getLoggedUser:builder.query({ // getting info of user that logged in
+        query:(token)=>{
+          return{
+            url:'users/profile',
+            method:'GET',
+            headers:{
+              'Authorization':`Bearer ${token}`,
+            }
+          }
+        },
+      }),
+      editProfile:builder.mutation({
+        query:({newData,token})=>{
+          return{
+            url:'users/profile',
+            method:'GET',
+            body:newData,
+            headers:{
+              'Authorization':`Bearer ${token}`,
+            }
+          }
+        },
+      }),
         //Medicine End Points//
-    categories:builder.query({
+      categories:builder.query({  
       query:(token)=>{
        return{ url:'/filters',
         method:'GET',
@@ -111,7 +124,21 @@ export const userAuthApi = createApi({
       query:(id)=>{
         return{
           url:`/products/${id}`,
-          method:'GET'
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+        }
+      }
+    }),
+    searchProducts:builder.query({
+      query:(text)=>{
+        return{
+          url:`/products?page=1&limit=16&search=${text}`,
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
         }
       }
     }),
@@ -173,6 +200,51 @@ export const userAuthApi = createApi({
         }
       }
     }),
+    getAllTests:builder.query({
+      query:()=>{
+        return{
+          url:'/lab/test',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+      }
+    }
+    }),
+    getAllPackages:builder.query({
+      query:()=>{
+        return{
+          url:'/lab/test?is_package=true',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+      }
+    }
+    }),
+    TestsAndPackagesById:builder.query({
+      query:(id)=>{
+        return{
+          url:`/lab/test?${id}`,
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+      }
+    }
+    }),
+    searchTestsAndPackages:builder.query({
+      query:(text)=>{
+        console.log("searchQuery",text);
+        return{
+          url:`/lab/test?search=${text}`,
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+      }
+    }
+    }),
     //Doctors End Points//
     getConsultationHealthConcerns:builder.query({
       query:()=>{
@@ -226,12 +298,13 @@ export const userAuthApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
               useAddToCartMutation,useRegisterUserMutation,useLoginUserMutation,
-              useGetLoggedUserQuery,useUserLogOutMutation,useProductsQuery,
+              useGetLoggedUserQuery,useUserLogOutMutation,useProductsQuery,useSearchProductsQuery,
               useCategoriesQuery,useSubcategoriesQuery,useGetproductsbyfilteridQuery,
               useGetProductQuery,useGetAllCartItemsQuery,useDeleteCartItemsMutation,
-              useGetBrandsQuery,useGetDiagnosticsHealthConcernsQuery,useGetConsultationSpecializationQuery,useGetConsultationHealthConcernsQuery,
-              useGetDoctorsBySpecializationQuery,useGetDoctorQuery
-              
+              useGetBrandsQuery,useGetDiagnosticsHealthConcernsQuery,useGetConsultationSpecializationQuery,
+              useGetConsultationHealthConcernsQuery,useGetDoctorsBySpecializationQuery,useGetDoctorQuery,
+              useGetAllTestsQuery,useGetAllPackagesQuery,useSearchTestsAndPackagesQuery,
+              useTestsAndPackagesByIdQuery,useEditProfileMutation
             } = userAuthApi
 
 

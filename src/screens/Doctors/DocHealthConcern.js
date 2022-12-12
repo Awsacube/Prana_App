@@ -45,13 +45,14 @@ const DocHealthConcern = () => {
       const navigation=useNavigation();
 
       const diangnosticHealthConcerns = []
-      const {data,isLoading,isFetching,error,isSuccess}=useGetConsultationHealthConcernsQuery   ();
+      const {data,isLoading,isFetching,error,isSuccess}=useGetConsultationHealthConcernsQuery();
     
       {isSuccess &&  data.data.forEach(element => {
         const uuid=element.uuid;
         const name=element.name;
         const image=element.image;
-        Specializations.unshift({"name":name,"image":image,"uuid":uuid})
+        const id=element.id;
+        Specializations.unshift({"name":name,"image":image,"uuid":uuid,"id":id})
       });}
     
     
@@ -63,12 +64,12 @@ const DocHealthConcern = () => {
         }}>
           <FlatList
             data={Specializations}
-            keyExtractor={(item, index) => item.tc_id}
+            keyExtractor={(item, index) => item.id}
             vertical
             numColumns={4}
             renderItem={({ item, index }) => {
               return (
-                <TouchableOpacity onPress={()=>navigation.navigate('DoctorCard')}>
+                <TouchableOpacity onPress={()=>navigation.navigate('DocBySpecialization',{id:item.uuid})}>
                 <View style={styles.splLayout}>
                   <Image source={item.image} style={styles.splimage} />
                   

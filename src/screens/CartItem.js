@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View ,Image, Button} from 'react-native'
-import { removeItem } from '../features/cartSlice'
 import { Dispatch } from 'react'
 
 import React from 'react'
@@ -16,7 +15,7 @@ const CartItem = ({image,name,price,uuid}) => {
         <Text>{name}</Text>
         <Text>MRP : {price}</Text>
         <Text>{quantity}</Text>
-        <Button title="Remove Item" onPress={()=>{dispatch(removeItem(uuid))}}></Button>
+        <Button title="Remove Item"></Button>
         </View>
     </View>
   )

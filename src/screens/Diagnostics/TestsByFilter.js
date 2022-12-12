@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { brandColor } from '../../constants/constants'
 import { getToken } from '../../services/AsyncStorageService';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useGetAllTestsQuery,useAddToLabCartMutation } from '../../services/userAuthApi';
+import { useGetTestsByFilterQuery,useAddToLabCartMutation } from '../../services/userAuthApi';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
@@ -36,8 +36,9 @@ var screenheight = Dimensions.get('window').height; //full height
 
 
 
-const AllTests = () => {
+const TestsByFilter = ({route}) => {
 
+    const {id} = route.params;
 
   const[userLToken,setUserLToken]=useState()
 
@@ -51,11 +52,12 @@ const AllTests = () => {
     )
 
   const navigation=useNavigation();
-  const {data,isLoading,isFetching,error,isSuccess,refetch}=useGetAllTestsQuery()
-
+  const {data,isLoading,isFetching,error,isSuccess,refetch}=useGetTestsByFilterQuery(id)
+    // const res=useGetTestsByFilterQuery(id)
+//   console.warn("res",id)
   const allTests=[];
 
-  {isSuccess &&  data.data.forEach(element => {
+  {isSuccess &&  data.tests.forEach(element => {
     // console.warn(element)
     const uuid=element.uuid;
     const name=element.name;
@@ -69,7 +71,7 @@ const AllTests = () => {
   });}
 
 
-  const [addToCart]=useAddToLabCartMutation(); //send cart data to backend
+  const [addToCart]=useAddToLabCartMutation({route}); //send cart data to backend
   // const { refecth }=useGetAllCartItemsQuery();
   // const cartData={
   // id:productid,
@@ -132,7 +134,7 @@ const AllTests = () => {
   )
 }
 
-export default AllTests
+export default TestsByFilter
 
 const styles = StyleSheet.create({
   vAll:{

@@ -8,20 +8,20 @@ import Custombutton from '../components/Custombutton'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import { useLoginUserMutation } from '../services/userAuthApi'
 import background from './signback.jpeg';
-import { storeToken } from '../services/AsyncStorageService'
+import { storeRefreshToken, storeToken } from '../services/AsyncStorageService'
+import { useDispatch,useSelector } from 'react-redux';
 import Signup from './Signup'
 import ForgotPass from './ForgotPassword'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {ConstantId} from './token';
 import Dummy from './Dummy';
 import { SvgUri } from 'react-native-svg';
-import { setCredentials } from '../app/auth-slice'
-
-
-
-
+import {login} from '../app/auth-slice' 
 
 const Signin = () => {
+  const cart=useSelector((state)=>state.auth.userToken)
+  console.warn("tokenmmmm",cart)
+
 
 const[email,setEmail]=useState();
 const[password,setPassword]=useState();
@@ -33,22 +33,25 @@ const[userName,setUserName]=useState();
 
     const {height,width}=useWindowDimensions();
     const navigation=useNavigation();
-
+    const dispatch=useDispatch();
     const[loginUser]=useLoginUserMutation();
     
 const [signedIn, setsignedIn] = useState(false);
 
     const OnSignInPressed = async () => {
+        // dispatch(login());
             const formData={email,password}
             const res = await loginUser(formData);
             await storeToken(res.data.token)
+            // await storeRefreshToken(res.data.refresh_token)
             console.log("logtoken",res.data.token)
             // ConstantId.accessToken = res.data.token;
-                console.warn("logtoken",res.data.token)
-                navigation.navigate("HomeScreen");
+                console.log("logrefreshtokensignin",res.data.refresh_token)
+                // navigation.navigate("HomeScreen");
                 // console.log("Post nav",)
                 // setsignedIn(true);
-                setCredentials("Raghu",res.data.token)
+                // setCredentials("Raghu",res.data.token)
+
           }
 
         //   const OnSignInPressed = async () => {

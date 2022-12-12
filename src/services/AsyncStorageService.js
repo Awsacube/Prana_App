@@ -41,6 +41,30 @@ const storeToken = async (value) => {
     console.log('Done.')
   }
   
-  
+  ///refresh tokens login
 
-  export {storeToken,removeToken,getToken}
+
+  const storeRefreshToken = async (value) => {
+    try {
+      await AsyncStorage.setItem('refreshtoken', value)
+    } catch(error) {
+        console.log(error)
+    }
+    console.log('Done.')
+  }
+
+  const getRefreshToken = async () => {
+    try {
+     const token = await AsyncStorage.getItem('refreshtoken')
+     if(token!==null){
+      //  console.log("token type",typeof(token))
+      //  console.log("token",token)
+         return token;
+     }
+    } catch(error) {
+        console.log(error)
+    }
+    console.log('Done.')
+  }
+
+  export {storeToken,removeToken,getToken,storeRefreshToken,getRefreshToken}

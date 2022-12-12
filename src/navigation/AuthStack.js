@@ -6,12 +6,14 @@ import ConfirmEmail from '../screens/ConfirmEmail';
 import ForgotPass from '../screens/ForgotPassword';
 import NewPass from '../screens/NewPassword';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Splash from '../screens/Splash';
 
 const Stack=createNativeStackNavigator();
 
 const AuthStack = () => {
   return (
       <Stack.Navigator screenOptions={{headerShown:false}}>
+      {/* <Stack.Screen name="Splash" component={Splash}/> */}
       <Stack.Screen name="Signin" component={Signin}/>
       <Stack.Screen name="Signup" component={Signup}/>  
       <Stack.Screen name="ConfirmEmail" component={ConfirmEmail}/>

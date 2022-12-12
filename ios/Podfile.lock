@@ -293,6 +293,8 @@ PODS:
     - React
   - react-native-location (2.5.0):
     - React
+  - react-native-pager-view (6.0.0):
+    - React-Core
   - react-native-razorpay (2.2.9):
     - razorpay-pod
     - React
@@ -365,7 +367,7 @@ PODS:
     - React-perflogger (= 0.67.4)
   - RNCAsyncStorage (1.17.3):
     - React-Core
-  - RNCPicker (2.4.1):
+  - RNCPicker (2.4.4):
     - React-Core
   - RNDateTimePicker (6.1.2):
     - React-Core
@@ -459,6 +461,7 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-location (from `../node_modules/react-native-location`)
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -548,6 +551,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-location:
     :path: "../node_modules/react-native-location"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-razorpay:
     :path: "../node_modules/react-native-razorpay"
   react-native-safe-area-context:
@@ -638,6 +643,7 @@ SPEC CHECKSUMS:
   react-native-geolocation: 69f4fd37650b8e7fee91816d395e62dd16f5ab8d
   react-native-geolocation-service: f32ef48fa665bd710207a3ac39bc127cac9cb993
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
+  react-native-pager-view: e76d64a5114a152e942caa09136e4e250709378c
   react-native-razorpay: 6d613f3464a509e3a4bb5b9ca43b70013b3d96d4
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   React-perflogger: 0afaf2f01a47fd0fc368a93bfbb5bd3b26db6e7f
@@ -653,7 +659,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: a9d3c82ddf7ffdad9fbe6a81c6d6f8c06385464d
   ReactCommon: 07d0c460b9ba9af3eaf1b8f5abe7daaad28c9c4e
   RNCAsyncStorage: 005c0e2f09575360f142d0d1f1f15e4ec575b1af
-  RNCPicker: abc646b53a3d28ccfa3232c927a0ca52e0cf024d
+  RNCPicker: 0b65be85fe7954fbb2062ef079e3d1cde252d888
   RNDateTimePicker: 6f1f0b4cf7c71b6e2aea7a3aa62969111084bbd1
   RNGestureHandler: 50e6ffee79932d14ea747d4ea4cc99aac0f24e86
   RNGoogleSignin: c4381751eefd73c552b923ba347a9bfc6f18771c

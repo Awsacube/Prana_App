@@ -41,7 +41,8 @@ const TabNavigator = () => {
         <Tab.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
         <Tab.Screen name="Appointments" component={Doctors}/>
         <Tab.Screen name="Lab Tests" component={Diagnostics}/>
-        <Tab.Screen name="Account" component={Profile}/>
+        <Tab.Screen name="Account" component={Profile} options={{ unmountOnBlur: true }}
+/>
       </Tab.Navigator>
   )
 }

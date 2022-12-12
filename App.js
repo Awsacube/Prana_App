@@ -20,7 +20,6 @@
   useColorScheme,
   View,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signin from './src/screens/Signin';
@@ -37,26 +36,29 @@ import Calltoorder from './src/screens/Calltoorder';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Categories from './src/screens/Categories';
 import SubCategories from './src/screens/SubCategories';
-import CartContainer from './src/screens/CartContainer';
 import ProductItem from './src/screens/ProductItem';
-import PreviousOrders from './src/screens/PreviousOrders';
+import PreviousOrders from './src/screens/OrderHistory';
 import ProductDescription from './src/screens/ProductDescription';
 import dummy from './src/screens/Dummy';
 import Dummy from './src/screens/Dummy';
 import isSignedIn from './src/screens/Signin';
 import Location from './src/screens/Location';
+import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './src/navigation/AuthStack';
 import AppStack from './src/navigation/AppStack';
-
+import { getToken } from './src/services/AsyncStorageService'
+import { useDispatch,useSelector } from 'react-redux'
+import AppNav from './src/navigation/AppNav';
 
 const App = () => {
-
-
+    // const isSignedIn=useSelector((state)=>state.auth.isSignedIn)
+    // console.warn("issin",isSignedIn)
     return(
-      <NavigationContainer>
-      <AppStack/>
-     {/* <AuthStack/> */}
-      </NavigationContainer>
+      // <NavigationContainer>
+        //  {/* <AppStack/>
+        //  <AuthStack/> */}
+      // </NavigationContainer>
+      <AppNav/>
     )
 };
 

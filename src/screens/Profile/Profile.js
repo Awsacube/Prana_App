@@ -8,12 +8,18 @@ import { removeToken } from '../../services/AsyncStorageService';
 import { useGetLoggedUserQuery } from '../../services/userAuthApi';
 import { useNavigation } from '@react-navigation/native';
 import { useUserLogOutMutation } from '../../services/userAuthApi';
+import { useIsFocused } from '@react-navigation/native';
+import {logOut} from '../../app/auth-slice'
+import { useDispatch,useSelector } from 'react-redux';
 
 
 export default function Profile() {
 
    const[userLToken,setUserLToken]=useState()
-   
+   const[count,setCount]=useState(0)
+
+   const isFocused = useIsFocused();
+   const dispatch=useDispatch();
 
    useEffect(()=>{
     const getT=async()=>{
@@ -23,10 +29,13 @@ export default function Profile() {
       getT()
     },[]
     )
+ 
+   const navigation=useNavigation();  
 
-   const navigation=useNavigation();
+    const {data,isSuccess} = useGetLoggedUserQuery(userLToken,{ refetchOnMountOrArgChange: true })
+  //  isFocused && const {data,isSuccess} = useGetLoggedUserQuery(userLToken,{ refetchOnMountOrArgChange: true })
 
-   const {data,isSuccess} = useGetLoggedUserQuery(userLToken)
+    // isFocused ?  : ""
 
    const profile=[];
 
@@ -34,7 +43,7 @@ export default function Profile() {
     // const data=res.data
     // console.warn(data.first_name)
     profile.push(data);
-    console.warn(profile);
+    // console.warn(profile);
   }
   
 
@@ -42,6 +51,7 @@ export default function Profile() {
   const[logoutUser]=useUserLogOutMutation();
 
    const onLogoutPressed=async()=>{
+    dispatch(logOut())
       const res=await logoutUser(userLToken)
       console.log(res)
       navigation.navigate("Signin");
@@ -115,7 +125,7 @@ export default function Profile() {
       </View>
       </Pressable>
 
-
+      <Pressable onPress={()=>navigation.navigate("OrderHistory")}>
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
           <View style={styles.iconDesign}>
@@ -127,6 +137,7 @@ export default function Profile() {
           <Text style={styles.textDesign}>Order History</Text>
 
         </View>
+      </Pressable>
 
         <View style={{ flexDirection: 'row', margin: 5 }}>
 

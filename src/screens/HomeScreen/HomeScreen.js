@@ -17,12 +17,12 @@ import Categories from '../Categories';
 import ProductDescription from '../ProductDescription';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { getToken } from '../../services/AsyncStorageService';
+import { getRefreshToken } from '../../services/AsyncStorageService';
 import Services from '../Services';
 import FeaturedBrands from '../FeaturedBrands'
 import ProductItem from '../ProductItem';
 import Search from '../../components/Search';
-import CartContainer from '../CartContainer';
+import MedicineCart from '../MedicineCart';
 import { useDispatch,useSelector } from 'react-redux';
 import { calculateTotals } from '../../features/cartSlice';
 // import { black } from 'react-native-paper/lib/typescript/styles/colors';
@@ -66,6 +66,16 @@ const HomeScreen = ({navigation}) => {
   // const {cartItems}=useSelector((store)=>store.cart)
   const dispatch=useDispatch();
 
+
+  // useEffect(()=>{
+  //   const getT=async()=>{
+  //       const token=await getRefreshToken() //getting token from storage
+  //       // console.log("logrefreshtokenhome",token)
+  //       // setUserLToken(token) //store token in local storage
+  //    }
+  //     getT()
+  //   },[]
+  //   )
   // useEffect(()=>{
   //   dispatch(calculateTotals());
   // },[cartItems]);

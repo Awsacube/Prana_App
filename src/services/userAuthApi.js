@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const userAuthApi = createApi({
   reducerPath: 'userAuthApi',
 
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api-pillbox.nextgensolutions.io/api/' ,
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://65.2.191.114:9000/api' ,
   // prepareHeaders: (headers, { getState }) => {
     // const token = getState().auth.token
     // If we have a token set in state, let's assume that we should be passing it.
@@ -73,13 +73,26 @@ export const userAuthApi = createApi({
         },
       }),
       editProfile:builder.mutation({
-        query:({newData,token})=>{
+        query:(newData)=>{
+          console.warn(newData)
           return{
             url:'users/profile',
-            method:'GET',
-            body:newData,
+            method:'PATCH',
+            body:{
+              "first_name": newData.first_name,
+              "last_name": newData.last_name,
+              "phone_number": newData.phone_number,
+              "address": {
+                "street_1": newData.street_1,
+                "street_2": newData.street_2,
+                "city": newData.city,
+                "district": newData.district,
+                "state": newData.state,
+                "pincode": newData.pincode
+            },
+            },
             headers:{
-              'Authorization':`Bearer ${token}`,
+              'Authorization':`Bearer ${newData.userLToken}`,
             }
           }
         },
@@ -184,15 +197,81 @@ export const userAuthApi = createApi({
         }
       }
     }),
+    //Labcart end Points
+    addToLabCart:builder.mutation({
+      query:(cartData)=>{
+        console.log("cartDataapi",cartData)
+        return{
+          url:'/cart/labcart',
+          method:'POST',
+          headers:{
+            'Content-type':'application/json',
+            'Authorization':`Bearer ${cartData.token}`,
+          },
+          body:{
+            // 'quantity':`${cartData.quantity}`,
+            'lab_test_id':`${cartData.id}`
+          }
+        }
+      }
+    }),
+    getAllLabCartItems:builder.query({
+      query:(token)=>{
+        return{
+          url:'/cart/labcart',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+            'Authorization':`Bearer ${token}`,
+          }
+        }
+      }
+    }),
+    deleteLabCartItems:builder.mutation({
+      query:(remove)=>{
+        // console.warn("deletcart",remove)
+        return{
+          url:`/cart/labcart/${remove.id}`,
+          method:'DELETE',
+          headers:{
+            'Content-type':'application/json',
+            'Authorization':`Bearer ${remove.token}`,
+          }
+        }
+      }
+    }),
     //Brands End Points//
     getBrands:builder.query({
       query:()=>'/brands'
+    }),
+    //orders End Points
+    getOrderHistory:builder.query({
+      query:(token)=>{
+        return{
+          url:'/orders',
+          method:'GET',
+          headers:{
+            'Authorization':`Bearer ${token}`,
+          }
+        }
+      }
     }),
     //Diagnostics End Points//
     getDiagnosticsHealthConcerns:builder.query({
       query:()=>{
         return{
-          url:'/filters?type=DIAGNOSIS_HEALTH_CONCERN',
+          url:'/filters?type=TEST_HEALTH_CONCERN',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+        }
+      }
+    }),
+    getTestOrganCategory:builder.query({
+      query:()=>{
+        return{
+          url:'/filters?type=TEST_ORGAN_CATEGORY',
           method:'GET',
           headers:{
             'Content-type':'application/json',
@@ -204,6 +283,17 @@ export const userAuthApi = createApi({
       query:()=>{
         return{
           url:'/lab/test',
+          method:'GET',
+          headers:{
+            'Content-type':'application/json',
+          }
+      }
+    }
+    }),
+    getTestsByFilter:builder.query({
+      query:(id)=>{
+        return{
+          url:`/lab/test/category/${id}`,
           method:'GET',
           headers:{
             'Content-type':'application/json',
@@ -282,14 +372,27 @@ export const userAuthApi = createApi({
     getDoctor:builder.query({
       query:(queryItems)=>{
         return{ 
-          url: `/doctor/${queryItems.id}`,
+          url: `/doctor/${queryItems.uuid}`,
           method:'GET',
           headers:{
             'Authorization':`Bearer ${queryItems.token}`,
           }
         }
         }
+    }),
+    getTimeSlots:builder.query({
+      query:(queryItems2)=>{
+        console.warn("slots data",queryItems2)
+        return{ 
+          url: `/doctor/timeslot?doctor_id=${queryItems2.id}`,
+          method:'GET',
+          headers:{
+            'Authorization':`Bearer ${queryItems2.token}`,
+          }
+        }
+        }
     })
+
     // /filters?type=CONSULTATION_SPECIALIZATION
   })
 })
@@ -304,7 +407,8 @@ export const {
               useGetBrandsQuery,useGetDiagnosticsHealthConcernsQuery,useGetConsultationSpecializationQuery,
               useGetConsultationHealthConcernsQuery,useGetDoctorsBySpecializationQuery,useGetDoctorQuery,
               useGetAllTestsQuery,useGetAllPackagesQuery,useSearchTestsAndPackagesQuery,
-              useTestsAndPackagesByIdQuery,useEditProfileMutation
+              useTestsAndPackagesByIdQuery,useEditProfileMutation,useGetOrderHistoryQuery,
+              useGetTimeSlotsQuery,useAddToLabCartMutation,useGetAllLabCartItemsQuery,useDeleteLabCartItemsMutation,useGetTestOrganCategoryQuery,useGetTestsByFilterQuery
             } = userAuthApi
 
 

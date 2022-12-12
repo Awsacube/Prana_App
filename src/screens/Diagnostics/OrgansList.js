@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View ,FlatList,Image,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { useGetDiagnosticsHealthConcernsQuery } from '../../services/userAuthApi';
+import { useGetTestOrganCategoryQuery } from '../../services/userAuthApi';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 import { Dimensions } from "react-native";
@@ -44,16 +44,18 @@ import { Dimensions } from "react-native";
   // ];
 
 
-const HealthConcerns = () => {
+const OrganList = () => {
   const navigation = useNavigation();
-  const diangnosticHealthConcerns = []
-  const {data,isLoading,isFetching,error,isSuccess}=useGetDiagnosticsHealthConcernsQuery();
+  const testOrganList = []
+  const {data,isLoading,isFetching,error,isSuccess}=useGetTestOrganCategoryQuery();
+
+    console.warn("organ",data);
 
   {isSuccess &&  data.data.forEach(element => {
     const uuid=element.uuid;
     const name=element.name;
     const image=element.image;
-    diangnosticHealthConcerns.unshift({"name":name,"image":image,"uuid":uuid})
+    testOrganList.unshift({"name":name,"image":image,"uuid":uuid})
   });}
 
   // console.warn(diangnosticHealthConcerns)
@@ -66,10 +68,10 @@ const HealthConcerns = () => {
           marginBottom:20,
           fontSize: 18,
           color: '#000'
-        }}>Browse Lab Tests By Health Concern</Text>
+        }}>Browse Lab Tests By Organs</Text>
        <FlatList
-            data={diangnosticHealthConcerns}
-            keyExtractor={(item, index) => item.tc_id}
+            data={testOrganList}
+            keyExtractor={(item, index) => item.uuid}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
@@ -90,7 +92,7 @@ const HealthConcerns = () => {
   )
 }
 
-export default HealthConcerns
+export default OrganList;
 
 const styles = StyleSheet.create({
 

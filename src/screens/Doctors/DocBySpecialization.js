@@ -65,7 +65,8 @@ const DocBySpecialization = ({route}) => {
             const last_name=element.last_name;
             const image=element.image;
             const title=element.title;
-            doctorDetails.unshift({"first_name":first_name,"last_name":last_name,"image":image,"uuid":uuid,"title":title})
+            const id=element.id
+            doctorDetails.unshift({"first_name":first_name,"last_name":last_name,"image":image,"uuid":uuid,"title":title,"id":id})
           });}
 
   return (
@@ -83,7 +84,7 @@ const DocBySpecialization = ({route}) => {
             renderItem={({ item, index }) => {
               // let discount=item.discount
               return (
-                <TouchableOpacity onPress={()=>navigation.navigate('DoctorDetails')}>
+                <TouchableOpacity onPress={()=>navigation.navigate('DoctorDetails',{id:item.id,uuid:item.uuid})}>
                 <View style={styles.splLayout}>
                 <View style={styles.top}>
                   <Image source={item.image} style={styles.img}/>

@@ -57,8 +57,6 @@ export default Specialization
 
 const styles = StyleSheet.create({
 
-
-
   splLayout: {
     width: screenwidth / 4,
     alignItems: 'center',

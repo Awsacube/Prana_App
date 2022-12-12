@@ -3,9 +3,9 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Categories from '../screens/Categories';
 import SubCategories from '../screens/SubCategories';
-import CartContainer from '../screens/CartContainer';
+import MedicineCart from '../screens/MedicineCart';
 import ProductItem from '../screens/ProductItem';
-import PreviousOrders from '../screens/PreviousOrders';
+import OrderHistory from '../screens/OrderHistory';
 import ProductDescription from '../screens/ProductDescription';
 import Dummy from '../screens/Dummy';
 import Location from '../screens/Location';
@@ -22,6 +22,10 @@ import TestsAndPackagesById from '../screens/Diagnostics/TestsAndPackagesById';
 import DiagSearch from '../screens/Diagnostics/DiagSearch';
 import EmptyPage from '../screens/EmptyPage';
 import EditProfile from '../screens/Profile/EditProfile';
+import CartContainer from '../screens/CartContainer';
+import LabCart from '../screens/LabCart';
+import Splash from '../screens/Splash';
+import TestsByFilter from '../screens/Diagnostics/TestsByFilter';
 
 
 const Stack=createNativeStackNavigator();
@@ -29,7 +33,9 @@ const Stack=createNativeStackNavigator();
 const AppStack = () => {
   return (
       <Stack.Navigator screenOptions={{headerShown:false}}>
+      {/* <Stack.Screen name="Splash" component={Splash}/> */}
       <Stack.Screen name="HomeScreen" component={TabNavigator}/>
+      <Stack.Screen name="TestsByFilter" component={TestsByFilter}/>
       <Stack.Screen name="Location" component={Location}/>
       <Stack.Screen name="Calltoorder" component={Calltoorder}/>
       <Stack.Screen name='Profile' component={Profile}/>
@@ -37,8 +43,10 @@ const AppStack = () => {
       <Stack.Screen name='ProductItem' component={ProductItem}/>
       <Stack.Screen name='SubCategories' component={SubCategories}/>
       <Stack.Screen name='Categories' component={Categories}/>
-      <Stack.Screen name='CartContainer' component={CartContainer}/>
-      <Stack.Screen name='PreviousOrders' component={PreviousOrders}/>
+      <Stack.Screen name='CartContainer' component={CartContainer} options={{ headerShown:true }}/>
+      <Stack.Screen name='MedicineCart' component={MedicineCart}/>
+      <Stack.Screen name='LabCart' component={LabCart}/>
+      <Stack.Screen name='OrderHistory' component={OrderHistory}/>
       <Stack.Screen name='ProductDescription' component={ProductDescription}/>
       <Stack.Screen name='Test' component={Test}/>
       <Stack.Screen name='DoctorCard' component={DoctorCard}/>

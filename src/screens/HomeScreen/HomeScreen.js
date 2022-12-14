@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import Carousel from '../../components/Carousel';
-import Geolocation from '@react-native-community/geolocation';
+// import Geolocation from '@react-native-community/geolocation';
 import { Platform } from 'react-native';
 import { dummyData } from '../../../data/data';
 import Carousel from '../Carousel';
@@ -128,10 +128,10 @@ const HomeScreen = ({navigation}) => {
             <ScrollView showsVerticalScrollIndicator={false}>  
             <Search placeholder={"Search HelthCare Prodcuts"} editable={false} navigate="EmptyPage" component={<ProductSearch/>}/>
             {/* <Location/> */}
-            {/* <Services/> */}
+            <Services/>
             {/* <Upload/> */}
             {/* <Carousel data={dummyData}/> */}
-            {/* <Specialization/> */}
+            <Specialization/>
             <ImmuneBoosters/>
             <FeaturedBrands/>
             {/* <ShopByCategory/> */}

@@ -1,15 +1,16 @@
 import React,{useEffect, useState} from 'react'
-import { View, Text , Image, StyleSheet ,useWindowDimensions,ScrollView,ImageBackground, ColorPropType} from 'react-native'
+import { View, Text ,Button, Image, StyleSheet ,useWindowDimensions,ScrollView,ImageBackground, ColorPropType,Alert,ToastAndroid} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import Logo from './LOGO.png'
 import Custominput from '../components/Custominput'
 import Custombutton from '../components/Custombutton'
-import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import Toast from 'react-native-toast-message';
 import { useLoginUserMutation } from '../services/userAuthApi'
 import background from './signback.jpeg';
 import { storeRefreshToken, storeToken } from '../services/AsyncStorageService'
 import { useDispatch,useSelector } from 'react-redux';
+
 import Signup from './Signup'
 import ForgotPass from './ForgotPassword'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -19,9 +20,11 @@ import { SvgUri } from 'react-native-svg';
 import {login} from '../app/auth-slice' 
 
 const Signin = () => {
-  const cart=useSelector((state)=>state.auth.userToken)
-  console.warn("tokenmmmm",cart)
+  const reduxtoken=useSelector((state)=>state.auth.userToken)
+//   console.warn("tokenmmmm",cart)
 
+    
+    
 
 const[email,setEmail]=useState();
 const[password,setPassword]=useState();
@@ -34,38 +37,24 @@ const[userName,setUserName]=useState();
     const {height,width}=useWindowDimensions();
     const navigation=useNavigation();
     const dispatch=useDispatch();
-    const[loginUser]=useLoginUserMutation();
+    const[loginUser,{isLoading,error,data,isSuccess}]=useLoginUserMutation();
     
 const [signedIn, setsignedIn] = useState(false);
-
+let res;
     const OnSignInPressed = async () => {
-        // dispatch(login());
-            const formData={email,password}
-            const res = await loginUser(formData);
-            await storeToken(res.data.token)
-            // await storeRefreshToken(res.data.refresh_token)
-            console.log("logtoken",res.data.token)
-            // ConstantId.accessToken = res.data.token;
-                console.log("logrefreshtokensignin",res.data.refresh_token)
-                // navigation.navigate("HomeScreen");
-                // console.log("Post nav",)
-                // setsignedIn(true);
-                // setCredentials("Raghu",res.data.token)
-
+        console.log("onsigninpressed")
+        const formData={email,password}
+        res=await loginUser(formData); 
+        console.log("res",res.data.message)  
+        if(res.data.message==='User logged in successfully'){
+            dispatch(login())
+        }   
           }
 
-        //   const OnSignInPressed = async () => {
-        //     const formData={email,password}
-        //     const res = await loginUser(formData);
-        //     await storeToken(res.data.token)
-        //     console.log("logtoken",res.data.token)
-        //     // ConstantId.accessToken = res.data.token;
-        //         console.warn("logtoken",res.data.token)
-        //         navigation.navigate("HomeScreen");
-        //         // console.log("Post nav",)
-        //         // setsignedIn(true);
-        //         setCredentials("Raghu",res.data.token)
-        //   }
+          if(isSuccess){
+        console.log("success")
+        storeToken(data.token)
+    }
 
     const onSignupPressed=()=>{
         navigation.navigate("Signup")
@@ -76,16 +65,26 @@ const [signedIn, setsignedIn] = useState(false);
     }
 
 
+    
+   
+
     return (
         <SafeAreaView>
+         {/* <Toast/> */}
+        {/* {isSuccess && <Toast/>} */}
         <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground source={background} style={styles.bgImage}>
         <View style={styles.root}>
+            <Text>{reduxtoken}</Text>
             <Image source={Logo} style={styles.logo} resizeMode='contain'/> 
-            {/* <Text style={styles.logo}>Pillbox</Text> */}
             <Custominput placeholder="Email" value={email} setValue={setEmail} autoCapitalize='none'/>
             <Custominput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
-            <Custombutton text='Sign In' onPress={OnSignInPressed}/>
+            {/* <Custombutton text='Sign In' onPress={OnSignInPressed}/> */}
+            <Button
+  onPress={()=>OnSignInPressed()}
+  title="Sign in"
+  color="#841584"
+/>  
             <Custombutton text='Forgot Password' type="TERTIARY" onPress={onForgotPressed}/>
             <Custombutton text="Don't have an account ? Create one" type="TERTIARY" onPress={onSignupPressed}/>
         </View>
@@ -108,8 +107,14 @@ const styles=StyleSheet.create({
         maxHeight:200,
     },
     bgImage:{
-        // height:750
-    }   
+        height:750
+    },
+    textDesign: {
+        fontSize: 15,
+        marginLeft: 15,
+        textAlignVertical: 'center',
+      }
+    
 })
 
 export default Signin;

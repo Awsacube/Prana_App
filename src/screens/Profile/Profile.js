@@ -9,12 +9,12 @@ import { useGetLoggedUserQuery } from '../../services/userAuthApi';
 import { useNavigation } from '@react-navigation/native';
 import { useUserLogOutMutation } from '../../services/userAuthApi';
 import { useIsFocused } from '@react-navigation/native';
-import {logOut} from '../../app/auth-slice'
+import {login } from '../../app/auth-slice'
 import { useDispatch,useSelector } from 'react-redux';
 
 
 export default function Profile() {
-
+  const reduxtoken=useSelector((state)=>state.auth.userToken)
    const[userLToken,setUserLToken]=useState()
    const[count,setCount]=useState(0)
 
@@ -51,10 +51,10 @@ export default function Profile() {
   const[logoutUser]=useUserLogOutMutation();
 
    const onLogoutPressed=async()=>{
-    dispatch(logOut())
+    dispatch(login())
       const res=await logoutUser(userLToken)
-      console.log(res)
-      navigation.navigate("Signin");
+      // console.log(res)
+      // navigation.navigate("Signin");
       removeToken();
    }
 
@@ -69,8 +69,12 @@ export default function Profile() {
               {item.first_name}
             </Text>
             <Text>
+              {reduxtoken}
+            </Text>
+            <Text>
               {item.email}
             </Text>
+            
           </View>
     ) 
     )
@@ -141,13 +145,13 @@ export default function Profile() {
 
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
-<View style={styles.iconDesign}>
+{/* <View style={styles.iconDesign}>
 
   <Icon name="cart-outline" size={25} color="#000" />
 
 </View>
 
-<Text style={styles.textDesign}>Prescriptions</Text>
+<Text style={styles.textDesign}>Prescriptions</Text> */}
 
 </View>
 
@@ -175,7 +179,7 @@ export default function Profile() {
 
 </View>
 
-<View style={{ flexDirection: 'row', margin: 5 }}>
+{/* <View style={{ flexDirection: 'row', margin: 5 }}>
 
 <View style={styles.iconDesign}>
 
@@ -198,8 +202,8 @@ export default function Profile() {
 
 <Text style={styles.textDesign}>Deactivate Profile</Text>
 
-</View>
-
+</View> */}
+{/* 
 <View style={{ flexDirection: 'row', margin: 5 }}>
 
 <View style={styles.iconDesign}>
@@ -210,7 +214,7 @@ export default function Profile() {
 
 <Text style={styles.textDesign}>Refer & Earn</Text>
 
-</View>
+</View> */}
 
 <View style={{ flexDirection: 'row', margin: 5 }}>
 
@@ -260,7 +264,7 @@ export default function Profile() {
 <Text style={styles.textDesign}>Returns</Text>
 
 </View>
-
+{/* 
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
           <View style={styles.iconDesign}>
@@ -271,8 +275,8 @@ export default function Profile() {
 
           <Text style={styles.textDesign}>Health Records</Text>
 
-        </View>
-
+        </View> */}
+{/* 
         <View style={{ flexDirection: 'row', margin: 5 }}>
 
           <View style={styles.iconDesign}>
@@ -283,7 +287,7 @@ export default function Profile() {
 
           <Text style={styles.textDesign}>Manage Address</Text>
 
-        </View>
+        </View> */}
 
       
 

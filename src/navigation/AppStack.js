@@ -35,6 +35,7 @@ const AppStack = () => {
       <Stack.Navigator screenOptions={{headerShown:false}}>
       {/* <Stack.Screen name="Splash" component={Splash}/> */}
       <Stack.Screen name="HomeScreen" component={TabNavigator}/>
+      {/* <Stack.Screen name="HomeScreen" component={HomeScreen}/> */}
       <Stack.Screen name="TestsByFilter" component={TestsByFilter}/>
       <Stack.Screen name="Location" component={Location}/>
       <Stack.Screen name="Calltoorder" component={Calltoorder}/>

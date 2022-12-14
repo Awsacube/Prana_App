@@ -3,14 +3,26 @@ import { getToken } from '../services/AsyncStorageService'
 
 const authSlice = createSlice({
     name: 'auth',
-    initialState: { userToken: null ,isLoading:false },
+    initialState: { userToken: 0},
     reducers: {
         login: (state, action) => {
+            if(state.userToken===0){
+                state.userToken=1
+                console.log("chnagedredux")
+            }
+            else if(state.userToken===1){
+                state.userToken=0
+                console.log("chnagedredux")
+            }
+            // if(action.payload===0){
+            //     console.warn("payload",action.payload)
+            //     state.userToken=action.payload
+            // }
             // console.warn(action.payload);
             // isSignedIn=action.payload;
-            console.warn("triggered")
-            state.userToken='jbsjhbjhbjs'
-            state.isLoading=false
+            // console.warn("triggered")
+            // state.userToken=true
+            // state.isLoading=false
             //  state.token=getToken() //getting token from storage
             //  if(token!==null){
             //     isSignedIn=true;
@@ -19,9 +31,8 @@ const authSlice = createSlice({
             // state.token = accessToken
         },
         logOut: (state, action) => {
-            state.userToken=null //getting token from storage 
-            state.isLoading=false  
-            console.warn("triggered")
+            state.userToken=false //getting token from storage 
+            // state.isLoading=false  
 
          }
     },

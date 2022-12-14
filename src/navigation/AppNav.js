@@ -6,23 +6,24 @@ import AppStack from '../navigation/AppStack';
 import { useDispatch,useSelector } from 'react-redux'
 
 const AppNav = () => {
-        const isLoading=useSelector((state)=>state.auth.isLoading)
         const token=useSelector((state)=>state.auth.userToken)
         // console.warn("token",isLoading)
 
-        if(isLoading){
-            return(
-                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-                <ActivityIndicator size={'large'}/>
-            </View>
-            )
+        // if(isLoading){
+        //     return(
+        //         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        //         <ActivityIndicator size={'large'}/>
+        //     </View>
+        //     )
             
-        }
-
+        // }
+        // console.log("token",token)
   return (
     <NavigationContainer>
-        {/* {token !== null ? <AppStack/> :<AuthStack/>} */}
-        <AppStack/>
+        {token === 0 ? <AuthStack/> :<AppStack/>}
+        {/* {token === false ? <AppStack/> :<AuthStack/>} */}
+        {/* <AppStack/> */}
+        {/* <AuthStack/> */}
       </NavigationContainer>
   )
 }

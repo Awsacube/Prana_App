@@ -135,6 +135,7 @@ android {
         applicationId "com.pillbox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+            multiDexEnabled true //added to solve a error 
         versionCode 1
         versionName "1.0"
     }

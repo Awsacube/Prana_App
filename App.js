@@ -20,6 +20,7 @@
   useColorScheme,
   View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signin from './src/screens/Signin';
@@ -58,7 +59,9 @@ const App = () => {
         //  {/* <AppStack/>
         //  <AuthStack/> */}
       // </NavigationContainer>
+      <>
       <AppNav/>
+      </>
     )
 };
 

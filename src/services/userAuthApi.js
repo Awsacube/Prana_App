@@ -35,7 +35,7 @@ export const userAuthApi = createApi({
     }),
     loginUser:builder.mutation({
       query:(formData)=>{
-        // console.log("formData",formData)
+        console.log("formData",formData)
         return{
           url:'auth/login',
           method:'POST',

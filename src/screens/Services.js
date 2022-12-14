@@ -55,16 +55,16 @@ export default function App() {
       "image": hproducts,
       "navigateTo":"Categories"
     },
-    {
-      "name": "Covid support",
-      "image": covid,
-      "navigateTo":"Dummy"
-    },
-    {
-      "name": "Health Records",
-      "image": hrecords,
-      "navigateTo":"Dummy"
-    },
+    // {
+    //   "name": "Covid support",
+    //   "image": covid,
+    //   "navigateTo":"Dummy"
+    // },
+    // {
+    //   "name": "Health Records",
+    //   "image": hrecords,
+    //   "navigateTo":"Dummy"
+    // },
   ];
 
   const slideImages = [

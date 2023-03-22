@@ -33,8 +33,8 @@ const TabNavigator = () => {
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'green',
+          tabBarActiveTintColor: '#E73631',
+          tabBarInactiveTintColor: '#7f7f7f',
         //   tabBarShowLabel:false,
         })
       }>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 // import Carousel from '../../components/Carousel';
-// import Geolocation from '@react-native-community/geolocation';
 import { Platform } from 'react-native';
 import { dummyData } from '../../../data/data';
 import Carousel from '../Carousel';
 import { Button, SearchBar } from 'react-native-elements';
-import { View, FlatList, StyleSheet, Text, StatusBar, ScrollView , TouchableOpacity,Image} from 'react-native';
+import { View, FlatList, StyleSheet, Text, StatusBar, ScrollView , TouchableOpacity,Image,PermissionsAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ImmuneBoosters from '../ImmuneBoosters';
 import Logo from '../LOGO.png'
@@ -31,38 +30,23 @@ import Calltoorder from '../Calltoorder';
 import Location from '../Location';
 import { red } from '@mui/material/colors';
 import ProductSearch from './ProductSearch';
+import Geolocation from 'react-native-geolocation-service';
 
 const HomeScreen = ({navigation}) => {
 
-  // useEffect(() => {
-    // Update the document title using the browser API
-    // Geolocation.getCurrentPosition(
+  const [placeholder, setPlaceholder] = useState('Search For Crocin');
 
-    //   (info) => {console.warn('location',info)},
-    // (error) => {console.warn('location',error)},
-    // { timeout: 20000 }
-
-// Geolocation.getCurrentPosition((success)=>{console.log(success)}, (e)=>{console.log(e)}, {timeout: 20000});
+  const placeholders = ['Search For Dolo', 'Search For Diapers'];
+  let currentIndex = 0;
 
 
-    // );
-    // Geolocation.getCurrentPosition(geo_success, [geo_error], [geo_options]);
-    // const getGeoLocation = () => {
-    //   const config = {
-    //     enableHighAccuracy: true,
-    //     timeout: 2000,
-    //     maximumAge: 3600000,
-    //   };
-    
-    //   Geolocation.getCurrentPosition(
-    //     info => console.log("INFO", info),
-    //     error => console.log("ERRORR", error),
-    //     config,
-    //   );
-    // };
 
-  // });
+  // setInterval(() => {
+  //   setPlaceholder(placeholders[currentIndex]);
+  //   currentIndex = (currentIndex + 1) % placeholders.length;
+  // }, 3000);
 
+  
   // const {cartItems}=useSelector((store)=>store.cart)
   const dispatch=useDispatch();
 
@@ -86,16 +70,23 @@ const HomeScreen = ({navigation}) => {
   }
 //  const cart = useSelector((store)=>store.cart)
 
+
     return (
-      <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>  
+      <SafeAreaView style={{flex:1,backgroundColor:'#fff',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>  
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
+      {/* <View
+        style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
+        <Button title="Get Location" onPress={getLocation}/>
+      </View>
+      <Text>Latitude: {location ? location.coords.latitude : null}</Text>
+      <Text>Longitude: {location ? location.coords.longitude : null}</Text> */}
         <Header style={styles.Header} backgroundColor='#fff'
         leftComponent={<Image source={Logo} style={styles.Logo}/>}
         rightComponent={
             <View>
               {/* <Button title={"cart"} onPress={gotocart}></Button> */}
               <TouchableOpacity onPress={gotocart}>
-                <Icon name="shopping-cart" color="#2B8AE3" size={40}/>
+                <Icon name="shopping-cart" color="#E73631" size={40}/>
                 {/* {cartCount > 0 ? (
                 <View
                     style={{     
@@ -124,18 +115,18 @@ const HomeScreen = ({navigation}) => {
             </View>
         }
       />
-            <Calltoorder/>
+                  <Location/>
+            <Calltoorder text={"Order Medicine"}/>
             <ScrollView showsVerticalScrollIndicator={false}>  
-            <Search placeholder={"Search HelthCare Prodcuts"} editable={false} navigate="EmptyPage" component={<ProductSearch/>}/>
-            {/* <Location/> */}
+            <Search placeholder={placeholder} editable={false} navigate="EmptyPage" component={<ProductSearch/>}/>
+            <Location/>
             <Services/>
             {/* <Upload/> */}
             {/* <Carousel data={dummyData}/> */}
             <Specialization/>
-            <ImmuneBoosters/>
+            {/* <ImmuneBoosters/> */}
             <FeaturedBrands/>
-            {/* <ShopByCategory/> */}
-            <Categories/>
+              <Categories/>
          </ScrollView>
         </SafeAreaView>
 
@@ -145,7 +136,7 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
 Header:{
-  backgroundColor:'#000'
+  backgroundColor:'#1A73E8'
 },
 
 Logo:{

@@ -287,18 +287,18 @@ PODS:
   - React-jsinspector (0.67.4)
   - React-logger (0.67.4):
     - glog
-  - react-native-geolocation (2.1.0):
-    - React-Core
-  - react-native-geolocation-service (5.3.0):
+  - react-native-geolocation-service (5.3.1):
     - React
   - react-native-location (2.5.0):
     - React
-  - react-native-pager-view (6.0.0):
+  - react-native-pager-view (6.1.2):
     - React-Core
   - react-native-razorpay (2.2.9):
     - razorpay-pod
     - React
   - react-native-safe-area-context (3.4.1):
+    - React-Core
+  - react-native-splash-screen (3.3.0):
     - React-Core
   - React-perflogger (0.67.4)
   - React-RCTActionSheet (0.67.4):
@@ -458,12 +458,12 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
-  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-location (from `../node_modules/react-native-location`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -545,8 +545,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
-  react-native-geolocation:
-    :path: "../node_modules/@react-native-community/geolocation"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-location:
@@ -557,6 +555,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-razorpay"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -640,12 +640,12 @@ SPEC CHECKSUMS:
   React-jsiexecutor: cbdf37cebdc4f5d8b3d0bf5ccaa6147fd9de9f3d
   React-jsinspector: f4775ea9118cbe1f72b834f0f842baa7a99508d8
   React-logger: a1f028f6d8639a3f364ef80419e5e862e1115250
-  react-native-geolocation: 69f4fd37650b8e7fee91816d395e62dd16f5ab8d
-  react-native-geolocation-service: f32ef48fa665bd710207a3ac39bc127cac9cb993
+  react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
-  react-native-pager-view: e76d64a5114a152e942caa09136e4e250709378c
+  react-native-pager-view: 54bed894cecebe28cede54c01038d9d1e122de43
   react-native-razorpay: 6d613f3464a509e3a4bb5b9ca43b70013b3d96d4
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
+  react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: 0afaf2f01a47fd0fc368a93bfbb5bd3b26db6e7f
   React-RCTActionSheet: 59f35c4029e0b532fc42114241a06e170b7431a2
   React-RCTAnimation: aae4f4bed122e78bdab72f7118d291d70a932ce2

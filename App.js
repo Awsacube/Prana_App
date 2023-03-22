@@ -9,7 +9,7 @@
 //  import {AuthContext} from './src/auth/AuthContext';
  import * as Keychain from 'react-native-keychain';
  import {createRef} from 'react';
-
+ import SplashScreen from 'react-native-splash-screen'
  import { 
   AppRegistry,
   SafeAreaView,
@@ -51,17 +51,24 @@ import { getToken } from './src/services/AsyncStorageService'
 import { useDispatch,useSelector } from 'react-redux'
 import AppNav from './src/navigation/AppNav';
 
+
 const App = () => {
     // const isSignedIn=useSelector((state)=>state.auth.isSignedIn)
-    // console.warn("issin",isSignedIn)
+
+
+    useEffect(() => {
+      // do stuff while splash screen is shown
+        // After having done stuff (such as async tasks) hide the splash screen
+        SplashScreen.hide();
+    }, [])
+
     return(
-      // <NavigationContainer>
-        //  {/* <AppStack/>
-        //  <AuthStack/> */}
-      // </NavigationContainer>
       <>
-      <AppNav/>
+        <AppNav/>
       </>
+      // <NavigationContainer>
+      /* <AuthStack/> */
+      // </NavigationContainer>
     )
 };
 

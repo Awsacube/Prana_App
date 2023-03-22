@@ -8,7 +8,9 @@ import DocHealthConcern from './DocHealthConcern';
 import DoctorCard from './DoctorCard';
 import { dummyData } from '../../../data/data';
 import Carousel from '../Carousel';
-
+import Calltoorder from '../Calltoorder';
+import DocSearch from '../Doctors/DocSearch'
+import Location from '.././Location';
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
@@ -19,12 +21,14 @@ const Doctors=()=> {
     {
       "name": "Book Appointment",
       "image": require('./docassets/doctor.jpg'),
-      "status": "Confirmed Appointments"
+      "status": "Confirmed Appointments",
+      "id":1
     },
     {
       "name": "Instant Video Consulting",
       "image": require('./docassets/videocall.jpg'),
-      "status": "Connect within 60 secs"
+      "status": "Connect within 60 secs",
+      "id":2
     },
     // {
     //   "name": "Manage Address",
@@ -72,19 +76,19 @@ const Doctors=()=> {
   //     "image": require('./docassets/bone_bg.png')
   //   }
   // ];
-
-
-
   return (
     <SafeAreaView>
     <View style={styles.container}>
+    <Location/>
+    <Calltoorder text={"Book an Appointment"}/>
+    <Search placeholder="Search for Specializations" editable={false} navigate="EmptyPage" component={<DocSearch/>}/>
         <FlatList
-          LisHeaderComponent={
-            <>
-                     <Search placeholder={"Search Health Problems , Specializations"}/>
-            </>}
+          // LisHeaderComponent={
+          //   <>
+          //            <Search placeholder={"Search Health Problems , Specializations"}/>
+          //   </>}
           data={categorylist}
-          keyExtractor={(item, index) => item.tc_id}
+          keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => {
@@ -152,10 +156,14 @@ const Doctors=()=> {
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: 'center',
+    // alignContent: 'center',
+    display:'flex',
     flexDirection: 'column',
-
-  }, catLayout: {
+    // alignItems: 'center', 
+    // justifyContent: 'center'
+  },
+  
+  catLayout: {
     width: 150,
     height: 250,
     borderRadius: 15,

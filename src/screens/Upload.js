@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     upload:{
-        padding: 10,
+        paddingTop: 15,
         fontSize: 14, color: '#fff',
         fontWeight: "bold"
     }

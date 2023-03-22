@@ -30,9 +30,7 @@ export default function SubCategories({route}) {
   //   )
 
 
-  const categorylist = [
-        
-  ];
+  const categorylist = [];
 
   const { id } = route.params;
   const queryItems={token:userLToken,
@@ -40,6 +38,8 @@ export default function SubCategories({route}) {
 
 
   const res=useSubcategoriesQuery(queryItems);
+
+  console.log("subresss",res)
 
   if(res.isSuccess===true){
     const data=res.data.data;

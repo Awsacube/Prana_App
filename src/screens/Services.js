@@ -13,12 +13,12 @@ var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 const { width, height } = Dimensions.get('window');
 import medicineImagepng from '../assets/pillboxservices/medicenes.png'
+import doctor from '../assets/pillboxservices/doctor.jpeg'
 import diagn from '../assets/pillboxservices/diagnostics.png'
 import covid from '../assets/pillboxservices/Covidproducts.png'
 import MedicineImagesvg from '../assets/pillboxservices/medicenes.svg'
 import hrecords from'../assets/pillboxservices/Healtrecords.png'
 import hproducts from'../assets/pillboxservices/healthproducts.png'
-import doctor from '../assets/pillboxservices/doctor.jpeg'
 import { Icon } from 'react-native-elements';
 const scrollX = new Animated.Value(0);
 import { TextInput } from 'react-native-paper';
@@ -67,15 +67,15 @@ export default function App() {
     // },
   ];
 
-  const slideImages = [
-    {
-    //  image:'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-    image:offer
-    },
-   {
-     image:'https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80',
-    },
-   ]
+  // const slideImages = [
+  //   {
+  //   //  image:'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+  //   image:offer
+  //   },
+  //  {
+  //    image:'https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80',
+  //   },
+  //  ]
  
 
   // useEffect(() => {
@@ -144,10 +144,10 @@ export default function App() {
           />
         </View>
 
-        <Text style={{
+        {/* <Text style={{
           marginLeft: 15, marginTop: 10,
           fontSize: 20 ,color:'#000'
-        }}>Current Offers</Text>
+        }}>Current Offers</Text> */}
 
 
         {/* <FlatList
@@ -179,13 +179,13 @@ export default function App() {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: 'center',
     flexDirection: 'column',
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
+    marginBottom:20
   },
   // search:{
   //     borderColor:'#000',

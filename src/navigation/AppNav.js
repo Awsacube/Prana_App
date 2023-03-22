@@ -21,9 +21,7 @@ const AppNav = () => {
   return (
     <NavigationContainer>
         {token === 0 ? <AuthStack/> :<AppStack/>}
-        {/* {token === false ? <AppStack/> :<AuthStack/>} */}
         {/* <AppStack/> */}
-        {/* <AuthStack/> */}
       </NavigationContainer>
   )
 }

@@ -28,8 +28,7 @@ const Signin = () => {
 
 const[email,setEmail]=useState();
 const[password,setPassword]=useState();
-const[token,setToken]=useState();
-const[userName,setUserName]=useState();
+// const[username,setUserName]=useState();
 
 
     const[loaded,setLoaded]=useState(false);
@@ -37,24 +36,33 @@ const[userName,setUserName]=useState();
     const {height,width}=useWindowDimensions();
     const navigation=useNavigation();
     const dispatch=useDispatch();
-    const[loginUser,{isLoading,error,data,isSuccess}]=useLoginUserMutation();
+    const[loginUser,{isLoading,error,data,isSuccess,isError}]=useLoginUserMutation();
     
 const [signedIn, setsignedIn] = useState(false);
 let res;
     const OnSignInPressed = async () => {
         console.log("onsigninpressed")
         const formData={email,password}
-        res=await loginUser(formData); 
-        console.log("res",res.data.message)  
+            res=await loginUser(formData); 
+        console.log("resss",res)   
         if(res.data.message==='User logged in successfully'){
             dispatch(login())
-        }   
+            console.log("logged in success")
+        }
+        //   console.log("resss",res)   
+        // if(res.data.message==='your connect is success'){
+        //     dispatch(login())
+        // }  
           }
+
+
 
           if(isSuccess){
         console.log("success")
         storeToken(data.token)
     }
+
+
 
     const onSignupPressed=()=>{
         navigation.navigate("Signup")
@@ -62,20 +70,17 @@ let res;
 
     const onForgotPressed=()=>{
         navigation.navigate("ForgotPass")
-    }
-
-
-    
-   
+    }   
 
     return (
         <SafeAreaView>
          {/* <Toast/> */}
-        {/* {isSuccess && <Toast/>} */}
         <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground source={background} style={styles.bgImage}>
         <View style={styles.root}>
-            <Text>{reduxtoken}</Text>
+            {isSuccess && <Text>{data.message}</Text>}
+            {error && <Text>{error.data.message}</Text>}
+            {/* {error && <Text>{console.log("err",error.data.message)}</Text>} */}
             <Image source={Logo} style={styles.logo} resizeMode='contain'/> 
             <Custominput placeholder="Email" value={email} setValue={setEmail} autoCapitalize='none'/>
             <Custominput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>

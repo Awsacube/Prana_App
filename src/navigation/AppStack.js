@@ -20,12 +20,15 @@ import AllTests from '../screens/Diagnostics/AllTests';
 import AllPackages from '../screens/Diagnostics/AllPackages';
 import TestsAndPackagesById from '../screens/Diagnostics/TestsAndPackagesById';
 import DiagSearch from '../screens/Diagnostics/DiagSearch';
+import DocSearch from '../screens/Doctors/DocSearch'
 import EmptyPage from '../screens/EmptyPage';
 import EditProfile from '../screens/Profile/EditProfile';
 import CartContainer from '../screens/CartContainer';
 import LabCart from '../screens/LabCart';
 import Splash from '../screens/Splash';
 import TestsByFilter from '../screens/Diagnostics/TestsByFilter';
+import FeaturedBrands from '../screens/FeaturedBrands';
+import FeaturedBrandItems from '../screens/FeaturedBrandItems';
 
 
 const Stack=createNativeStackNavigator();
@@ -40,7 +43,7 @@ const AppStack = () => {
       <Stack.Screen name="Location" component={Location}/>
       <Stack.Screen name="Calltoorder" component={Calltoorder}/>
       <Stack.Screen name='Profile' component={Profile}/>
-      <Stack.Screen name="EditProfile" component={EditProfile}/>
+      <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown:true }}/>
       <Stack.Screen name='ProductItem' component={ProductItem}/>
       <Stack.Screen name='SubCategories' component={SubCategories}/>
       <Stack.Screen name='Categories' component={Categories}/>
@@ -57,7 +60,10 @@ const AppStack = () => {
       <Stack.Screen name='AllPackages' component={AllPackages}/>      
       <Stack.Screen name='TestsAndPackagesById' component={TestsAndPackagesById}/>
       <Stack.Screen name='EmptyPage' component={EmptyPage} options={{ headerShown:true }}/>
-      <Stack.Screen name='DiagSearch' component={DiagSearch}/>                                                            
+      <Stack.Screen name='DiagSearch' component={DiagSearch}/>             
+      <Stack.Screen name='DocSearch' component={DocSearch}/>    
+      <Stack.Screen name='FeaturedBrands' component={FeaturedBrands}/>  
+      <Stack.Screen name='FeaturedBrandItems' component={FeaturedBrandItems}/>                                                            
       </Stack.Navigator>
   )
 }

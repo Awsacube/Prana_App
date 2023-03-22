@@ -134,7 +134,7 @@ export default function Categories() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: 'center',
+    // alignContent: 'center',
     flexDirection: 'column',
   }, catLayout: {
     width: screenwidth / 4,

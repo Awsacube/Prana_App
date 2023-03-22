@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, ScrollView, FlatList, StyleSheet, Image, Button } from 'react-native';
+import { View, Text, ScrollView, FlatList, StyleSheet, Image, Pressable } from 'react-native';
 import { Dimensions } from "react-native";
 const screenwidth = Dimensions.get('window').width; //full width;
 const screenheight = Dimensions.get('window').height; //full height;
 import { useGetBrandsQuery } from '../services/userAuthApi';
+import { useNavigation } from '@react-navigation/native';
 
 const FeaturedBrands=()=> {
-
+  const navigation=useNavigation();
   const {data,isLoading,isFetching,error,isSuccess}=useGetBrandsQuery();
 
   const categorylist = [];
@@ -71,17 +72,21 @@ const FeaturedBrands=()=> {
 
 <ScrollView horizontal>
 {categorylist.map((item,index)=>(
+                <Pressable onPress={()=>navigation.navigate('FeaturedBrandItems',{id:item.uuid})} key={item.uuid}>
                 <View style={styles.catLayout} key={item.uuid}>
                   <View style={styles.imageLayout}>
                     <View style={styles.buttonContainer}>
                       <Image source={{ uri: item.image }} style={styles.image} />
                     </View>
                   </View>
-
                   <Text style={styles.productname}>
                     {item.name != null ? item.name : ""}
                   </Text>
+                  {/* <Text style={styles.productname}>
+                    {item.uuid}
+                  </Text> */}
                 </View>
+                </Pressable>
     ) 
     )
     }

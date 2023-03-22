@@ -2,77 +2,124 @@ import { StyleSheet, Text, View ,Button,Platform,PermissionsAndroid,ToastAndroid
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React,{useState,useEffect} from 'react'
 import Geolocation from 'react-native-geolocation-service'
+import { useLocationQuery } from '../services/userAuthApi'
+import { useScrollTrigger } from '@mui/material'
+import { skipToken } from '@reduxjs/toolkit/dist/query'
+import { setlocation,setCity,setPostalCode,setSkip } from '../app/location-slice'
+// import { setSkip } from '../app/location-slice'
+import { useDispatch,useSelector } from 'react-redux';
+
 const Location = () => {
 
-  //keep track of long latitude
-  const[position,setPosition]=useState(null)
+  useEffect(() => {
+    getLocation();
+}, [])
 
-  //Function to ask/confirm Location Permission
+  // const [skip, setSkip] = useState(true)
 
-  const hasLocationPermission = async()=>{
+  const dispatch=useDispatch();
+  const latlongdata=useSelector((state)=>state.location.latlong);
+  const skipState=useSelector((state)=>state.location.skip);
+  const city=useSelector((state)=>state.location.city);
+  const postalCode=useSelector((state)=>state.location.postalCode);
 
-    //ios setup steps havent done ,  do it
+  console.log("skip",skipState)
 
-    if (Platform.OS === 'ios') {
-      const hasPermission = await hasPermissionIOS();
-      return hasPermission;
-    }
-
-    if (Platform.OS === 'android' && Platform.Version < 23) {
-      return true;
-    }
-
-    const hasPermission = await PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-
-    if (hasPermission) {
-      return true;
-    }
-
-    const status = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-
-    if (status === PermissionsAndroid.RESULTS.GRANTED) {
-      return true;
-    }
-
-    if (status === PermissionsAndroid.RESULTS.DENIED) {
-      ToastAndroid.show(
-        'Location permission denied by user.',
-        ToastAndroid.LONG,
+  const requestLocationPermission = async () => {
+    console.log("askpermision")
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Geolocation Permission',
+          message: 'Can we access your location?',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
       );
-    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-      ToastAndroid.show(
-        'Location permission revoked by user.',
-        ToastAndroid.LONG,
-      );
+      console.log('granted', granted);
+      if (granted === 'granted') {
+        console.log('You can use Geolocation');
+        return true;
+      } else {
+        console.log('You cannot use Geolocation');
+        return false;
+      }
+    } catch (err) {
+      return false;
+    }
+    };
+    requestLocationPermission();
+     // function to check permissions and get Location
+  const getLocation = () => {
+    const result = requestLocationPermission();
+    result.then(res => {
+      console.log('res is:', res);
+      if (res) {
+        Geolocation.getCurrentPosition(
+          position => {
+            console.log("position",position);
+            dispatch(setlocation(position))
+            dispatch(setSkip(true))
+            // getLocationDetails()  
+          },
+          error => {
+            // See error code charts below.
+            console.log(error.code, error.message);
+            dispatch(setlocation(false))
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      }
+    });
+    // console.log(location);
+    };
+
+    let queryItems;
+
+     if(latlongdata&&skipState===false){
+
     }
 
-    return false;
+  // if(!latlongdata){
+  //  const permission= requestLocationPermission()
+  // }
 
-  }
 
-    useEffect(() => {
-        hasLocationPermission();
-    })
-    
+  
+ 
+
+let res;
+//  locationRes=useLocationQuery();
+
+    // const getcitycode=useLocationQuery();
+    const {isLoading, error, data, isSuccess, isError } = useLocationQuery(latlongdata,
+      {
+        skipState
+      });
+
+if(isSuccess){
+  dispatch(setCity(data.items[0].address.city))
+  dispatch(setPostalCode(data.items[0].address.postalCode))
+  // console.log("city",data.items[0].address.city)
+  // console.log("postalCode",data.items[0].address.postalCode)
+  // console.log("data",data)
+}
 
     return (
     <SafeAreaView>
-    <View style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
-       <Button
-         title="Get Location"   
-          // onPress={permissionHandle}
-         />
+    {/* <View style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}> */}
+    {/* {isSuccess && 
+    <View style={styles.container}>
+    <Text style={styles.text}>City:{data.items[0].address.city}</Text>
+     <Text style={styles.text}>Pincode:{data.items[0].address.postalCode}</Text>
      </View>
-     <Text>Latitude: </Text>
-     <Text>Longitude: </Text>
-     <View style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
-       <Button
-         title="Send Location"
-        />
+    } */}
+     <View style={styles.container}>
+                {/* <Icon name="phone" color="#E73631" size={28}/> */}
+                <Text style={styles.text}>{city}</Text>
+                <Text style={styles.text}>{postalCode}</Text>       
     </View>
     </SafeAreaView>
   )
@@ -81,10 +128,20 @@ const Location = () => {
 export default Location
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+  container:{
+    marginLeft:12,
+    marginRight:10,
+    marginBottom:5,
+    backgroundColor:'white',
+    display:'flex',
+    flexDirection:'row',
+    height:50,
+    borderRadius:30
+},
+text:{
+    color:'#000',
+    paddingTop:15,
+    paddingLeft:5,
+    fontWeight:'bold'
+},
    });

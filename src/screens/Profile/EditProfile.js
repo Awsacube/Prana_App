@@ -79,7 +79,7 @@ const EditProfile = () => {
     ))
     } */}
 
-
+    <View>
     <FlatList
             data={profile}
             keyExtractor={(item, index) => item.uuid}
@@ -111,6 +111,7 @@ const EditProfile = () => {
               );
             }}
           />
+        </View>
     </SafeAreaView>
   )
 }

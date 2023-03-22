@@ -5,9 +5,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const userAuthApi = createApi({
   reducerPath: 'userAuthApi',
 
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://65.2.191.114:9000/api' ,
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api-prana.prana24.in/api/' ,
+  //65.2.191.114:9000/api/  pillbox pai 
+  // https://logintesting.p.rapidapi.com 
+  // rapid api
+   // 'https://api-uat2.zuperly.com/api/v1/'
   // prepareHeaders: (headers, { getState }) => {
-    // const token = getState().auth.token
+    // const token = getState().auth.token 
     // If we have a token set in state, let's assume that we should be passing it.
     // if (token) {
     //   headers.set('Authorization', `Bearer ${token}`)
@@ -41,9 +45,19 @@ export const userAuthApi = createApi({
           method:'POST',
           body:formData,
           headers:{
-            //can pass token here
             'Content-type':'application/json',
           }
+        // url:'/login',
+        //   body:{
+        //     "username": "tung1234",
+        //     "password": "tu1234556"
+        // },
+    //       headers: {
+    //         'content-type': 'application/json',
+    //         Authentication: 'undefined',
+    // 'X-RapidAPI-Key': '0ac037fa8amsh071d98b9bed14d7p17315fjsnaf47fd11658f',
+    // 'X-RapidAPI-Host': 'logintesting.p.rapidapi.com'
+    //       }
         }
       }
     }),
@@ -96,6 +110,17 @@ export const userAuthApi = createApi({
             }
           }
         },
+      }),
+      //location
+      location:builder.query({
+          query:(latlongdata)=>{
+            console.log("qitems",latlongdata)
+            return{ 
+              // url:`https://revgeocode.search.hereapi.com/v1/revgeocode?at=${56.1304},${106.3468}&lang=en-US&apiKey=rbLu4IeRUFqNYuSvoknP6OlSdMqTro11FWcE8vpZLsg`,
+              url:`https://revgeocode.search.hereapi.com/v1/revgeocode?at=${latlongdata.latitude},${latlongdata.longitude}&lang=en-US&apiKey=rbLu4IeRUFqNYuSvoknP6OlSdMqTro11FWcE8vpZLsg`,
+              method:'GET',
+          }
+          }
       }),
         //Medicine End Points//
       categories:builder.query({  
@@ -243,6 +268,14 @@ export const userAuthApi = createApi({
     //Brands End Points//
     getBrands:builder.query({
       query:()=>'/brands'
+    }),
+    getBrandItem:builder.query({
+      query:(queryItems)=>{
+      return{ 
+        url: `/brands/${queryItems.id}`,
+        method:'GET',
+      }
+      }
     }),
     //orders End Points
     getOrderHistory:builder.query({
@@ -408,7 +441,8 @@ export const {
               useGetConsultationHealthConcernsQuery,useGetDoctorsBySpecializationQuery,useGetDoctorQuery,
               useGetAllTestsQuery,useGetAllPackagesQuery,useSearchTestsAndPackagesQuery,
               useTestsAndPackagesByIdQuery,useEditProfileMutation,useGetOrderHistoryQuery,
-              useGetTimeSlotsQuery,useAddToLabCartMutation,useGetAllLabCartItemsQuery,useDeleteLabCartItemsMutation,useGetTestOrganCategoryQuery,useGetTestsByFilterQuery
+              useGetTimeSlotsQuery,useAddToLabCartMutation,useGetAllLabCartItemsQuery,useDeleteLabCartItemsMutation,
+              useGetTestOrganCategoryQuery,useGetTestsByFilterQuery,useGetBrandItemQuery,useLocationQuery
             } = userAuthApi
 
 

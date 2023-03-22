@@ -14,15 +14,19 @@ import Feather from 'react-native-vector-icons/Feather'
 import DiagSearch from './DiagSearch'
 import AllTests from './AllTests'
 import OrganList from './OrgansList'
+import Calltoorder from '../Calltoorder';
+import Location from '../Location'
 
 
 const Diagnostics = () => {
   const navigation=useNavigation();
 
   return (
-    <ScrollView>
+    // <ScrollView>
     <SafeAreaView style={styles.container}>
-      <View style={{backgroundColor:'#fff'}}>
+      <View style={{backgroundColor:'#fff',display:'flex',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+      <Location/>
+      <Calltoorder text={"Book a Test"}/>
       <Text style={{margin:5}}>100% Safe And Hygiene Indian Most Trusted Labs</Text>
       <Text style={styles.viewAll} onPress={()=>navigation.navigate('AllTests')}>View All Tests</Text>
       </View>
@@ -34,7 +38,7 @@ const Diagnostics = () => {
       {/* <AllTests/> */}
       <PopularPackages/> 
     </SafeAreaView>
-    </ScrollView>
+    // {/* </ScrollView> */}
   )
 }
 

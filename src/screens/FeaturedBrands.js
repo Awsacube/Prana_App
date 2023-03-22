@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     // width: screenwidth / 4,
     // height: screenheight / 5,
     width:100,
-    height:300,
+    height:130,
     alignItems: 'center',
   },
   image: {

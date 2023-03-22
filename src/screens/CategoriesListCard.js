@@ -10,7 +10,7 @@ const CategoriesListCard = (props) => {
     <TouchableRipple onPress={props.onPress}>
       <View style={styles.container}>
           {/* <Image source={{ uri: props.icon }} style={styles.image} /> */}
-          <Image source={props.icon} style={styles.image} />
+        <Image source={props.icon} style={styles.image} />
         <Text style={styles.productname}>
           {props.productname != null ? props.productname : ""}
         </Text>
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
     textAlign: 'center',
-    marginTop:5
+    marginTop:5,
+    marginBottom:15
   },
 
 });

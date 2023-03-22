@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   container:{
     marginLeft:12,
     marginRight:10,
-    marginBottom:5,
+    // marginBottom:5,
     backgroundColor:'white',
     display:'flex',
     flexDirection:'row',
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
 },
 text:{
     color:'#000',
-    paddingTop:15,
+    // paddingTop:15,
     paddingLeft:5,
     fontWeight:'bold'
 },

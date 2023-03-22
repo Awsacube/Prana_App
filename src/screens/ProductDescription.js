@@ -112,6 +112,7 @@ export default function ProductDescription({route}) {
   if(res.isSuccess===true){
 
     const data=res.data;
+    console.log("data",data)
          name=res.data.name;
          image=res.data.image;
          price=res.data.price;

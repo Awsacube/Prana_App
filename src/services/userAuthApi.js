@@ -180,6 +180,17 @@ export const userAuthApi = createApi({
         }
       }
     }),
+    wishList:builder.query({
+      query:(queryItems)=>{
+        return{
+          url:`/wishlist`,
+          method:'GET',
+          headers:{
+            'Authorization':`Bearer ${queryItems.token}`,
+          }
+        }
+      }
+    }),
     //Cart End Points//
     addToCart:builder.mutation({
       query:(cartData)=>{
@@ -442,7 +453,7 @@ export const {
               useGetAllTestsQuery,useGetAllPackagesQuery,useSearchTestsAndPackagesQuery,
               useTestsAndPackagesByIdQuery,useEditProfileMutation,useGetOrderHistoryQuery,
               useGetTimeSlotsQuery,useAddToLabCartMutation,useGetAllLabCartItemsQuery,useDeleteLabCartItemsMutation,
-              useGetTestOrganCategoryQuery,useGetTestsByFilterQuery,useGetBrandItemQuery,useLocationQuery
+              useGetTestOrganCategoryQuery,useGetTestsByFilterQuery,useGetBrandItemQuery,useLocationQuery,useWishListQuery
             } = userAuthApi
 
 

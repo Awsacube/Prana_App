@@ -50,6 +50,7 @@ import AppStack from './src/navigation/AppStack';
 import { getToken } from './src/services/AsyncStorageService'
 import { useDispatch,useSelector } from 'react-redux'
 import AppNav from './src/navigation/AppNav';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 const App = () => {
@@ -63,12 +64,12 @@ const App = () => {
     }, [])
 
     return(
-      <>
-        <AppNav/>
-      </>
-      // <NavigationContainer>
-      /* <AuthStack/> */
-      // </NavigationContainer>
+      // <SafeAreaProvider>
+      //   <AppNav/>
+      // </SafeAreaProvider>
+      <NavigationContainer>
+      <AppStack/>
+      </NavigationContainer>
     )
 };
 

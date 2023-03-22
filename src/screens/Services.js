@@ -51,7 +51,7 @@ export default function App() {
       "navigateTo":"Lab Tests"
     }, 
     {
-      "name": "Health product",
+      "name": "Health Products",
       "image": hproducts,
       "navigateTo":"Categories"
     },
@@ -173,8 +173,6 @@ export default function App() {
             { nativeEvent: { contentOffset: { x: scrollX } } },
           ])}
         /> */}
-
-
       </View>
   );
 };

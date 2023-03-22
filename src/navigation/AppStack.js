@@ -29,6 +29,7 @@ import Splash from '../screens/Splash';
 import TestsByFilter from '../screens/Diagnostics/TestsByFilter';
 import FeaturedBrands from '../screens/FeaturedBrands';
 import FeaturedBrandItems from '../screens/FeaturedBrandItems';
+import WishList from '../screens/wishlist';
 
 
 const Stack=createNativeStackNavigator();
@@ -63,7 +64,8 @@ const AppStack = () => {
       <Stack.Screen name='DiagSearch' component={DiagSearch}/>             
       <Stack.Screen name='DocSearch' component={DocSearch}/>    
       <Stack.Screen name='FeaturedBrands' component={FeaturedBrands}/>  
-      <Stack.Screen name='FeaturedBrandItems' component={FeaturedBrandItems}/>                                                            
+      <Stack.Screen name='FeaturedBrandItems' component={FeaturedBrandItems}/> 
+      <Stack.Screen name='WishList' component={WishList}/>                                             
       </Stack.Navigator>
   )
 }

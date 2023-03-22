@@ -20,7 +20,7 @@ const Calltoorder = (props) => {
     <View style={styles.Calltoorder}>
                 {/* <Icon name="phone" color="#E73631" size={28}/> */}
         <Text style={styles.text}>Call To {props.text}</Text>
-        <TouchableOpacity style={styles.button} onPress={call}  >
+        <TouchableOpacity style={styles.button} onPress={call}>
         <Text style={styles.buttonTitle}>Call</Text>
       </TouchableOpacity>
         {/* <Button title='Call' onPress={call} style={{bborderRadius: 50,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     Calltoorder:{
         marginLeft:12,
         marginRight:10,
-        marginBottom:5,
+        // marginBottom:5,
         backgroundColor:'white',
         display:'flex',
         flexDirection:'row',

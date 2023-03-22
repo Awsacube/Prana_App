@@ -163,7 +163,7 @@ export default function Profile() {
 
 </View>
 
-<Text style={styles.textDesign}>Wish List</Text>
+<Text style={styles.textDesign} onPress={()=>navigation.navigate("WishList")}>Wish List</Text>
 
 </View>
 

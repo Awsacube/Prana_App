@@ -8,6 +8,7 @@ import { getToken } from '../services/AsyncStorageService';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Search from '../components/Search';
+import { width } from '@mui/system';
 
 export default function Categories() {
 
@@ -71,7 +72,8 @@ export default function Categories() {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>
+    <SafeAreaView style={{backgroundColor:'#fff'}}>
+      <ScrollView>
       <View style={styles.container}>
       <Text style={styles.categoryText}>All Categories</Text>
       {/* <Search placeholder='Search Categories' value={search} onChangeText={searchitem=>{setSearch(searchitem)}}/> */}
@@ -81,82 +83,66 @@ export default function Categories() {
         />
         {/* <Feather name="search" size={40} color="#C6C6C6"/> */}
       </View>
+      <View  style={styles.catLayout}>
       {(searchQuery.length<1 ? categorylist : searchResults).map((item,index)=>(
-          
+            <View>
             <Pressable onPress={()=>navigation.navigate('SubCategories',{id:item.uuid})} key={item.uuid}>
-            <View style={styles.catLayout}>
+
+
+            <View style={styles.card}>
               <View style={styles.imageLayout}>
                 <Image source={{ uri: item.image }} style={styles.image}/>
               </View>
+              <View style={styles.text}>
               <Text style={styles.productname}>
                 {item.name != null ? item.name : ""}
               </Text>
+              </View>
             </View>
+
+
             </Pressable>
+            </View>
       ) 
       )
       }
-
-
-        {/* <View style={{
-          marginTop: 8,
-        }}>  */}
-          {/* <FlatList
-            data={categorylist}
-            keyExtractor={(item, index) => item.uuid}
-            vertical
-            numColumns={4}
-            // ListHeaderComponent={renderHeader}
-            renderItem={({ item, index }) => {
-              return (
-                <Pressable onPress={()=>navigation.navigate('SubCategories',{id:item.uuid})}>
-                <View style={styles.catLayout}>
-                  <View style={styles.imageLayout}>
-                    <Image source={{ uri: item.image }} style={styles.image}
-                     />
-                  </View>
-
-                  <Text style={styles.productname}>
-                    {item.name != null ? item.name : ""}
-                  </Text>
-                </View>
-                </Pressable>
-                );
-            }}
-          /> */}
-        {/* </View> */}
       </View>
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignContent: 'center',
-    flexDirection: 'column',
-  }, catLayout: {
-    width: screenwidth / 4,
-    height: screenheight / 5,
-    alignItems: 'center',
+   catLayout: {
+    flexDirection:'row',
+    flexWrap:'wrap',
+  },
+  card:{
+    flex:1,
+    justifyContent:'center',
+    alignContent:'center',
+    width:100,
+    margin:14
   },
   image: {
     flex: 1,
      margin: 6
   },
   imageLayout: {
-    elevation: 1.1,
+    elevation: 0.50,
     width: 80,
     height: 80,
     borderRadius: 10
   },
-  productname: {
-    fontSize: 14,
-    color: '#000',
-    textAlign: 'center',
-    margin: 2,
-  },
+  
+  // productname: {
+  //   fontSize: 14,
+  //   color: '#000',
+  //   textAlign: 'center',
+  //   margin: 2,
+  // },
   categoryText: {
     marginLeft: 15,
     marginTop: 10,

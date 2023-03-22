@@ -22,7 +22,7 @@ const Diagnostics = () => {
   const navigation=useNavigation();
 
   return (
-    // <ScrollView>
+    <ScrollView>
     <SafeAreaView style={styles.container}>
       <View style={{backgroundColor:'#fff',display:'flex',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
       <Location/>
@@ -33,12 +33,12 @@ const Diagnostics = () => {
       <Search placeholder={"Search For Tests , Health Packages"} editable={false} navigate="EmptyPage" component={<DiagSearch/>}/>
       <HealthConcerns/>
       <OrganList/>
-      <RecentSearches/>
+      {/* <RecentSearches/> */}
       {/* <Test/> */}
       {/* <AllTests/> */}
-      <PopularPackages/> 
+      {/* <PopularPackages/>  */}
     </SafeAreaView>
-    // {/* </ScrollView> */}
+    </ScrollView>
   )
 }
 

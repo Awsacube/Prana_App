@@ -31,6 +31,8 @@ import Location from '../Location';
 import { red } from '@mui/material/colors';
 import ProductSearch from './ProductSearch';
 import Geolocation from 'react-native-geolocation-service';
+import { display, padding } from '@mui/system';
+
 
 const HomeScreen = ({navigation}) => {
 
@@ -73,20 +75,36 @@ const HomeScreen = ({navigation}) => {
 
     return (
       <SafeAreaView style={{flex:1,backgroundColor:'#fff',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>  
-      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
-      {/* <View
+      {/* <StatusBar/> */}
+        {/* <Header style={styles.Header}
+        leftComponent={<Image source={Logo} style={styles.Logo}/>}
+        rightComponent={
+            <View>
+              <TouchableOpacity onPress={gotocart}>
+                <Icon name="shopping-cart" color="#E73631" size={40}/>
+                </TouchableOpacity>
+            </View>
+        }
+      /> */}
+
+      <View style={styles.Header}>
+            <View>
+            <Image source={Logo} style={styles.Logo}/>  
+            </View>
+            <View>
+                <TouchableOpacity onPress={gotocart}>
+                <Icon name="shopping-cart" color="#E73631" size={45}/>
+                </TouchableOpacity>
+            </View>
+      </View>
+                {/* <View
         style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
         <Button title="Get Location" onPress={getLocation}/>
       </View>
       <Text>Latitude: {location ? location.coords.latitude : null}</Text>
       <Text>Longitude: {location ? location.coords.longitude : null}</Text> */}
-        <Header style={styles.Header} backgroundColor='#fff'
-        leftComponent={<Image source={Logo} style={styles.Logo}/>}
-        rightComponent={
-            <View>
-              {/* <Button title={"cart"} onPress={gotocart}></Button> */}
-              <TouchableOpacity onPress={gotocart}>
-                <Icon name="shopping-cart" color="#E73631" size={40}/>
+      
+                              {/* <Button title={"cart"} onPress={gotocart}></Button> */}
                 {/* {cartCount > 0 ? (
                 <View
                     style={{     
@@ -111,22 +129,21 @@ const HomeScreen = ({navigation}) => {
                     </Text>
                   </View>
                                   ) : null} */}
-              </TouchableOpacity>
-            </View>
-        }
-      />
-                  <Location/>
+       
+           
+            <ScrollView showsVerticalScrollIndicator={false}>
+            {/* <View style={{display:'flex',flexDirection:'row'}}>   */}
             <Calltoorder text={"Order Medicine"}/>
-            <ScrollView showsVerticalScrollIndicator={false}>  
-            <Search placeholder={placeholder} editable={false} navigate="EmptyPage" component={<ProductSearch/>}/>
             <Location/>
+            {/* </View> */}
+            <Search placeholder={placeholder} editable={false} navigate="EmptyPage" component={<ProductSearch/>}/>
             <Services/>
             {/* <Upload/> */}
             {/* <Carousel data={dummyData}/> */}
             <Specialization/>
             {/* <ImmuneBoosters/> */}
             <FeaturedBrands/>
-              <Categories/>
+            <Categories/>
          </ScrollView>
         </SafeAreaView>
 
@@ -136,9 +153,14 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
 Header:{
-  backgroundColor:'#1A73E8'
+  marginTop:7,
+  display:'flex',
+  flexDirection:'row',
+  // backgroundColor:'#000',
+  width:'100%',
+  justifyContent:'space-between',
+  padding:10
 },
-
 Logo:{
     width:150,
     height:50

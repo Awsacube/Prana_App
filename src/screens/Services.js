@@ -111,14 +111,10 @@ export default function App() {
   onChangeText={(text) => console.log(text)}
   style={styles.search}
 /> */}
-
-
         <Text style={{
-          marginLeft: 15, marginTop: 10,
+          marginLeft: 15, marginTop: 15,marginBottom:15,
           fontSize: 20 ,fontWeight:'bold', color:'#000'
         }}>Health Care</Text>
-
-
         <View style={{
           marginTop: 4,
         }}>

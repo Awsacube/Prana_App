@@ -18,16 +18,7 @@ export default function SubCategories({route}) {
 
 
   const[userLToken,setUserLToken]=useState()
-  
 
-  // useEffect(()=>{
-  //   const getT=async()=>{
-  //       const token=await getToken() //getting token from storage
-  //       setUserLToken(token) //store token in local storage
-  //    }
-  //     getT()
-  //   },[]
-  //   )
 
 
   const categorylist = [];
@@ -51,94 +42,11 @@ export default function SubCategories({route}) {
       });
   }
 
-  // useEffect(() => {
-  //  infiniteScroll(categorylist);
-  // });
-
-  // function infiniteScroll(dataList) {
-  //   const numberOfData = dataList.length;
-  //   let scrollValue = 0,
-  //     scrolled = 0;
-
-  //   setInterval(function () {
-  //     scrolled++;
-  //     if (scrolled < numberOfData) scrollValue = scrollValue + screenwidth;
-  //     else {
-  //       scrollValue = 0;
-  //       scrolled = 0;
-  //     }
-  //    this.flatList.scrollToOffset({ animated: true, offset: scrollValue });
-  //   }, 3000);
-  // }
- 
   
   return (
     <SafeAreaView>
     <ScrollView >
-      <View style={styles.container}>
-
-        <FlatList
-          data={categorylist}
-          // ref={(flatList) => {
-          //   this.flatList = flatList;
-          // }}
-
-          keyExtractor={(item, index) => item.name}
-          horizontal
-          pagingEnabled
-          scrollEnabled
-          snapToAlignment="center"
-          scrollEventThrottle={16}
-          decelerationRate={"fast"}
-          showsHorizontalScrollIndicator={false}
-
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.cardView}>
-                <ImageBackground style={{
-                  width: screenwidth,
-                  height: screenheight / 4,
-                }}
-
-                    source={{ uri: item.image }}
-
-                >
-
-                  <View style={styles.dotView}>
-                    {categorylist.map((_, i) => {
-                      let opacity = position.interpolate({
-                        inputRange: [i - 1, i, i + 1],
-                        outputRange: [0.3, 1, 0.3],
-                        extrapolate: "clamp",
-                      });
-                      return (
-                        <Animated.View
-                          key={i}
-                          style={{
-                            opacity,
-                            height: 8,
-                            width: 8,
-                            backgroundColor: "#C0392B",
-                            margin: 8,
-                            borderRadius: 5,
-                          }}
-                        />
-                      );
-                    })}
-                  </View>
-                </ImageBackground>
-              </View>
-            );
-
-          }}
-
-          // onScroll={Animated.event([
-          //   { nativeEvent: { contentOffset: { x: scrollX } } },
-          // ])}
-        />
-
-
-
+             <View>
     
         <Text style={styles.categoryText}>Shop By Category</Text>
 
@@ -166,7 +74,7 @@ export default function SubCategories({route}) {
               );
             }}
           />
-        </View>
+      </View>
       </View>
     </ScrollView>
     </SafeAreaView>

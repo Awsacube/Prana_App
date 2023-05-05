@@ -60,9 +60,10 @@ const styles = StyleSheet.create({
     },
     buttonTitle:{
       paddingLeft:10,
-      paddingTop:2,
+      paddingTop:5,
       color:"#ffffff",
-      fontWeight:'bold'
+      fontWeight:'bold',
+      
     }
 
 })

@@ -15,6 +15,7 @@ const Location = () => {
     getLocation();
 }, [])
 
+console.log("plater", Platform.OS)
   // const [skip, setSkip] = useState(true)
 
   const dispatch=useDispatch();
@@ -27,6 +28,14 @@ const Location = () => {
 
   const requestLocationPermission = async () => {
     console.log("askpermision")
+    if(Platform.OS === 'ios'){
+      console.log("yesios")
+      // Geolocation.requestAuthorization();
+      // this.getGeoLocation();
+    }
+    else {
+
+    
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -49,6 +58,7 @@ const Location = () => {
     } catch (err) {
       return false;
     }
+  }
     };
     requestLocationPermission();
      // function to check permissions and get Location

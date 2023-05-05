@@ -14,7 +14,8 @@ import {ConstantId} from './token';
 import { cartActions } from '../app/cart-slice'
 import { useFocusEffect } from '@react-navigation/native';
 import Spinner from'../components/Spinner'
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { red } from '@mui/material/colors'
 
 
 const LabCart = () => {
@@ -130,11 +131,12 @@ const LabCart = () => {
             <View>
             <Text>{item.item.name}</Text>
             <Text>MRP:{item.item.price}</Text>
-            {/* <Text>Quantity:{item.item.quantity}</Text> */}
-            <Text>cartItemUuid:{item.item.cartItemUuid}</Text>
-            <Button style={styles.removeFromCart} title="Remove" onPress={()=>{removeFromCartHandler(item.item.cartItemUuid)}}></Button>
+            <Text>Quantity:{item.item.quantity}</Text>
+            {/* <Text>cartItemUuid:{item.item.cartItemUuid}</Text> */}
+            {/* <Button style={styles.removeFromCart} title="Remove" onPress={}></Button> */}
             {/* ()=>{dispatch(cartActions.removeFromCart(item.item.uuid))} */}
             </View>
+            <Icon name='trash-can-outline' size={30} color="#E73631" onPress={()=>{removeFromCartHandler(item.item.cartItemUuid)}}/>
             </View>
           );
 
@@ -153,17 +155,22 @@ export default LabCart;
 const styles = StyleSheet.create({
   container:{
     flexDirection:'row',
-    marginTop:20,
+    marginTop:0,
+    justifyContent:'space-evenly',
+    backgroundColor:'#000'
   },
   img:{
       width:100,
       height:100,
-      marginRight:20
   },
-  remove:{
-      width:100,
-      height:80,
+  // remove:{
+  //     width:100,
+  //     height:80,
       
+  //   }
+    
+    Text:{
+      padding:50
     }
 
 })

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View,FlatList ,Pressable,Image} from 'react-native'
 import React from 'react'
-import { useGetBrandItemQuery } from '../services/userAuthApi';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import medicineImagepng from '../assets/pillboxservices/medicenes.png'
@@ -9,13 +8,15 @@ import { Card, Button, Icon } from '@rneui/themed';
 const screenwidth = Dimensions.get('window').width; //full width
 const screenheight = Dimensions.get('window').height; //full height
 import { Dimensions } from "react-native";
+import { useGetBrandItemQuery } from '../services/userAuthApi';
 
 
 const FeaturedBrandItems = ({route}) => {
     const { id } = route.params;
     const queryItems={
         id:id}
-    
+        const {data,isLoading,isFetching,error,isSuccess,isError}=useGetBrandItemQuery(queryItems);
+        isError && console.log("err",error)
         const navigation=useNavigation();
         const brandItemsList = [
           {
@@ -43,6 +44,8 @@ const FeaturedBrandItems = ({route}) => {
             "id":4
           },
         ];
+
+        isSuccess && brandItemsList.push(data.items)
 
         // const categorylist = [];
       // const res=useGetBrandItemQuery(queryItems);
@@ -101,7 +104,7 @@ export default FeaturedBrandItems
 
 const styles = StyleSheet.create({
   container:{
-    display:'flex',
+    // display:'flex',
     // flexWrap:'wrap',
     width:screenwidth/2,
     flexDirection:'row',

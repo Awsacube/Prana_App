@@ -23,7 +23,7 @@ const Specialization = () => {
     
   return (
     <View>
-      <Text>Find Doctors By Specialization</Text>
+      <Text style={{marginLeft:15, color:'#000',fontSize: 20}}>Find Doctors By Specialization</Text>
       <View style={{
           marginTop: 20,
         }}>

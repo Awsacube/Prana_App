@@ -10,7 +10,7 @@ import { useLoginUserMutation } from '../services/userAuthApi'
 import background from './signback.jpeg';
 import { storeRefreshToken, storeToken } from '../services/AsyncStorageService'
 import { useDispatch,useSelector } from 'react-redux';
-
+import {Appearance} from 'react-native';
 import Signup from './Signup'
 import ForgotPass from './ForgotPassword'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -21,14 +21,10 @@ import {login} from '../app/auth-slice'
 
 const Signin = () => {
   const reduxtoken=useSelector((state)=>state.auth.userToken)
-//   console.warn("tokenmmmm",cart)
 
-    
-    
 
 const[email,setEmail]=useState();
 const[password,setPassword]=useState();
-// const[username,setUserName]=useState();
 
 
     const[loaded,setLoaded]=useState(false);
@@ -49,10 +45,6 @@ let res;
             dispatch(login())
             console.log("logged in success")
         }
-        //   console.log("resss",res)   
-        // if(res.data.message==='your connect is success'){
-        //     dispatch(login())
-        // }  
           }
 
 
@@ -61,7 +53,6 @@ let res;
         console.log("success")
         storeToken(data.token)
     }
-
 
 
     const onSignupPressed=()=>{
@@ -74,17 +65,14 @@ let res;
 
     return (
         <SafeAreaView>
-         {/* <Toast/> */}
         <ScrollView showsVerticalScrollIndicator={false}>
         <ImageBackground source={background} style={styles.bgImage}>
         <View style={styles.root}>
             {isSuccess && <Text>{data.message}</Text>}
-            {error && <Text>{error.data.message}</Text>}
-            {/* {error && <Text>{console.log("err",error.data.message)}</Text>} */}
+            {error && <Text>{error.error}</Text>}
             <Image source={Logo} style={styles.logo} resizeMode='contain'/> 
             <Custominput placeholder="Email" value={email} setValue={setEmail} autoCapitalize='none'/>
             <Custominput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
-            {/* <Custombutton text='Sign In' onPress={OnSignInPressed}/> */}
             <Button
   onPress={()=>OnSignInPressed()}
   title="Sign in"

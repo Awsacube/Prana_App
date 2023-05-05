@@ -58,7 +58,7 @@ const DocHealthConcern = () => {
     
   return (
     <View>
-      <Text>Find Doctors By Health Concern</Text>
+      <Text style={{marginLeft:15, color:'#000',fontSize: 20}}>Find Doctors By Health Concern</Text>
       <View style={{
           marginTop: 20,
         }}>

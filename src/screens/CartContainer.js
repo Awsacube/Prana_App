@@ -20,8 +20,8 @@ const CartContainer = () => {
         //add this
         screenOptions={{
           tabBarLabelStyle: { fontSize: 12 },
-          tabBarItemStyle: { width: 100 },
-          tabBarStyle: { backgroundColor: 'powderblue' },
+          tabBarItemStyle: { width: 200 },
+          tabBarStyle: { backgroundColor: 'powderblue' }
         }}
         >
           <Tab.Screen name="Medicine" component={MedicineCart} />

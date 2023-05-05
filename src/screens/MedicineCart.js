@@ -11,7 +11,7 @@ import { useDeleteCartItemsMutation, useGetAllCartItemsQuery } from '../services
 import { getToken } from '../services/AsyncStorageService'
 // import { black } from 'react-native-paper/lib/typescript/styles/colors'
 import {ConstantId} from './token';
-import { cartActions } from '../app/cart-slice'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFocusEffect } from '@react-navigation/native';
 import Spinner from'../components/Spinner'
 
@@ -112,6 +112,7 @@ const MedicineCart = () => {
 
   return (
     <SafeAreaView>
+    
       {/* <View>
         {cart.map((item)=>{
             return <CartItem key={item.uuid} {...item}/>
@@ -137,19 +138,21 @@ const MedicineCart = () => {
             <Text>{item.item.name}</Text>
             <Text>MRP:{item.item.price}</Text>
             <Text>Quantity:{item.item.quantity}</Text>
-            <Text>cartItemUuid:{item.item.cartItemUuid}</Text>
-            <Button style={styles.removeFromCart} title="Remove" onPress={()=>{removeFromCartHandler(item.item.cartItemUuid)}}></Button>
+            {/* <Text>cartItemUuid:{item.item.cartItemUuid}</Text> */}
+            {/* <Button style={styles.removeFromCart} title="Remove" onPress={()=>{removeFromCartHandler(item.item.cartItemUuid)}}></Button> */}
             {/* ()=>{dispatch(cartActions.removeFromCart(item.item.uuid))} */}
             </View>
+            <Icon name='trash-can-outline' size={30} color="#E73631" onPress={()=>{removeFromCartHandler(item.item.cartItemUuid)}}/>
             </View>
           );
 
         }
         }
       />  
-    }      
+    }           
                 <Text>Total amount:{total}</Text>
-                <Button title="Place Order" ></Button>
+                <Button title="Place Order"></Button>
+                
 
     </SafeAreaView>
   )
@@ -160,7 +163,9 @@ export default MedicineCart;
 const styles = StyleSheet.create({
   container:{
     flexDirection:'row',
-    marginTop:20,
+    // marginTop:20,
+    justifyContent:'space-evenly',
+    backgroundColor:'#000'
   },
   img:{
       width:100,

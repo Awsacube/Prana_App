@@ -5,7 +5,7 @@ const Custominput = ({value,setValue,placeholder,secureTextEntry}) => {
     return (
         <View style={styles.container}>
             <TextInput value={value} onChangeText={setValue} autoCorrect={false}
- autoCapitalize='none' placeholder={placeholder} style={styles.input} secureTextEntry={secureTextEntry}/>
+ autoCapitalize='none' placeholder={placeholder} style={styles.input} secureTextEntry={secureTextEntry} placeholderTextColor='black'/>
         </View>
     )
 }
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         paddingTop:15,
+        color:'black'
     }
 })
 

@@ -75,14 +75,14 @@ export default function Categories() {
     <SafeAreaView style={{backgroundColor:'#fff'}}>
       <ScrollView>
       <View style={styles.container}>
-      <Text style={styles.categoryText}>All Categories</Text>
+      <Text style={styles.categoryText}>Shop By Category</Text>
       {/* <Search placeholder='Search Categories' value={search} onChangeText={searchitem=>{setSearch(searchitem)}}/> */}
-      <View style={{flexDirection:'row',borderColor:"#C6C6C6",borderWidth:1,borderRadius:8}}>
-       <TextInput ref={inputEl}
+      {/* <View style={{flexDirection:'row',borderColor:"#C6C6C6",borderWidth:1,borderRadius:8}}> */}
+       {/* <TextInput ref={inputEl}
           placeholder={"Search Categories"} onChangeText={text => handleChange(text)}
-        />
+        /> */}
         {/* <Feather name="search" size={40} color="#C6C6C6"/> */}
-      </View>
+      {/* </View> */}
       <View  style={styles.catLayout}>
       {(searchQuery.length<1 ? categorylist : searchResults).map((item,index)=>(
             <View>
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
    catLayout: {
     flexDirection:'row',
     flexWrap:'wrap',
+    // marginTop:0
   },
   card:{
     flex:1,
@@ -137,12 +138,12 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   
-  // productname: {
-  //   fontSize: 14,
-  //   color: '#000',
-  //   textAlign: 'center',
-  //   margin: 2,
-  // },
+  productname: {
+    // fontSize: 14,
+    color: '#000',
+    // textAlign: 'center',
+    margin: 2,
+  },
   categoryText: {
     marginLeft: 15,
     marginTop: 10,

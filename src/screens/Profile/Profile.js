@@ -11,6 +11,8 @@ import { useUserLogOutMutation } from '../../services/userAuthApi';
 import { useIsFocused } from '@react-navigation/native';
 import {login } from '../../app/auth-slice'
 import { useDispatch,useSelector } from 'react-redux';
+import { Appearance } from 'react-native';
+
 
 
 export default function Profile() {
@@ -20,6 +22,8 @@ export default function Profile() {
 
    const isFocused = useIsFocused();
    const dispatch=useDispatch();
+
+   const colorScheme = Appearance.getColorScheme();
 
    useEffect(()=>{
     const getT=async()=>{
@@ -65,16 +69,12 @@ export default function Profile() {
 
 {profile.map((item,index)=>(
           <View style={styles.productname}>
-            <Text>
+            <Text style={{color:'black'}}>
               {item.first_name}
             </Text>
-            <Text>
-              {reduxtoken}
-            </Text>
-            <Text>
+            <Text style={{color:'black'}}>
               {item.email}
             </Text>
-            
           </View>
     ) 
     )
@@ -120,30 +120,48 @@ export default function Profile() {
 
       </View> */}
       <View style={styles.listLayout}>
+      <View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: 0.4,
+      }}/>
       <Pressable onPress={()=>navigation.navigate("EditProfile")}>
-      <View style={{ flexDirection: 'row', margin: 5 }}>
+      <View style={styles.listItem}>
       <View style={styles.iconDesign}>
-      <Icon name="cart-outline" size={25} color="#000" />
+      <Icon name="account" size={25} color="#E73631" />
       </View>
       <Text style={styles.textDesign}>Edit Profile</Text>
       </View>
+      <View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: 0.4,
+      }}
+      />
       </Pressable>
+      
 
       <Pressable onPress={()=>navigation.navigate("OrderHistory")}>
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        <View style={styles.listItem}>
 
           <View style={styles.iconDesign}>
 
-            <Icon name="cart-outline" size={25} color="#000" />
+            <Icon name="shopping" size={25} color="#E73631" />
 
           </View>
 
           <Text style={styles.textDesign}>Order History</Text>
 
         </View>
+        <View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: 0.4,
+      }}
+      />
       </Pressable>
 
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        {/* <View style={styles.listItem}> */}
 
 {/* <View style={styles.iconDesign}>
 
@@ -153,31 +171,47 @@ export default function Profile() {
 
 <Text style={styles.textDesign}>Prescriptions</Text> */}
 
-</View>
+{/* </View> */}
 
-<View style={{ flexDirection: 'row', margin: 5 }}>
 
-<View style={styles.iconDesign}>
-
-  <Icon name="cart-outline" size={25} color="#000" />
-
-</View>
-
-<Text style={styles.textDesign} onPress={()=>navigation.navigate("WishList")}>Wish List</Text>
-
-</View>
-
-<View style={{ flexDirection: 'row', margin: 5 }}>
+<Pressable onPress={()=>navigation.navigate("WishList")}>
+<View style={styles.listItem}>
 
 <View style={styles.iconDesign}>
 
-  <Icon name="cart-outline" size={25} color="#000" />
+  <Icon name="heart-circle" size={25} color="#E73631" />
+
+</View>
+
+<Text style={styles.textDesign}>Wish List</Text>
+
+
+</View>
+<View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: 0.4,
+      }}
+      />
+</Pressable>
+<View style={styles.listItem}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="headphones" size={25} color="#E73631" />
 
 </View>
 
 <Text style={styles.textDesign}>Need Help</Text>
 
 </View>
+
+<View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
 
 {/* <View style={{ flexDirection: 'row', margin: 5 }}>
 
@@ -216,23 +250,29 @@ export default function Profile() {
 
 </View> */}
 
-<View style={{ flexDirection: 'row', margin: 5 }}>
+<View style={styles.listItem}>
 
 <View style={styles.iconDesign}>
 
-  <Icon name="cart-outline" size={25} color="#000" />
+  <Icon name="sticker-text" size={25} color="#E73631" />
 
 </View>
 
 <Text style={styles.textDesign}>Terms & Conditions</Text>
 
 </View>
+<View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
 
-<View style={{ flexDirection: 'row', margin: 5 }}>
+<View style={styles.listItem}>
 
 <View style={styles.iconDesign}>
 
-  <Icon name="cart-outline" size={25} color="#000" />
+  <Icon name="security" size={25} color="#E73631" />
 
 </View>
 
@@ -240,11 +280,18 @@ export default function Profile() {
 
 </View>
 
-<View style={{ flexDirection: 'row', margin: 5 }}>
+<View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
+
+<View style={styles.listItem}>
 
 <View style={styles.iconDesign}>
 
-  <Icon name="cart-outline" size={25} color="#000" />
+  <Icon name="chat-question" size={25} color="#E73631" />
 
 </View>
 
@@ -252,12 +299,18 @@ export default function Profile() {
 
 </View>
 
+<View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
 
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        <View style={styles.listItem}>
 
 <View style={styles.iconDesign}>
 
-  <Icon name="cart-outline" size={25} color="#000" />
+  <Icon name="keyboard-return" size={25} color="#E73631" />
 
 </View>
 
@@ -289,26 +342,36 @@ export default function Profile() {
 
         </View> */}
 
-      
+<View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
 
         
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        <View style={styles.listItem}>
 
           <View style={styles.iconDesign}>
 
-            <Icon name="cash-refund" size={25} color="#000" />
+            <Icon name="cash-refund" size={25} color="#E73631" />
 
           </View>
 
           <Text style={styles.textDesign}>Refund Payment</Text>
 
         </View>
-
-        <View style={{ flexDirection: 'row', margin: 5 }}>
+        <View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
+        <View style={styles.listItem}>
 
           <View style={styles.iconDesign}>
 
-            <Icon name="logout" size={25} color="#000" />
+            <Icon name="logout" size={25} color="#E73631" />
 
           </View>
 
@@ -328,7 +391,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     flexDirection: 'column',
-    backgroundColor: '#D6DBDF'
+    backgroundColor: '#fff'
   },
   imageLayout: {
     width: 35,
@@ -362,7 +425,7 @@ const styles = StyleSheet.create({
   },
   listLayout: {
     backgroundColor: '#fff',
-    elevation: 8,
+    // elevation: 8,
     marginLeft: 10,
     marginRight: 10,
     padding: 12,
@@ -380,6 +443,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 15,
     textAlignVertical: 'center',
+    color:'#000'
   },
   productname: {
     fontSize: 50,
@@ -390,5 +454,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-around'
   },
-
+  listItem:{
+     flexDirection: 'row', 
+     margin: 10
+     }
 });

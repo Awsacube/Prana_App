@@ -11,7 +11,7 @@ const Search = (props) => {
     <View style={{flexDirection:'row',borderColor:"#C6C6C6",backgroundColor:'#ffffff',borderWidth:1,borderRadius:8,marginHorizontal:13}}>
     <Feather name="search" size={30} color="#E73631" style={{padding:8}}/>
        <TextInput
-          placeholder={props.placeholder} editable={props.editable} numberOfLines={1}
+          placeholder={props.placeholder} editable={props.editable} numberOfLines={1} placeholderTextColor='#000'
         />
     </View>
     </Pressable>

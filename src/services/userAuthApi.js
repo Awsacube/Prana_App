@@ -125,7 +125,7 @@ export const userAuthApi = createApi({
         //Medicine End Points//
       categories:builder.query({  
       query:(token)=>{
-       return{ url:'/filters',
+       return{ url:'/filters?type=MEDICINE_CATEGORY',
         method:'GET',
         // headers:{
         //   'Authorization':`Bearer ${token}`,
@@ -282,6 +282,7 @@ export const userAuthApi = createApi({
     }),
     getBrandItem:builder.query({
       query:(queryItems)=>{
+        console.log("query",queryItems)
       return{ 
         url: `/brands/${queryItems.id}`,
         method:'GET',
@@ -453,7 +454,7 @@ export const {
               useGetAllTestsQuery,useGetAllPackagesQuery,useSearchTestsAndPackagesQuery,
               useTestsAndPackagesByIdQuery,useEditProfileMutation,useGetOrderHistoryQuery,
               useGetTimeSlotsQuery,useAddToLabCartMutation,useGetAllLabCartItemsQuery,useDeleteLabCartItemsMutation,
-              useGetTestOrganCategoryQuery,useGetTestsByFilterQuery,useGetBrandItemQuery,useLocationQuery,useWishListQuery
+              useGetTestOrganCategoryQuery,useGetTestsByFilterQuery,useGetBrandItemQuery,useLocationQuery,useWishListQuery,
             } = userAuthApi
 
 

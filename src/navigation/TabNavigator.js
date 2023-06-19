@@ -29,7 +29,7 @@ const TabNavigator = () => {
               iconName = focused ? 'account' : 'account';
             }
             // You can return any component that you like here!
-            return <Icon name={iconName} size={size} color={color} />;
+            return <Icon name={iconName} size={size} color={color} />            ;
           },
           tabBarActiveTintColor: '#E73631',
           tabBarInactiveTintColor: '#000',

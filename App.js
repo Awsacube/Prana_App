@@ -64,12 +64,12 @@ const App = () => {
     }, [])
 
     return(
-      // <SafeAreaProvider>
-      //   <AppNav/>
-      // </SafeAreaProvider>
-      <NavigationContainer>
-      <AppStack/>
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <AppNav/>
+      </SafeAreaProvider>
+      // <NavigationContainer>
+      // <AppStack/>
+      // </NavigationContainer>
     )
 };
 

@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useWishListQuery } from '../services/userAuthApi';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { getToken } from '../services/AsyncStorageService';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+ 
 
 export default function WishList({route}){
 
@@ -53,7 +55,7 @@ export default function WishList({route}){
               return (
                 <SafeAreaView>
               <Pressable onPress={()=>navigation.navigate('ProductDescription',{productid:item.uuid})} style={styles.root}>
-            <View>
+            <View style={styles.container}>
             <View>
             <Image style={styles.image} source={{uri: item.image}}/>
             </View>
@@ -62,6 +64,7 @@ export default function WishList({route}){
               <Text style={styles.price}>MRP:{item.price}</Text>
               <Text>{item.description}</Text>
            </View>
+           <View styles={styles.iconDesign} onPress={deleteWishHandler}><Icon name="delete" size={40} color="#E73631"/></View>
           </View>
           </Pressable>
           </SafeAreaView>
@@ -83,6 +86,12 @@ const styles = StyleSheet.create({
     // borderRadius:10,
     // backgroundColor:'#fff',
   },
+  container:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-evenly'
+
+  },
   rightCom:{
   },
   image:{
@@ -95,5 +104,14 @@ const styles = StyleSheet.create({
   },
   price:{
 
+  },
+  iconDesign: {
+    width: 35,
+    height: 35,
+    borderRadius: 20,
+    backgroundColor: '#D6DBDF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft:50
   },
 });

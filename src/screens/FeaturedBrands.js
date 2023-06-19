@@ -77,6 +77,7 @@ const FeaturedBrands=()=> {
                   <View style={styles.imageLayout}>
                     <View style={styles.buttonContainer}>
                       <Image source={{ uri: item.image }} style={styles.image} />
+                      {console.log("immm",item.image)}
                     </View>
                   </View>
                   <Text style={styles.productname}>

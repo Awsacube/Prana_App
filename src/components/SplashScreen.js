@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import {View, Image, StyleSheet, SafeAreaView, Dimensions} from 'react-native';
 
 const window = Dimensions.get('window');
 
@@ -7,7 +7,10 @@ const SplashScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.splash}>
-        <Image source={require('./assets/splash.png')} style={styles.splashImage} />
+        <Image
+          source={require('./assets/splash.png')}
+          style={styles.splashImage}
+        />
       </View>
     </SafeAreaView>
   );

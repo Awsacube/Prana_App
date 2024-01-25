@@ -1,22 +1,46 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query'
-import { userAuthApi } from '../services/userAuthApi'
-import cartSlice from './cart-slice'
-import authSlice from './auth-slice'
-import locationSlice from './location-slice'
+import {configureStore} from '@reduxjs/toolkit';
+import {setupListeners} from '@reduxjs/toolkit/query';
+import {userAuthApi} from '../services/userAuthApi';
+import cartSlice from './cart-slice';
+import authReducer from './auth-slice';
+import locationSlice from './location-slice';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: [authReducer],
+  blacklist: [userAuthApi.reducerPath],
+};
+
+const persistedReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
     [userAuthApi.reducerPath]: userAuthApi.reducer,
-    cart:cartSlice.reducer,
-    auth:authSlice.reducer,
-    location:locationSlice.reducer
+    cart: cartSlice.reducer,
+    auth: persistedReducer,
+    location: locationSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: false,
-      immutableCheck: false
-    }).concat(userAuthApi.middleware)
-})
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+      immutableCheck: false,
+    }).concat(userAuthApi.middleware),
+});
 
-setupListeners(store.dispatch)
+export const persistor = persistStore(store);
+
+setupListeners(store.dispatch);

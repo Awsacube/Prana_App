@@ -1,34 +1,43 @@
 import React from 'react';
-import { View, Text, Image, FlatList, StyleSheet, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  TouchableHighlight,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Dimensions} from 'react-native';
 import Search from '../../components/Search';
 import Specialization from './Specialization';
 import DocHealthConcern from './DocHealthConcern';
 import DoctorCard from './DoctorCard';
-import { dummyData } from '../../../data/data';
+import {useNavigation} from '@react-navigation/native';
 import Carousel from '../Carousel';
 import Calltoorder from '../Calltoorder';
-import DocSearch from '../Doctors/DocSearch'
+import DocSearch from '../Doctors/DocSearch';
 import Location from '.././Location';
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
-const Doctors=()=> {
+const Doctors = () => {
+  const navigation = useNavigation();
 
   const categorylist = [
     {
-      "name": "Book Appointment",
-      "image": require('./docassets/doctor.jpg'),
-      "status": "Confirmed Appointments",
-      "id":1
+      name: 'Book Appointment',
+      image: require('./docassets/doctor.jpg'),
+      status: 'Confirmed Appointments',
+      id: 1,
     },
     {
-      "name": "Instant Video Consulting",
-      "image": require('./docassets/videocall.jpg'),
-      "status": "Connect within 60 secs",
-      "id":2
+      name: 'Instant Video Consulting',
+      image: require('./docassets/videocall.jpg'),
+      status: 'Connect within 60 secs',
+      id: 2,
     },
     // {
     //   "name": "Manage Address",
@@ -76,41 +85,50 @@ const Doctors=()=> {
   //     "image": require('./docassets/bone_bg.png')
   //   }
   // ];
+
+  const bookapp = () => {};
   return (
     <SafeAreaView>
-    <View style={styles.container}>
-    <Location/>
-    <Calltoorder text={"Book an Appointment"}/>
-    <Search placeholder="Search for Specializations" editable={false} navigate="EmptyPage" component={<DocSearch/>}/>
+      <View style={styles.container}>
+        <Location />
+        <Calltoorder text={'Book an Appointment'} />
+        <Search
+          placeholder="Search for Specializations"
+          editable={false}
+          navigate="EmptyPage"
+          component={<DocSearch />}
+        />
         <FlatList
           // LisHeaderComponent={
           //   <>
           //            <Search placeholder={"Search Health Problems , Specializations"}/>
           //   </>}
           data={categorylist}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => {
+          renderItem={({item, index}) => {
             return (
               <View style={styles.catLayout}>
-
-                <Image source={item.image} style={styles.image} />
-
-                <Text style={styles.productname}>
-                  {item.name != null ? item.name : ""}
+                <TouchableHighlight
+                  onPress={() => navigation.navigate('BookAppointment')}
+                >
+                  <Image source={item.image} style={styles.image} oncl />
+                </TouchableHighlight>
+                <Text
+                  style={styles.productname}
+                  onPress={() => navigation.navigate('BookAppointment')}
+                >
+                  {item.name != null ? item.name : ''}
                 </Text>
 
-                <Text style={styles.status}>
+                {/* <Text style={styles.status}>
                   {item.status != null ? item.status : ""}
-                </Text>
-
+                </Text> */}
               </View>
             );
           }}
         />
-
-
 
         {/* <Text style={{
           marginLeft: 15,
@@ -118,7 +136,6 @@ const Doctors=()=> {
           fontSize: 18,
           color: '#000'
         }}>Mostly searched specialities</Text> */}
-
 
         {/* <View style={{
           marginTop: 20,
@@ -144,227 +161,52 @@ const Doctors=()=> {
         </View>
  */}
         {/* <Carousel data={dummyData}/> */}
-    <Specialization/>
-    <DocHealthConcern/>
-    </View>
+        <Specialization />
+        <DocHealthConcern />
+      </View>
     </SafeAreaView>
   );
 };
 
-  export default Doctors;
-
+export default Doctors;
 
 const styles = StyleSheet.create({
   container: {
     // alignContent: 'center',
-    display:'flex',
+    display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center', 
+    // alignItems: 'center',
     // justifyContent: 'center'
   },
-  
+
   catLayout: {
     width: 150,
     height: 250,
     borderRadius: 15,
     margin: 8,
     // elevation: 0.5,
-  }, image: {
+  },
+  image: {
     width: 150,
     height: 150,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-  }, productname: {
+  },
+  productname: {
     fontSize: 17,
     color: '#000',
     marginTop: 10,
     marginLeft: 5,
-    height: 50
-  }, status: {
+    height: 50,
+  },
+  status: {
     fontSize: 12,
     color: '#696969',
     height: 20,
     marginTop: 10,
-    marginLeft: 5
+    marginLeft: 5,
   },
-
-
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React,{useState} from 'react'
 // import { View, Text, ScrollView, StyleSheet, TextInput, Button } from 'react-native';
@@ -376,53 +218,53 @@ const styles = StyleSheet.create({
 //     const [date, setDate] = useState(new Date(Date.now()));
 //     const [mode, setMode] = useState('date');
 //     const [show, setShow] = useState(false);
-  
+
 //     const onChange = (event, selectedDate) => {
 //       const currentDate = selectedDate || date;
 //       setShow(Platform.OS === 'ios');
 //       setDate(currentDate);
 //     };
-  
+
 //     const showTimepicker = () => {
 //       showMode('time');
 //     };
-  
+
 //     const showDatepicker = () => {
 //       showMode('date');
 //     };
-  
+
 //     const showMode = (currentMode) => {
 //       setShow(true);
 //       setMode(currentMode);
 //     };
-  
+
 //     return (
 //       <SafeAreaView>
 //       <ScrollView>
 //         <View style={styles.container}>
-  
+
 //           <View style={styles.orderLayout}>
-  
+
 //             <Text style={{ textAlign: 'center', fontSize: 18, color: '#000' }}>Book Appointment</Text>
-  
+
 //             <View style={{ backgroundColor: '#A0A0A0', height: 1, margin: 10 }}></View>
-  
+
 //             <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
-  
+
 //               <Text style={{ fontSize: 15, color: '#000' }}>General Physician </Text>
-  
+
 //               <View style={{ flexDirection: 'column' }}>
-  
+
 //                 <Text style={{ fontSize: 15, color: '#606060' }}>by Dr.Kumar </Text>
-  
+
 //                 <Text>at Warangal</Text>
-  
+
 //               </View>
-  
+
 //             </View>
-  
+
 //             <View style={{ backgroundColor: '#0084fa', height: 40, marginTop: 10 }}>
-  
+
 //               <Text style={{
 //                 color: '#fff',
 //                 textAlignVertical: 'center',
@@ -430,82 +272,81 @@ const styles = StyleSheet.create({
 //                 flex: 1,
 //                 paddingLeft: 10
 //               }}>Customer/Patient Details</Text>
-  
+
 //             </View>
-  
+
 //             <Text style={styles.text}>Name of patient</Text>
-  
+
 //             <TextInput
 //               style={styles.input}
 //             />
-  
+
 //             <Text style={styles.text}>Gender</Text>
-  
+
 //             <RadioButton.Group
 //               onValueChange={(value) => {
 //                 setValue(value)
 //               }}
-  
+
 //               value={value}
 //             >
 //               <View style={{ flexDirection: 'row' }}>
-  
+
 //                 <View style={{ flexDirection: 'row' }}>
-  
+
 //                   <RadioButton value="1" />
-  
+
 //                   <Text style={{ textAlignVertical: 'center' }}>Male</Text>
-  
+
 //                 </View>
-  
+
 //                 <View style={{ flexDirection: 'row', marginLeft: 20 }}>
-  
+
 //                   <RadioButton value="2" />
-  
+
 //                   <Text style={{ textAlignVertical: 'center' }}>Female</Text>
-  
+
 //                 </View>
-  
+
 //               </View>
-  
+
 //             </RadioButton.Group>
-  
-  
+
 //             <Text style={styles.text}>Contact Number</Text>
-  
+
 //             <View style={{ flexDirection: 'row' }}>
-  
+
 //               <Text style={styles.text}>+91</Text>
-  
+
 //               <TextInput style={styles.input}/>
 //             </View>
-  
+
 //             <Text style={styles.text}>Email</Text>
-  
+
 //             <TextInput style={styles.input}/>
-  
+
 //             <View style={{
 //               flexDirection: 'row',
 //               justifyContent: 'space-between',
 //               margin: 20
 //             }}>
-  
+
 //               {!show && (
-  
+
 //                 <Text style={{ borderColor: '#000', borderWidth: 1, padding: 10, borderRadius: 10 }}
 //                  onPress={showDatepicker} >Select Date</Text>
-                 
+
 //               )}
-  
+
 //               <Text style={{ borderColor: '#000', borderWidth: 1, padding: 10, borderRadius: 10 }}
 //                 onPress={showTimepicker}>Select Time</Text>
-  
+
 //               <Text style={{ padding: 10 }} >Amt : 10</Text>
-  
+
 //             </View>
-  
+
 //             {show && (
-  
+
 //               <DateTimePicker
 //                 testID="dateTimePicker"
 //                 value={date}
@@ -514,21 +355,20 @@ const styles = StyleSheet.create({
 //                 display="default"
 //                 onChange={onChange}
 //               />
-  
+
 //             )}
-  
+
 //             <Text style={styles.button}>Pay Amount</Text>
-  
+
 //           </View>
-  
+
 //         </View>
-  
+
 //       </ScrollView>
 //       </SafeAreaView>
 //     );
 //   };
-  
-  
+
 //   const styles = StyleSheet.create({
 //     container: {
 //       flex: 1,
@@ -567,4 +407,3 @@ const styles = StyleSheet.create({
 //       borderRadius: 20
 //     }
 //   });
-  

@@ -1,53 +1,26 @@
-import { StyleSheet, Text, View ,StatusBar} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import React from 'react'
-import MedicineCart from './MedicineCart';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import React from 'react';
+import {StatusBar, StyleSheet} from 'react-native';
 import LabCart from './LabCart';
-
+import MedicineCart from './MedicineCart';
 
 const heightStatus = StatusBar.currentHeight;
 
-
 const CartContainer = () => {
-    const Tab = createMaterialTopTabNavigator();
+  const Tab = createMaterialTopTabNavigator();
   return (
-        //   <SafeAreaView>
-        //     <HomeTopTabs/>
-        //   </SafeAreaView>
-        <Tab.Navigator
-        //add this
-        screenOptions={{
-          tabBarLabelStyle: { fontSize: 12 },
-          tabBarItemStyle: { width: 200 },
-          tabBarStyle: { backgroundColor: 'powderblue' }
-        }}
-        >
-          <Tab.Screen name="Medicine" component={MedicineCart} />
-          <Tab.Screen name="Lab" component={LabCart} />
-        </Tab.Navigator>
-        );
-}
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: {fontSize: 12},
+        tabBarItemStyle: {width: 200},
+        tabBarStyle: {backgroundColor: 'powderblue'},
+      }}>
+      <Tab.Screen name="Medicine" component={MedicineCart} />
+      <Tab.Screen name="Lab" component={LabCart} />
+    </Tab.Navigator>
+  );
+};
 
-// function HomeTopTabs() {
-//     const Tab = createMaterialTopTabNavigator();
-//     return (
-//         <Tab.Navigator
-//         screenOptions={{
-//           tabBarLabelStyle: { fontSize: 12 },
-//           tabBarItemStyle: { width: 100 },
-//           tabBarStyle: { backgroundColor: 'powderblue' },
-//         }}
-//         >
-//           <Tab.Screen name="Medicine" component={MedicineCart} />
-//           <Tab.Screen name="Lab" component={LabCart} />
-//         </Tab.Navigator>
-      
-//     );
-//   }
+export default CartContainer;
 
-
-export default CartContainer
-
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

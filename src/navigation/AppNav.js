@@ -1,31 +1,33 @@
-import { StyleSheet, Text, View,ActivityIndicator } from 'react-native'
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import AuthStack from '../navigation/AuthStack';
+import {NavigationContainer} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 import AppStack from '../navigation/AppStack';
-import { useDispatch,useSelector } from 'react-redux'
+import AuthStack from '../navigation/AuthStack';
+import {getToken} from '../services/AsyncStorageService';
 
 const AppNav = () => {
-        const token=useSelector((state)=>state.auth.userToken)
-        // console.warn("token",isLoading)
+  const token = useSelector(state => state.auth.userToken);
 
-        // if(isLoading){
-        //     return(
-        //         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        //         <ActivityIndicator size={'large'}/>
-        //     </View>
-        //     )
-            
-        // }
-        // console.log("token",token)
+  const [userLToken, setUserLToken] = useState();
+
+  useEffect(() => {
+    const getT = async () => {
+      const token = await getToken();
+      setUserLToken(token);
+    };
+    getT();
+  }, []);
+
+  // console.log(userLToken, 'ltokenatappnav');
+
   return (
     <NavigationContainer>
-        {token === 0 ? <AuthStack/> :<AppStack/>}
-        {/* <AppStack/> */}
-      </NavigationContainer>
-  )
-}
+      {token === 0 ? <AuthStack /> : <AppStack />}
+    </NavigationContainer>
+  );
+};
 
-export default AppNav
+export default AppNav;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

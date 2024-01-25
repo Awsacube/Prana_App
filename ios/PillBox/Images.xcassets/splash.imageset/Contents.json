@@ -1,23 +1,23 @@
 {
-  "images" : [
+  "images": [
     {
-      "filename" : "Medicines_share.jpeg",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename": "Medicines_share.jpeg",
+      "idiom": "universal",
+      "scale": "1x"
     },
     {
-      "filename" : "Medicines_share@2x.jpeg",
-      "idiom" : "universal",
-      "scale" : "2x"
+      "filename": "Medicines_share@2x.jpeg",
+      "idiom": "universal",
+      "scale": "2x"
     },
     {
-      "filename" : "Medicines_share@3x.jpeg",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename": "Medicines_share@3x.jpeg",
+      "idiom": "universal",
+      "scale": "3x"
     }
   ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
+  "info": {
+    "author": "xcode",
+    "version": 1
   }
 }

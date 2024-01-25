@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -9,25 +9,25 @@ import {
   StatusBar,
   Animated,
   ImageBackground,
-} from "react-native";
-import { TouchableRipple } from "react-native-paper";
-import { Icon } from "react-native-eva-icons";
-import { LinearGradient } from "expo-linear-gradient";
+} from 'react-native';
+import {TouchableRipple} from 'react-native-paper';
+import {Icon} from 'react-native-eva-icons';
+import {LinearGradient} from 'expo-linear-gradient';
 
-import data from "../../data/data";
-import { Colors } from "../../constants/colors";
-import { widthToDp, heightToDp, width, height } from "../../constants/theme";
+import data from '../../data/data';
+import {Colors} from '../../constants/colors';
+import {widthToDp, heightToDp, width, height} from '../../constants/theme';
 
-const LOGO_WIDTH = widthToDp("50%");
-const LOGO_HEIGHT = heightToDp("10%");
-const DOT_SIZE = widthToDp("10%");
-const TICKER_HEIGHT = widthToDp("10%");
+const LOGO_WIDTH = widthToDp('50%');
+const LOGO_HEIGHT = heightToDp('10%');
+const DOT_SIZE = widthToDp('10%');
+const TICKER_HEIGHT = widthToDp('10%');
 const CIRCLE_SIZE = width * 0.68;
 
-const Circle = ({ scrollX }) => {
+const Circle = ({scrollX}) => {
   return (
     <View style={[StyleSheet.absoluteFillObject, styles.circleContainer]}>
-      {data.map(({ color }, index) => {
+      {data.map(({color}, index) => {
         const inputRange = [
           (index - 0.5) * width,
           index * width,
@@ -36,7 +36,7 @@ const Circle = ({ scrollX }) => {
         const scale = scrollX.interpolate({
           inputRange,
           outputRange: [0, 2, 0],
-          extrapolate: "clamp",
+          extrapolate: 'clamp',
         });
         const opacity = scrollX.interpolate({
           inputRange,
@@ -48,7 +48,7 @@ const Circle = ({ scrollX }) => {
             style={[
               styles.circle,
               {
-                transform: [{ scale }],
+                transform: [{scale}],
                 opacity,
                 backgroundColor: color,
               },
@@ -60,7 +60,7 @@ const Circle = ({ scrollX }) => {
   );
 };
 
-const Ticker = ({ scrollX }) => {
+const Ticker = ({scrollX}) => {
   const inputRange = [-width, 0, width];
   const translateY = scrollX.interpolate({
     inputRange,
@@ -68,8 +68,8 @@ const Ticker = ({ scrollX }) => {
   });
   return (
     <View style={styles.tickerContainer}>
-      <Animated.View style={{ transform: [{ translateY }] }}>
-        {data.map(({ type }, index) => {
+      <Animated.View style={{transform: [{translateY}]}}>
+        {data.map(({type}, index) => {
           return (
             <Text style={styles.tickerText} key={index}>
               {type}
@@ -81,7 +81,7 @@ const Ticker = ({ scrollX }) => {
   );
 };
 
-const Item = ({ imageUri, heading, description, index, scrollX }) => {
+const Item = ({imageUri, heading, description, index, scrollX}) => {
   const inputRange = [(index - 1) * width, index * width, (index + 1) * width];
 
   const inputRangeOpacity = [
@@ -117,7 +117,7 @@ const Item = ({ imageUri, heading, description, index, scrollX }) => {
         style={[
           styles.imageStyle,
           {
-            transform: [{ scale }],
+            transform: [{scale}],
           },
         ]}
       />
@@ -127,7 +127,7 @@ const Item = ({ imageUri, heading, description, index, scrollX }) => {
             styles.heading,
             {
               opacity,
-              transform: [{ translateX: translateXHeading }],
+              transform: [{translateX: translateXHeading}],
             },
           ]}
         >
@@ -138,7 +138,7 @@ const Item = ({ imageUri, heading, description, index, scrollX }) => {
             styles.description,
             {
               opacity,
-              transform: [{ translateX: translateXDescription }],
+              transform: [{translateX: translateXDescription}],
             },
           ]}
         >
@@ -149,7 +149,7 @@ const Item = ({ imageUri, heading, description, index, scrollX }) => {
   );
 };
 
-const Pagination = ({ scrollX }) => {
+const Pagination = ({scrollX}) => {
   const inputRange = [-width, 0, width];
   const translateX = scrollX.interpolate({
     inputRange,
@@ -161,16 +161,16 @@ const Pagination = ({ scrollX }) => {
         style={[
           styles.paginationIndicator,
           {
-            transform: [{ translateX }],
-            position: "absolute",
+            transform: [{translateX}],
+            position: 'absolute',
           },
         ]}
       />
-      {data.map((item) => {
+      {data.map(item => {
         return (
           <View key={item.key} style={styles.paginationDotContainer}>
             <View
-              style={[styles.paginationDot, { backgroundColor: item.color }]}
+              style={[styles.paginationDot, {backgroundColor: item.color}]}
             />
           </View>
         );
@@ -179,22 +179,22 @@ const Pagination = ({ scrollX }) => {
   );
 };
 
-const Onboarding = ({ navigation, route }) => {
+const Onboarding = ({navigation, route}) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
       <ImageBackground
         style={styles.bgContainer}
-        source={require("../assets/onboar.png")}
+        source={require('../assets/onboar.png')}
         resizeMode="cover"
       >
         <Circle scrollX={scrollX} />
         <Animated.FlatList
-          style={{ marginTop: heightToDp("15%") }}
-          keyExtractor={(item) => item.key.toString()}
+          style={{marginTop: heightToDp('15%')}}
+          keyExtractor={item => item.key.toString()}
           data={data}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <Item {...item} index={index} scrollX={scrollX} />
           )}
           pagingEnabled
@@ -203,12 +203,12 @@ const Onboarding = ({ navigation, route }) => {
           onScroll={Animated.event(
             [
               {
-                nativeEvent: { contentOffset: { x: scrollX } },
+                nativeEvent: {contentOffset: {x: scrollX}},
               },
             ],
             {
               useNativeDriver: true,
-            }
+            },
           )}
           scrollEventThrottle={16}
         />
@@ -217,14 +217,14 @@ const Onboarding = ({ navigation, route }) => {
 
         <View style={styles.closeContainer}>
           <TouchableRipple
-            onPress={() => navigation.navigate("SignIn")}
+            onPress={() => navigation.navigate('SignIn')}
             rippleColor={Colors.rippleColor}
-            style={{ justifyContent: "center", alignItems: "center" }}
+            style={{justifyContent: 'center', alignItems: 'center'}}
           >
             <Icon
               name="close-circle"
-              width={widthToDp("15%")}
-              height={widthToDp("15%")}
+              width={widthToDp('15%')}
+              height={widthToDp('15%')}
               fill="#f7f1e3"
             />
           </TouchableRipple>
@@ -237,64 +237,64 @@ const Onboarding = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#171b2c",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#171b2c',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   itemStyle: {
     width,
     height,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   imageStyle: {
     width: width < 400 ? width * 0.65 : width * 0.85,
     height: width < 400 ? width * 0.65 : width * 0.85,
-    resizeMode: "contain",
+    resizeMode: 'contain',
     flex: 1,
   },
   textContainer: {
-    alignItems: "flex-start",
-    alignSelf: "flex-end",
+    alignItems: 'flex-start',
+    alignSelf: 'flex-end',
     flex: 0.5,
-    marginBottom: height < 600 ? heightToDp("26%") : heightToDp("28%"),
+    marginBottom: height < 600 ? heightToDp('26%') : heightToDp('28%'),
   },
   heading: {
-    color: "#f7f1e3",
-    textTransform: "uppercase",
-    fontSize: width < 400 ? widthToDp("3%") : widthToDp("5%"),
-    fontFamily: "SemiBold",
+    color: '#f7f1e3',
+    textTransform: 'uppercase',
+    fontSize: width < 400 ? widthToDp('3%') : widthToDp('5%'),
+    fontFamily: 'SemiBold',
     marginBottom: widthToDp(3),
   },
   description: {
-    color: "#4b4b4b",
-    fontFamily: "Regular",
-    textAlign: "left",
+    color: '#4b4b4b',
+    fontFamily: 'Regular',
+    textAlign: 'left',
     width: width * 0.75,
     marginRight: widthToDp(2),
-    fontSize: width < 400 ? widthToDp("3%") : widthToDp("4%"),
-    color: "#aaa69d",
-    lineHeight: width < 400 ? heightToDp("3%") * 1.5 : heightToDp("4%") * 1.5,
+    fontSize: width < 400 ? widthToDp('3%') : widthToDp('4%'),
+    color: '#aaa69d',
+    lineHeight: width < 400 ? heightToDp('3%') * 1.5 : heightToDp('4%') * 1.5,
   },
   logo: {
     height: LOGO_HEIGHT,
     width: LOGO_WIDTH,
-    resizeMode: "contain",
-    position: "absolute",
-    left: widthToDp("4%"),
-    bottom: heightToDp("8%"),
+    resizeMode: 'contain',
+    position: 'absolute',
+    left: widthToDp('4%'),
+    bottom: heightToDp('8%'),
     transform: [
-      { translateX: -LOGO_WIDTH / 2 },
-      { translateY: -LOGO_HEIGHT / 2 },
-      { rotateZ: "-90deg" },
-      { translateX: LOGO_WIDTH / 2 },
-      { translateY: LOGO_HEIGHT / 2 },
+      {translateX: -LOGO_WIDTH / 2},
+      {translateY: -LOGO_HEIGHT / 2},
+      {rotateZ: '-90deg'},
+      {translateX: LOGO_WIDTH / 2},
+      {translateY: LOGO_HEIGHT / 2},
     ],
   },
   pagination: {
-    position: "absolute",
-    bottom: height < 600 ? heightToDp("20%") : heightToDp("28%"),
-    flexDirection: "row",
+    position: 'absolute',
+    bottom: height < 600 ? heightToDp('20%') : heightToDp('28%'),
+    flexDirection: 'row',
     height: DOT_SIZE,
   },
   paginationDot: {
@@ -304,54 +304,54 @@ const styles = StyleSheet.create({
   },
   paginationDotContainer: {
     width: DOT_SIZE,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paginationIndicator: {
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
     borderWidth: 2,
-    borderColor: "#ffffff",
+    borderColor: '#ffffff',
   },
   tickerContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 50,
-    left: widthToDp("10%"),
-    overflow: "hidden",
-    height: height < 400 ? heightToDp("7%") : heightToDp("8%"),
+    left: widthToDp('10%'),
+    overflow: 'hidden',
+    height: height < 400 ? heightToDp('7%') : heightToDp('8%'),
   },
   tickerText: {
-    fontSize: width < 400 ? widthToDp("4%") : widthToDp("6%"),
-    lineHeight: width < 400 ? widthToDp("7.5%") : widthToDp("11.5%"),
-    fontFamily: "ExtraBold",
-    color: "white",
+    fontSize: width < 400 ? widthToDp('4%') : widthToDp('6%'),
+    lineHeight: width < 400 ? widthToDp('7.5%') : widthToDp('11.5%'),
+    fontFamily: 'ExtraBold',
+    color: 'white',
   },
   circleContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   circle: {
     width: CIRCLE_SIZE,
     height: CIRCLE_SIZE,
     borderRadius: CIRCLE_SIZE / 2,
-    position: "absolute",
-    top: "15%",
+    position: 'absolute',
+    top: '15%',
   },
   closeContainer: {
-    position: "absolute",
-    bottom: height < 600 ? heightToDp("3%") : heightToDp("8%"),
-    overflow: "hidden",
-    width: widthToDp("15%"),
-    height: widthToDp("15%"),
+    position: 'absolute',
+    bottom: height < 600 ? heightToDp('3%') : heightToDp('8%'),
+    overflow: 'hidden',
+    width: widthToDp('15%'),
+    height: widthToDp('15%'),
     borderRadius: widthToDp(25),
   },
   bgContainer: {
     flex: 1,
     width: width,
     height: height,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

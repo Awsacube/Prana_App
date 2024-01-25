@@ -1,1 +1,1 @@
-export const brandColor='#a668e3'
+export const brandColor = '#a668e3';

@@ -7,7 +7,6 @@ import {
   FlatList,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Feather from 'react-native-vector-icons/Feather';
 import React, {useState} from 'react';
 import Search from '../../components/Search';
 import {skipToken} from '@reduxjs/toolkit/dist/query';
@@ -88,8 +87,7 @@ const DiagSearch = () => {
                   id: item.uuid,
                   TestorPackname: item.name,
                 })
-              }
-            >
+              }>
               <View style={styles.sresult}>
                 <Text key={item.uuid} style={styles.result}>
                   {item.name}
@@ -98,8 +96,6 @@ const DiagSearch = () => {
             </Pressable>
           ))}
       </View>
-
-      {/* <Feather name="search" size={40} color="#C6C6C6"/> */}
     </View>
   );
 };

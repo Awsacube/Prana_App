@@ -180,7 +180,33 @@ export default function Profile() {
 
             <Text style={styles.textDesign}>FAQ's</Text>
           </View>
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
 
+          <View style={styles.listItem}>
+            <View style={styles.iconDesign}>
+              <Icon name="keyboard-return" size={25} color="#E73631" />
+            </View>
+            <Text style={styles.textDesign}>Returns</Text>
+          </View>
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
+
+          <View style={styles.listItem}>
+            <View style={styles.iconDesign}>
+              <Icon name="cash-refund" size={25} color="#E73631" />
+            </View>
+
+            <Text style={styles.textDesign}>Refund Payment</Text>
+          </View>
           <View
             style={{
               borderBottomColor: 'black',

@@ -10,7 +10,6 @@ import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import PopularPackages from './PopularPackages';
 import Underline from 'react-native-textinput-with-icons/lib/Underline';
 import {useNavigation} from '@react-navigation/native';
-import Feather from 'react-native-vector-icons/Feather';
 import DiagSearch from './DiagSearch';
 import AllTests from './AllTests';
 import OrganList from './OrgansList';
@@ -30,8 +29,7 @@ const Diagnostics = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-          }}
-        >
+          }}>
           <Location />
           <Calltoorder text={'Book a Test'} />
           <Text style={{margin: 5}}>
@@ -39,8 +37,7 @@ const Diagnostics = () => {
           </Text>
           <Text
             style={styles.viewAll}
-            onPress={() => navigation.navigate('AllTests')}
-          >
+            onPress={() => navigation.navigate('AllTests')}>
             View All Tests
           </Text>
         </View>

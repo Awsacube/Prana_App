@@ -22,6 +22,16 @@ const EditProfile = () => {
   const [pincode, setPincode] = useState('');
   const [userLToken, setUserLToken] = useState();
 
+  // setFirstName(item.first_name)
+  // setLastName(item.last_name)
+  // setMobile(item.phone_number)
+  // setStreet_1(item.address.street_1)
+  // setStreet_2(item.address.street_2)
+  // setCity(item.address.city)
+  // setDistrict(item.address.district)
+  // setPincode(item.address.pincode)
+  // setState(item.address.state)
+
   useEffect(() => {
     const getT = async () => {
       const token = await getToken(); //getting token from storage

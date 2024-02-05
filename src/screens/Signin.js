@@ -20,7 +20,11 @@ import Custombutton from '../components/Custombutton';
 import Toast from 'react-native-toast-message';
 import {useLoginUserMutation} from '../services/userAuthApi';
 import background from '../assets/signback.jpeg';
-import {storeRefreshToken, storeToken} from '../services/AsyncStorageService';
+import {
+  getToken,
+  storeRefreshToken,
+  storeToken,
+} from '../services/AsyncStorageService';
 import {useDispatch, useSelector} from 'react-redux';
 import {Appearance} from 'react-native';
 import Signup from './Signup';

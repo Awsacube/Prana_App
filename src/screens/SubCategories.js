@@ -55,8 +55,7 @@ export default function SubCategories({route}) {
           <View
             style={{
               marginTop: 15,
-            }}
-          >
+            }}>
             <FlatList
               data={categorylist}
               keyExtractor={(item, index) => item.tc_id}
@@ -65,10 +64,10 @@ export default function SubCategories({route}) {
               renderItem={({item, index}) => {
                 return (
                   <Pressable
-                    onPress={() =>
+                    onPress={
+                      // () => console.log(item.uuid)
                       navigation.navigate('ProductItem', {id: item.uuid})
-                    }
-                  >
+                    }>
                     <View style={styles.catLayout}>
                       <View style={styles.imageLayout}>
                         <Image

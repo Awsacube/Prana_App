@@ -1,0 +1,1226 @@
+/////Cart container
+
+// function HomeTopTabs() {
+//     const Tab = createMaterialTopTabNavigator();
+//     return (
+//         <Tab.Navigator
+//         screenOptions={{
+//           tabBarLabelStyle: { fontSize: 12 },
+//           tabBarItemStyle: { width: 100 },
+//           tabBarStyle: { backgroundColor: 'powderblue' },
+//         }}
+//         >
+//           <Tab.Screen name="Medicine" component={MedicineCart} />
+//           <Tab.Screen name="Lab" component={LabCart} />
+//         </Tab.Navigator>
+      
+//     );
+//   }
+
+
+//   <SafeAreaView>
+        //     <HomeTopTabs/>
+        //   </SafeAreaView>
+
+
+//////Home screenn
+
+
+      {/* <StatusBar/> */}
+      {/* <Header style={styles.Header}
+        leftComponent={<Image source={Logo} style={styles.Logo}/>}
+        rightComponent={
+            <View>
+              <TouchableOpacity onPress={gotocart}>
+                <Icon name="shopping-cart" color="#E73631" size={40}/>
+                </TouchableOpacity>
+            </View>
+        }
+      /> */}
+
+
+
+      {/* <View
+        style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
+        <Button title="Get Location" onPress={getLocation}/>
+      </View>
+      <Text>Latitude: {location ? location.coords.latitude : null}</Text>
+      <Text>Longitude: {location ? location.coords.longitude : null}</Text> */}
+
+      {/* <Button title={"cart"} onPress={gotocart}></Button> */}
+      {/* {cartCount > 0 ? (
+                <View
+                    style={{     
+                      position: 'absolute',
+                      backgroundColor: '#ffffff',
+                      width: 20,
+                      height: 20,
+                      borderRadius: 15 / 2,
+                      right: 5,
+                      top: -14,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: "red",
+                        fontSize: 10,
+                      }}>
+                      {cartCount}
+                    </Text>
+                  </View>
+                                  ) : null} */}
+
+
+
+
+
+
+                                   {/* <Upload/> */}
+        {/* <Carousel data={dummyData}/> */}
+
+
+                {/* <ImmuneBoosters/> */}
+
+
+
+                ////Prodcut search .js 
+
+
+                  // const res=useSearchTestsAndPackagesQuery(searchQuery)
+
+  // console.warn(res.data.data)
+
+  // {isError && console.warn(error)}
+
+
+
+    // {isSuccess &&
+
+  //     if(data.data.length !== 0){
+  //                 data.data.forEach((item)=>{
+  //                     const name=item.name
+  //                     const uuid=item.uuid
+  //                     suggestion.push({"name":name,"uuid":uuid})
+  //                     console.warn("suggestion",suggestion)
+  //                 })
+  // }
+
+  // }
+
+  // {isSuccess && }
+
+  //
+
+          // console.warn("sugge",suggestion)
+      {/* <Search placeholder={"Search For Tests , Health Packages"} onChangeText={text => handleChange(text)}/> */}
+
+
+            {/* <Search placeholder={"Search For Tests , Health Packages"} onChangeText={text => handleChange(text)}/> */}
+
+
+
+////authslice.js
+
+
+     // if(action.payload===0){
+      //     console.warn("payload",action.payload)
+      //     state.userToken=action.payload
+      // }
+      // console.warn(action.payload);
+      // isSignedIn=action.payload;
+      // console.warn("triggered")
+      // state.userToken=true
+      // state.isLoading=false
+      //  state.token=getToken() //getting token from storage
+      //  if(token!==null){
+      //     isSignedIn=true;
+      //  }
+      // const { accessToken } = action.payload
+      // state.token = accessToken
+
+
+       //getting token from storage
+      // state.isLoading=false
+
+
+
+      ////store.js
+
+
+      // export default () => {
+//   let store = createStore(persistedReducer)
+//   let persistor = persistStore(store)
+//   return { store, persistor }
+// }
+
+
+///tabnvaigator.js
+
+
+        //   tabBarShowLabel:false,
+
+
+        //asyncstorgae.js
+
+
+        // const removeToken = async (value) => {
+//   try {
+//     await AsyncStorage.removeItem(value)
+//   } catch(error) {
+//       console.log(error)
+//   }
+//   console.log('Done.')
+// }
+
+
+
+////userauthapi.js
+
+
+
+
+  //65.2.191.114:9000/api/  pillbox pai
+    // https://logintesting.p.rapidapi.com
+    // rapid api
+    // 'https://api-uat2.zuperly.com/api/v1/'
+    // prepareHeaders: (headers, { getState }) => {
+    // const token = getState().auth.token
+    // If we have a token set in state, let's assume that we should be passing it.
+    // if (token) {
+    //   headers.set('Authorization', `Bearer ${token}`)
+    // }
+    // console.log("logingheaders",headers)
+    // console.log(token);
+    // return headers
+    // }
+
+
+           // url:'/login',
+          //   body:{
+          //     "username": "tung1234",
+          //     "password": "tu1234556"
+          // },
+          //       headers: {
+          //         'content-type': 'application/json',
+          //         Authentication: 'undefined',
+          // 'X-RapidAPI-Key': '0ac037fa8amsh071d98b9bed14d7p17315fjsnaf47fd11658f',
+          // 'X-RapidAPI-Host': 'logintesting.p.rapidapi.com'
+          //       }
+
+
+
+          // const baseQueryWithReauth=async(args,api,extraOptions)=>{
+//       let result=await baseQuery(args,api,extraOptions)
+// }
+
+
+    // manageAddress:builder.query({ // getting info of user that logged in
+    //   query:(token)=>{
+    //     return{
+    //       url:'users/profile',
+    //       method:'GET',
+    //       headers:{
+    //         'Authorization':`Bearer ${token}`,
+    //       }
+    //     }
+    //   },
+    // }),
+
+
+    ///categories.js
+
+
+              {/* <Search placeholder='Search Categories' value={search} onChangeText={searchitem=>{setSearch(searchitem)}}/> */}
+          {/* <View style={{flexDirection:'row',borderColor:"#C6C6C6",borderWidth:1,borderRadius:8}}> */}
+          {/* <TextInput ref={inputEl}
+          placeholder={"Search Categories"} onChangeText={text => handleChange(text)}
+        /> */}
+          {/* <Feather name="search" size={40} color="#C6C6C6"/> */}
+          {/* </View> */}
+
+
+           // console.log(Object.values(category)[0].includes(searchQuery))
+        // .join(" ").toLowerCase().includes(searchQuery)
+
+
+          //  useEffect(()=>{
+  //   const getT=async()=>{
+  //       const token=await getToken() //getting token from storage
+  //       setUserLToken(token) //store token in local storage
+  //    }
+  //     getT()
+  //   },[]
+  //   )
+
+
+
+  //featuredbrands.js
+
+    //  useEffect(()=>{
+  //   const getT=async()=>{
+  //       const token=await getToken() //getting token from storage
+  //       setUserLToken(token) //store token in local storage
+  //    }
+  //     getT()
+  //   },[]
+  //   )
+
+
+
+   // console.log(categorylist,"catlist")
+
+  // const categorylist = [
+  // {
+  //   "name": "Medicines",
+  //   "image": "https://thumbs.dreamstime.com/b/single-flower-rose-isolated-black-background-close-up-154246141.jpg",
+  //   "color": "orange",
+  // },
+  // {
+  //   "name": "Doctors ",
+  //   "image": "https://i1.sndcdn.com/artworks-000302448933-06qt88-t500x500.jpg",
+  //   "color": "red"
+  // },
+  // {
+  //   "name": "Health product",
+  //   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXQt9Ym2nebK9AXQI6ILVGNFEKHcxAN7-Dng&usqp=CAU",
+  //   "color":"cyan"
+  // },
+  // {
+  //   "name": "Diagnostic",
+  //   "image": "https://5.imimg.com/data5/TG/TJ/MY-8583111/custard-apple-500x500.jpg",
+  //   "color":"green"
+  // }, {
+  //   "name": "Covid support",
+  //   "image": "https://source.unsplash.com/1024x768/?girl",
+  //   "color":"blue"
+  // }, {
+  //   "name": "Health product",
+  //   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXQt9Ym2nebK9AXQI6ILVGNFEKHcxAN7-Dng&usqp=CAU",
+  //   "color":"cyan"
+  // },
+  // {
+  //   "name": "Diagnostic",
+  //   "image": "https://5.imimg.com/data5/TG/TJ/MY-8583111/custard-apple-500x500.jpg",
+  //   "color":"green"
+  // }, {
+  //   "name": "Covid support",
+  //   "image": "https://source.unsplash.com/1024x768/?girl",
+  //   "color":"blue"
+  // },
+  // ];
+
+
+  /// Services.js
+
+   // const slideImages = [
+  //   {
+  //   //  image:'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+  //   image:offer
+  //   },
+  //  {
+  //    image:'https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80',
+  //   },
+  //  ]
+
+  // useEffect(() => {
+  //   infiniteScroll(slideImages);
+  // });
+  // let scrolled;
+  // function infiniteScroll(slideImages) {
+  //   const numberOfData = slideImages.length;
+  //   let scrollValue = 0
+  //     scrolled = 0;
+
+  //   setInterval(function () {
+  //     scrolled++;
+  //     if (scrolled < numberOfData) scrollValue = scrollValue + width;
+  //     else {
+  //       scrollValue = 0;
+  //       scrolled = 0;
+  //     }
+  //   }, 1000);
+  // }
+
+
+
+        {/* <MedicineImagesvg width={120} height={40} /> */}
+      {/* <TextInput
+          placeholder="Search medicines and health products"
+          style={styles.TextInputStyleClass} 
+          left={<TextInput.Icon name={() => <Icon name={'search'} size={40} />}/>}
+          underlineColor="transparent" 
+        />         */}
+      {/* <SearchBar
+  placeholder="Search Medicine"
+  onPress={() => alert("onPress")}
+  onChangeText={(text) => console.log(text)}
+  style={styles.search}
+/> */}
+
+
+  // search:{
+  //     borderColor:'#000',
+  //     borderWidth:1,
+  //     marginBottom:10
+  // },
+
+
+
+
+      {/* <Text style={{
+          marginLeft: 15, marginTop: 10,
+          fontSize: 20 ,color:'#000'
+        }}>Current Offers</Text> */}
+
+      {/* <FlatList
+          data={slideImages}
+          keyExtractor={(item, index) => item.name}
+          horizontal
+          pagingEnabled
+          scrollEnabled
+          snapToAlignment="center"
+          scrollEventThrottle={16}
+          decelerationRate={"fast"}
+          showsHorizontalScrollIndicator={false}
+
+          renderItem={({ item, index }) => {
+            return (
+              <HomeSliderCard
+               icon={item.image}
+              />
+            );
+          }}
+
+          onScroll={Animated.event([
+            { nativeEvent: { contentOffset: { x: scrollX } } },
+          ])}
+        /> */}
+
+
+        ///Calltoordr.js
+
+
+              {/* <Button title='Call' onPress={call} style={{bborderRadius: 50,
+    width: 100,
+    height: 100,}}/> */}
+
+
+          {/* <Icon name="phone" color="#E73631" size={28}/> */}
+
+
+
+
+          //profile.js
+
+
+
+          {/* <View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
+
+        <View style={styles.listItem}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="keyboard-return" size={25} color="#E73631" />
+
+</View>
+
+<Text style={styles.textDesign}>Returns</Text>
+
+</View> */}
+          {/* 
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+
+          <View style={styles.iconDesign}>
+
+            <Icon name="doctor" size={25} color="#000" />
+
+          </View>
+
+          <Text style={styles.textDesign}>Health Records</Text>
+
+        </View> */}
+          {/* 
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+
+          <View style={styles.iconDesign}>
+
+            <Icon name="home" size={25} color="#000" />
+
+          </View>
+
+          <Text style={styles.textDesign}>Manage Address</Text>
+
+        </View> */}
+
+          {/* <View
+      style={{
+      borderBottomColor: 'black',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      }}
+      />
+
+        
+        <View style={styles.listItem}>
+
+          <View style={styles.iconDesign}>
+
+            <Icon name="cash-refund" size={25} color="#E73631" />
+
+          </View>
+
+          <Text style={styles.textDesign}>Refund Payment</Text>
+
+        </View> */}
+
+
+
+
+          {/* <View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Wallet</Text>
+
+</View>
+
+
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Deactivate Profile</Text>
+
+</View> */}
+          {/* 
+<View style={{ flexDirection: 'row', margin: 5 }}>
+
+<View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Refer & Earn</Text>
+
+</View> */}
+
+
+
+
+          {/* <View style={styles.listItem}> */}
+
+          {/* <View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Prescriptions</Text> */}
+
+          {/* </View> */}
+
+
+
+
+          {/* <View style={styles.listItem}> */}
+
+          {/* <View style={styles.iconDesign}>
+
+  <Icon name="cart-outline" size={25} color="#000" />
+
+</View>
+
+<Text style={styles.textDesign}>Prescriptions</Text> */}
+
+          {/* </View> */}
+
+
+
+        {/* <Text style={styles.profileText}>{profile.map((item)=>(item.name))}</Text> */}
+        {/* 
+      <View style={{ flexDirection: 'row', margin: 15 }}>
+
+        <View style={{ flex: 1, flexDirection: 'row', }}>
+
+          <View style={styles.imageLayout} >
+            <Icon name="thermometer-low" size={30} color="#566573" />
+          </View>
+          <Text style={styles.text}>172.00 cm</Text>
+
+        </View>
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center'
+        }}>
+
+          <View style={styles.imageLayout} >
+
+            <Icon name="weight" size={30} color="#566573" />
+
+          </View>
+
+          <Text style={styles.text}>94Kg</Text>
+
+
+        </View>
+
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+
+          <View style={styles.imageLayout} >
+            <Icon name="human-male" size={30} color="#566573" />
+          </View>
+
+          <Text style={styles.text}>Male</Text>
+
+        </View>
+
+      </View> */}
+
+
+       //  isFocused && const {data,isSuccess} = useGetLoggedUserQuery(userLToken,{ refetchOnMountOrArgChange: true })
+
+  // isFocused ?  : ""
+
+
+  //editProfile.js
+
+
+    //   container:{
+  //     backgroundColor:'white',
+  //     height:50,
+  //     width:'100%',
+  //     borderColor:'#e8e8e8',
+  //     borderWidth:1,
+  //     borderRadius:5,
+  //     paddingHorizontal:10,
+  //     marginVertical:5
+  // },
+
+
+
+    // setFirstName(item.first_name)
+            // setLastName(item.last_name)
+            // setMobile(item.phone_number)
+            // setStreet_1(item.address.street_1)
+            // setStreet_2(item.address.street_2)
+            // setCity(item.address.city)
+            // setDistrict(item.address.district)
+            // setPincode(item.address.pincode)
+            // setState(item.address.state)
+
+
+                 {/* {isSuccess && profile.map((item)=>(
+        <View>
+        <Custominput placeholder="FirstName" value={item.first_name} setValue={setFirstName}/>
+        <Custominput placeholder="LastName" value={item.last_name} setValue={setLastName}/>
+        <Custominput placeholder="10 digit Mobile Number" value={item.phone_number} setValue={setMobile} style={styles.phoneNum}/>
+        <Custombutton text='Save' onPress={Save}/>    
+        </View>
+    ))
+    } */}
+
+
+
+      // const handleChange = event => {
+  //   setFirstName(event.target.value);
+  // };
+
+  // console.warn(profile)
+
+  //     { isSuccess && profile.map((item)=>{
+  //         const fname=item.first_name
+  //         const lname=item.last_name
+  //         const pnumber=phone_number
+  //         const email=email
+  //         profile.push({"first_name":fname,"last_name":lname,"email":email,"phone_number":pnumber})
+  //         console.log("profile",profile);
+  //   })
+  //  }
+
+
+  //Carouselitem.js
+
+
+  {/* <View style={styles.textView}>
+                <Text style={styles.itemTitle}> {item.title}</Text>
+                <Text style={styles.itemDescription}>{item.description}</Text>
+            </View> */}
+
+
+            // itemTitle: {
+  //     color: 'white',
+  //     fontSize: 22,
+  //     shadowColor: '#000',
+  //     shadowOffset: { width: 0.8, height: 0.8 },
+  //     shadowOpacity: 1,
+  //     shadowRadius: 3,
+  //     marginBottom: 5,
+  //     fontWeight: "bold",
+  //     elevation: 5
+  // // },
+  // itemDescription: {
+  //     color: 'white',
+  //     fontSize: 12,
+  //     shadowColor: '#000',
+  //     shadowOffset: { width: 0.8, height: 0.8 },
+  //     shadowOpacity: 1,
+  //     shadowRadius: 3,
+  //     elevation: 5
+  // }
+
+
+
+  // textView: {
+  //     position: 'absolute',
+  //     bottom: 10,
+  //     margin: 10,
+  //     left: 5,
+  // },
+
+
+  //Fbranditems.js
+
+  // import { Card, Button, Icon } from '@rneui/themed';
+
+
+    // const categorylist = [];
+  // const res=useGetBrandItemQuery(queryItems);
+
+  // console.log("response",res.data)
+  //   if(res.isSuccess===true){
+  //     const data=res.data.data;
+  //     data.forEach(element => {
+  //         const name=element.name;
+  //         const image=element.image;
+  //         const uuid=element.uuid;
+  //         categorylist.unshift({"name":name,"image":image,"uuid":uuid})
+  //         console.log("bitem",categorylist)
+  //       });
+  //   }
+
+
+            // onPress={()=>navigation.navigate('ProductDescription',{productid:item.uuid})}
+
+
+              {/* <Card> */}
+              {/* <Card.Image
+            source={item.image}
+          /> */}
+
+
+
+const styles = StyleSheet.create({
+    container: {
+      display: 'flex',
+      // flexWrap:'wrap',
+      //   width:screenwidth/2,
+      flexDirection: 'row',
+      //   margin: 0,
+      //    borderWidth:1,
+      // borderColor:'#d1d1d1',
+      // borderRadius:10,
+      // backgroundColor:'#fff',
+    },
+    Card: {
+      // flexGrow:1
+    },
+    // rightCom:{
+    // },
+    image: {
+      width: 100,
+      height: 100,
+      margin: 5,
+    },
+    // title:{
+  
+    // },
+    // price:{
+  
+    // },
+  });
+
+        // numColumns={2}
+
+
+        ///Prodcuct description.js
+
+
+        //     <ScrollView>
+    //       <View style={styles.container}>
+    //       {/* <FlatList
+    //           data={productDesc}
+    //           keyExtractor={(item, index) => {name}}
+    //           horizontal
+    //           pagingEnabled
+    //           scrollEnabled
+    //           snapToAlignment="center"
+    //           scrollEventThrottle={16}
+    //           decelerationRate={"fast"}
+    //           showsHorizontalScrollIndicator={false}
+
+    //           renderItem={({ item, index }) => {
+
+    //             // return ( */}
+
+    //               <View style={styles.addressLayout}>
+    //               {/* //addressLayoutstart */}
+
+    //               <View style={{
+    //                 flexDirection: 'row',
+    //                 alignItems: 'center',
+    //               }}>
+    //                 <Icon name="location-pin" size={20} color="#000" />
+
+    //                 <Text style={{ marginLeft: 10 }}>Deliver to </Text>
+
+    //                 <Text style={{ color: '#14837D' }}> 500025 Hyderabad</Text>
+
+    //               </View>
+
+    //               <Text style={{ color: '#14837D' }}>Change</Text>
+
+    //             </View>
+    //                           {/* //addressLayout ends */}
+
+    //               <View style={styles.cardView}>
+    //               {/* imagecard */}
+    //                 <Image style={styles.image} source={{ uri: image }} />
+    //               </View>
+
+    //           {/* <View style={styles.offerDesign}>
+
+    //   <View style={styles.offerLayout}>
+
+    //     <Icon name="local-offer" size={20} color="#ff7f7e" />
+
+    //     <Text style={styles.offer}>OFFERS</Text>
+    //   </View>
+
+    //   <View style={styles.dotView}>
+
+    //     {categorylist.map((_, i) => {
+    //       let opacity = position.interpolate({
+    //         inputRange: [i - 1, i, i + 1],
+    //         outputRange: [0.3, 1, 0.3],
+    //         extrapolate: "clamp",
+    //       });
+    //       return (
+    //         <Animated.View
+    //           key={i}
+    //           style={{
+    //             opacity,
+    //             height: 8,
+    //             width: 8,
+    //             backgroundColor: "#14837D",
+    //             margin: 6,
+    //             borderRadius: 5,
+    //           }}
+    //         />
+    //       );
+    //     })}
+    //   </View>
+
+    //   <View style={{
+    //     flex: 1,
+    //     alignItems: 'flex-end'
+    //   }}>
+
+    //     <AntDesign name="shake" size={20} color="#57bbd2" />
+
+    //   </View>
+
+    //   </View> */}
+
+    // <Text style={styles.productname}>{name}</Text>
+
+    // <Text>{description}</Text>
+
+    // {/* <Text style={{ color: '#14837D', marginLeft: 15 }}>Visit Pillbox Store</Text> */}
+
+    // <View style={styles.mrp}>
+
+    // <Text style={{ color: '#32a852' }}>MRP : </Text>
+
+    // <Text style={{ color: '#32a852' }}>{price}</Text>
+
+    // <Text style={styles.offText}>50% OFF</Text>
+
+    // </View>
+
+    // <View style={styles.mrpLayout}>
+
+    // <View>
+
+    //   <Text style={{ color: '#000' }}>{price}</Text>
+
+    //   <Text style={{ color: '#90989c' }}>Inclusive of all taxes</Text>
+
+    //   {/* <Counter start={1} min={1} max={20} onChange={this.onChange.bind(this)}/> */}
+
+    //       {/* <Button onPress={incrementQuantity}  title="+"></Button>
+    //       <Text>Quantity:{quantity}</Text>
+
+    //       <Button style={{height:100}} onPress={decrementQuantity} title="-"></Button> */}
+    //    {/* <DropDownPicker
+    //       open={open}
+    //       value={value}
+    //       items={items}
+    //       setOpen={setOpen}
+    //       setValue={setValue}
+    //       setItems={setItems}
+    //     /> */}
+
+    // <SelectDropdown
+    // 	data={countries}
+    // 	onSelect={(selectedItem, index) => {
+    // 		// console.log(selectedItem, index)
+    //     setquantity(selectedItem);
+    // 	}}
+
+    //   defaultButtonText="Select Quantity"
+    // 	buttonTextAfterSelection={(selectedItem, index) => {
+    // 		// text represented after item is selected
+    // 		// if data array is an array of objects then return selectedItem.property to render after item is selected
+    // 		return `Quantity :${selectedItem}`
+    // 	}}
+    // 	rowTextForSelection={(item, index) => {
+    // 		// text represented for each item in dropdown
+    // 		// if data array is an array of objects then return item.property to represent item in dropdown
+    // 		return item
+    // 	}}
+    // />
+
+    //   <Button style={styles.addToCart} title="Add To Cart" onPress={addToCart}></Button>
+
+    //   {/* <Picker
+    //   selectedValue={quantity}
+    //   onValueChange={(itemValue, itemIndex) =>
+    //     setquantity(itemValue)
+    //   }
+    //   style={{height: 30, width: 180}}
+    //   >
+    //   <Picker.Item label="1" value="1" />
+    //   <Picker.Item label="2" value="2" />
+    // </Picker> */}
+
+    // </View>
+
+    //   {/* <QuantityModalPicker changeModalVisibility={changeModalVisibility}/> */}
+
+    // {/* setModalVisible(true) // add to above button line onPress */}
+
+    // </View>
+
+    // {/* <View style={styles.orderLayout}>
+
+    // <Text style={styles.memberText}>Get $12.48 additional cashback with plus membership</Text>
+
+    // <Text style={styles.orderText}>Enroll now & enjoy FREE delivery on your order</Text>
+
+    // </View> */}
+
+    // {/* <View style={styles.packText}>
+
+    // <Text style={{ marginLeft: 5 }}>Pack size : 60 NO's</Text>
+
+    // <Text style={{ marginRight: 5 }}>1 more</Text>
+
+    // </View> */}
+
+    // </View>
+    // {/* </TouchableOpacity> */}
+    //   </ScrollView>
+
+
+
+
+
+
+
+    /////ecommmmmm
+
+
+   // Headers.js
+
+    // const myordersrefetch=async()=>{
+  //       await getMyOrders()
+  // }
+
+  // const resetApiState = () => ({
+  //   type: string,
+  //   payload: undefined,
+  // })
+    // const {refetch} = useGetMyOrdersQuery(skipToken);
+
+
+     // dispatch(useGetMyOrdersQuery.util.invalidateTags());
+    // dispatch(useGetMyOrdersQuery.util.invalidateTags(['Refetchorders']))
+    // refetch()
+
+
+     // getMyOrders()
+    // dispatch(api.util.resetApiState())
+
+
+                      {/* <i className='fas fa-shopping-cart fa-1x' style={{color:brandcolor,marginRight:5}}></i> */}
+
+                                        {/* <i className='fas fa-shopping-cart fa-1x' style={{color:brandcolor,marginRight:5}}></i> */}
+
+                                                          {/* <i className='fas fa-shopping-cart fa-1x' style={{color:brandcolor,marginRight:5}}></i> */}
+{/* <LinkContainer to='/login'>
+            <Nav.Link><i className='fas fa-user'></i>Sign in</Nav.Link>
+            </LinkContainer> */}
+
+
+
+            ///allorders.js
+
+
+
+            //   const [name, setName] = useState('')
+//   const [email, setEmail] = useState('')
+//   const [password, setPassword] = useState('')
+//   const [confirmPassword, setConfirmPassword] = useState('')
+//   const [message, setMessage] = useState(null)
+ 
+//   const {refetch} = useGetMyOrdersQuery();
+//   let updateResponse;
+
+//   const navigate = useNavigate();
+//   let userInfo;
+//   useEffect(() => {
+//   if (localStorage.getItem('userInfo') === null) {
+//         navigate('/login')
+//   }
+//   else{
+//     userInfo=JSON.parse(localStorage.getItem('userInfo'))
+//     setName(userInfo.name)
+//     setEmail(userInfo.email)
+//     refetch();
+//   }
+
+// },[userInfo])
+
+
+// const {refetch} = useGetMyOrdersQuery();
+//   const orderListMy = useSelector((state) => state.orderListMy)
+//   const {data,isLoading,error,isSuccess,isError}=useGetProfileQuery();
+//   isSuccess && console.log(data)
+//   isError && console.log("error")
+//   const myordersresponse=useGetMyOrdersQuery();
+//   console.log(myordersresponse.data)
+//   const[updateUser,updateUserResponse]=useUpdateProfileMutation();
+
+//   updateUserResponse.isError && console.log(updateUserResponse.error)
+
+// isSuccess && console.log("success",data)
+
+//   useEffect(() => {
+//     if (!userInfo) {
+//       history.push('/login')
+//     } else {
+//       if (!user || !user.name || success) {
+//         dispatch({ type: USER_UPDATE_PROFILE_RESET })
+//         dispatch(getUserDetails('profile'))
+//         dispatch(listMyOrders())
+//       } else {
+//         setName(user.name)
+//         setEmail(user.email)
+//       }
+//     }
+//   }, [dispatch, history, userInfo, user, success])
+//   const submitHandler = async (e) => {
+//     e.preventDefault()
+//     if (password !== confirmPassword) {
+//       setMessage('Passwords do not match')
+//     } else {
+//       const formData={name,email,password}
+//       updateResponse=await updateUser(formData);
+//       console.log("update",updateUserResponse.data)
+//     }
+//   }
+
+//   if(updateUserResponse.isSuccess){
+//     localStorage.setItem('userInfo',JSON.stringify(updateUserResponse.data))
+//     navigate(0)
+//     }
+
+
+  // let changeEmail=(e)=>{
+    // console.log("mail",email)
+  // }
+
+
+
+  //cartscreen.js
+
+
+    //     if (localStorage.getItem('userInfo') !== null) {
+  //       navigate('/shipping')
+  // }
+  // else{ 
+  //       navigate('/login')
+  //   }
+
+
+  //Homescreen.js
+
+
+    // const[products,setProducts]=useState([]);
+
+  // const loggedin=useSelector((state)=>state.user.loggedIn);
+
+  // useEffect(()=>{
+  //   const fetchProducts=async()=>{
+  //   const {data}= await axios.get('/api/products')
+  //     setProducts(data);
+  //   }
+  //   fetchProducts()
+  // },[])
+
+  // useEffect(()=>{
+  //   dispatch(productListRequest())
+  // },[])
+
+   // const getMyOrders=useGetMyOrdersQuery();
+
+  // {isSuccess && console.warn(data)}
+
+  // const add=()=>{
+    // dispatch(productListRequest())
+  //   console.log("clicked")
+  // }
+
+  // {isSuccess && products.push(data)}
+
+
+    // const Count=useSelector((state)=>state.product.count);
+
+      {/* <Container>      
+          <Image src={baby} fluid style={{height:'100%',width:'100%'}}/>
+          <h1 style={{position: 'absolute', 
+          top: '20%',color:"white",fontWeight:"500",left:'8%',fontSize:25}}>Every Nutrition Your Baby Needs In One Sachet</h1>
+          </Container> */}
+
+
+
+         /// ProductCarousal.js
+
+
+                             {/* <Carousel.Caption style={{color:'#000', fontSize:35,color:"white",position:'absolute'}}>Every Nutrition Your Baby Needs In One Sachet</Carousel.Caption> */}
+ {/* <Carousel.Item style={{height:450}}>
+                    <Image src={ban2} fluid style={{height:'100%',width:'100%'}}/>
+            </Carousel.Item> */}
+
+
+            ///Loginscreen.js
+
+              // const userLogin = useSelector((state) => state.userLogin)
+  // const {data,isLoading,isFetching,error,isError,isSuccess}=useLoginUserMutation(email,password);
+
+
+    // const redirect = location.search ? location.search.split('=')[1] : '/'
+
+
+    // const {refetch} = useGetMyOrdersQuery(skipToken);
+  // isSuccess && refetch()
+
+        {/* <Message>Hello</Message> */}
+
+
+          // [history, userInfo, redirect]
+
+
+          Orderscreen.js
+
+
+          import React from 'react'
+// import { PayPalButton } from 'react-paypal-button-v2'
+import { Button, Card, Col, Container, Image, ListGroup, Row } from 'react-bootstrap'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+// import dotenv from 'dotenv';
+import Message from '../screens/Message'
+// import Razorpay from 'razorpay';
+// import dotenv from "react-dotenv";
+import { useGetOrderByIdQuery, useInitiatePaymentMutation, useUpdateOrderToDeliverMutation, useVerifyPaymentMutation } from '../app/api'
+import Loader from '../components/Loader'
+import { brandcolor } from '../components/brandcolor'
+// import useRazorpay from "react-razorpay";
+  // import Razorpay from 'razorpay';
+
+
+    // const keyid=process.env.key_id
+
+
+
+    //Prodcutsscreen.js
+
+
+
+       {/* {loadingUpdate && <Loader />} */}
+        {/* {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>} */}
+        {/* {loading ? ( */}
+        {/* <Loader /> */}
+        {/* ) : error ? ( */}
+        {/* <Message variant='danger'>{error}</Message> */}
+        {/* ) : ( */}
+
+
+//productlistscreen.js
+
+
+//   const dispatch = useDispatch()
+
+//   const userList = useSelector((state) => state.userList)
+//   const { loading, error, users } = userList
+
+//   const userLogin = useSelector((state) => state.userLogin)
+//   const { userInfo } = userLogin
+
+//   const userDelete = useSelector((state) => state.userDelete)
+//   const { success: successDelete } = userDelete
+
+//   useEffect(() => {
+//     if (userInfo && userInfo.isAdmin) {
+//       dispatch(listUsers())
+//     } else {
+//       history.push('/login')
+//     }
+//   }, [dispatch, history, successDelete, userInfo])
+
+
+
+
+//productscreen.js
+
+
+ // setProduct(item)
+
+    // useEffect(()=>{
+    //     const fetchProduct=async()=>{
+    //         const {data}=await axios.get(`/api/products/${params.id}`)
+    //         setProduct(data);
+    //     }
+    //     fetchProduct();
+    // },[])
+            // navigate(`/cart/${params.id}?qty=${qty}`)
+            // const product=products.find(p=> p._id===params.id)
+
+
+//prodcutuploadscrenn.js

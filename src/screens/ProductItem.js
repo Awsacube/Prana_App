@@ -32,6 +32,7 @@ export default function ProductItem({route}) {
 
   if (res.isSuccess === true) {
     const data = res.data.products;
+    console.log(data, 'productItem');
     data.forEach(element => {
       const name = element.name;
       const image = element.image;
@@ -62,8 +63,7 @@ export default function ProductItem({route}) {
                   productid: item.uuid,
                 })
               }
-              style={styles.root}
-            >
+              style={styles.root}>
               <View>
                 <View>
                   <Image style={styles.image} source={{uri: item.image}} />

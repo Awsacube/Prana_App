@@ -3,6 +3,7 @@ import {skipToken} from '@reduxjs/toolkit/dist/query';
 import React, {useState} from 'react';
 import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useSearchProductsQuery} from '../../services/userAuthApi';
+import Feather from 'react-native-vector-icons/Feather';
 
 const ProductSearch = () => {
   const navigation = useNavigation();

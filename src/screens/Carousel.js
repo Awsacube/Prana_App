@@ -7,11 +7,10 @@ let flatList;
 
 function infiniteScroll(dataList) {
   const numberOfData = dataList.length;
-  console.log(numberOfData, 'dataaa');
   let scrollValue = 0,
     scrolled = 0;
 
-  setInterval(function () {
+  setInterval(() => {
     scrolled++;
     console.log('wsws', width + scrollValue);
     if (scrolled < numberOfData) scrollValue = scrollValue + width;
@@ -20,7 +19,7 @@ function infiniteScroll(dataList) {
       scrolled = 0;
     }
 
-    this.flatList.scrollToOffset({animated: true, offset: scrollValue});
+    flatList.scrollToOffset({animated: true, offset: scrollValue});
   }, 3000);
 }
 // ERROR  TypeError: null is not an object (evaluating 'this.flatList.scrollToOffset')
@@ -33,7 +32,7 @@ const Carousel = ({data}) => {
   useEffect(() => {
     setDataList(data);
     infiniteScroll(dataList);
-  });
+  }, [data, dataList]);
 
   if (data && data.length) {
     return (

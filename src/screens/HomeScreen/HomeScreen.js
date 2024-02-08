@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../../components/Search';
 import Categories from '../Categories';
 import FeaturedBrands from '../FeaturedBrands';
-import Logo from '../../assets/LOGO.png';
+import Logo from '../../assets/logo.png';
 import Services from '../Services';
 import Calltoorder from '../Calltoorder';
 import Specialization from '../Doctors/Specialization';
@@ -42,7 +42,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.Header}>
         <View>
           <Image source={Logo} style={styles.Logo} />
-          <Location style={styles.Loc} />
+          {/* <Location style={styles.Loc} /> */}
         </View>
         <View>
           <TouchableOpacity onPress={gotocart}>

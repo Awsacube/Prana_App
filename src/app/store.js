@@ -15,6 +15,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import searchSlice from './search-slice';
 
 const persistConfig = {
   key: 'root',
@@ -31,6 +32,7 @@ export const store = configureStore({
     cart: cartSlice.reducer,
     auth: persistedReducer,
     location: locationSlice.reducer,
+    search: searchSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

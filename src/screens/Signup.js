@@ -3,41 +3,39 @@ import {
   View,
   Text,
   Image,
-  useWindowDimensions,
   StyleSheet,
   ScrollView,
   ImageBackground,
+  Pressable,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 // import Logo from '../../assets/images/Logo.png'
 import Custominput from '../components/Custominput';
 import Custombutton from '../components/Custombutton';
-import SocialSigninButton from '../components/SocialSigninButton';
 import {useNavigation} from '@react-navigation/native';
 import background from '.././assets/signback.jpeg';
-import Logo from '../assets/LOGO.png';
-import SelectDropdown from 'react-native-select-dropdown';
-import {TextInput} from 'react-native-gesture-handler';
-import {useRegisterUserMutation} from '../services/userAuthApi';
-import {storeToken} from '../services/AsyncStorageService';
+import Logo from '../assets/logo.png';
 
-const countriesCode = ['+91'];
+import {useRegisterUserMutation} from '../services/userAuthApi';
+import {windowHeight} from '../utils/dimensions';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 const Signup = () => {
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [phone_number, setMobile] = useState('');
-  const [phone_ext, setcCode] = useState('+91');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
+  const [secureText, setSecureText] = useState(true);
 
-  const {height} = useWindowDimensions();
   const navigation = useNavigation();
 
   const [registerUser] = useRegisterUserMutation();
 
-  const OnSignup = async () => {
+  const OnSignup = async (
+    first_name,
+    last_name,
+    email,
+    password,
+    phone_ext = '+91',
+    phone_number,
+  ) => {
     const formData = {
       first_name,
       last_name,
@@ -45,9 +43,9 @@ const Signup = () => {
       password,
       phone_ext,
       phone_number,
-      address,
     };
     const res = await registerUser(formData);
+    console.log(res);
     navigation.navigate('Signin');
   };
 
@@ -55,12 +53,6 @@ const Signup = () => {
     navigation.navigate('Signin');
   };
 
-  const onTermsPressed = () => {
-    console.warn('Terms');
-  };
-  const onPrivacyPressed = () => {
-    console.warn('Privacy');
-  };
   return (
     <SafeAreaView>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -68,48 +60,141 @@ const Signup = () => {
           <View style={styles.root}>
             <Image
               source={Logo}
-              style={[styles.logo, {height: height * 0.3}]}
+              style={[styles.logo, {height: windowHeight * 0.3}]}
               resizeMode="contain"
             />
-            {/* <Text style={styles.logo}>Pillbox</Text> */}
             <Text style={styles.title}>Create an Account</Text>
-            <Custominput
-              placeholder="FirstName"
-              value={first_name}
-              setValue={setFirstName}
-            />
-            <Custominput
-              placeholder="LastName"
-              value={last_name}
-              setValue={setLastName}
-            />
-            <Custominput
-              placeholder="Email"
-              value={email}
-              setValue={setEmail}
-            />
-            {/* <View style={styles.phone}> */}
-            {/* <SelectDropdown data={countriesCode} defaultValue={+91} disabled={true} value={phone_ext} style={styles.phoneCode}/> */}
-            <Custominput
-              placeholder="10 digit Mobile Number"
-              value={phone_number}
-              setValue={setMobile}
-              style={styles.phoneNum}
-            />
-            {/* </View> */}
-            <Custominput
-              placeholder="Password"
-              value={password}
-              setValue={setPassword}
-              secureTextEntry={true}
-            />
-            <Custominput
-              placeholder="Address"
-              value={address}
-              setValue={setAddress}
-            />
-            {/* <Custominput placeholder="Repeat Password" value={passwordRepeat} setValue={setPasswordRepeat} secureTextEntry={true}/>  */}
-            <Custombutton text="Register" onPress={OnSignup} />
+            <Formik
+              initialValues={{
+                firstName: '',
+                lastName: '',
+                email: '',
+                phoneNumber: '',
+                password: '',
+              }}
+              validationSchema={Yup.object({
+                firstName: Yup.string()
+                  .max(20, 'Invalid first name')
+                  .required('Required'),
+                lastName: Yup.string()
+                  .max(20, 'Invalid last name')
+                  .required('Required'),
+                email: Yup.string()
+                  .email('Invalid email address')
+                  .required('Required'),
+                phoneNumber: Yup.string()
+                  .max(20, 'Invalid phone number')
+                  .required('Required'),
+                password: Yup.string()
+                  .max(20, 'Invalid password')
+                  .required('Required'),
+              })}
+              onSubmit={values =>
+                OnSignup(
+                  values.firstName,
+                  values.lastName,
+                  values.email,
+                  values.password,
+                  '+91',
+                  values.phoneNumber,
+                )
+              }>
+              {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                values,
+                errors,
+                touched,
+                isSubmitting,
+              }) => (
+                <>
+                  <View style={styles.maxWidth}>
+                    <Custominput
+                      label="First Name"
+                      name="firstName"
+                      placeholder="Enter your first name"
+                      onChangeText={handleChange('firstName')}
+                      onBlur={handleBlur('firstName')}
+                      value={values.firstName}
+                    />
+                    {touched.firstName && errors.firstName ? (
+                      <Text style={styles.errorText}>{errors.firstName}</Text>
+                    ) : null}
+                  </View>
+                  <View style={styles.maxWidth}>
+                    <Custominput
+                      label="Last Name"
+                      name="lastName"
+                      placeholder="Enter your last name"
+                      onChangeText={handleChange('lastName')}
+                      onBlur={handleBlur('lastName')}
+                      value={values.lastName}
+                    />
+                    {touched.lastName && errors.lastName ? (
+                      <Text style={styles.errorText}>{errors.lastName}</Text>
+                    ) : null}
+                  </View>
+                  <View style={styles.maxWidth}>
+                    <Custominput
+                      label="Email ID"
+                      name="email"
+                      placeholder="Enter your email"
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      value={values.email}
+                    />
+                    {touched.email && errors.email ? (
+                      <Text style={styles.errorText}>{errors.email}</Text>
+                    ) : null}
+                  </View>
+                  <View style={styles.maxWidth}>
+                    <Custominput
+                      label="Phone Number"
+                      name="phoneNumber"
+                      placeholder="Enter your phone number"
+                      onChangeText={handleChange('phoneNumber')}
+                      onBlur={handleBlur('phoneNumber')}
+                      value={values.phoneNumber}
+                    />
+                    {touched.phoneNumber && errors.phoneNumber ? (
+                      <Text style={styles.errorText}>{errors.phoneNumber}</Text>
+                    ) : null}
+                  </View>
+                  <View style={styles.maxWidth}>
+                    <Custominput
+                      label="Password"
+                      name="password"
+                      placeholder="Enter your password"
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      value={values.password}
+                      isSecure={true}
+                      setSecureText={setSecureText}
+                      secureText={secureText}
+                    />
+                    {touched.password && errors.password ? (
+                      <Text style={styles.errorText}>{errors.password}</Text>
+                    ) : null}
+                  </View>
+                  <Pressable
+                    disabled={
+                      errors.firstName ||
+                      errors.lastName ||
+                      errors.email ||
+                      errors.phoneNumber ||
+                      errors.password
+                        ? true
+                        : false
+                    }
+                    onPress={handleSubmit}
+                    title="Submit"
+                    style={styles.submitButton}>
+                    <Text style={styles.loginText}>Register</Text>
+                  </Pressable>
+                </>
+              )}
+            </Formik>
             {/* <Text style={styles.text}>By Registering Confirm That You Accept our {' '}<Text style={styles.link} onPress={onTermsPressed}>Terms Of Use </Text>And {' '}<Text style={styles.link} onPress={onPrivacyPressed}>Privacy Policy</Text></Text> */}
             <Custombutton
               text="Have an account? Sign in"
@@ -128,22 +213,25 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  maxWidth: {
+    width: '100%',
+    marginBottom: '2%',
+  },
   SelectDropdown: {},
   phoneNum: {},
   root: {
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
   },
   logo: {
-    width: '70%',
-    maxWidth: 300,
-    maxHeight: 200,
+    maxWidth: 200,
+    maxHeight: 175,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#051C60',
-    margin: 10,
+    margin: 5,
   },
   text: {
     color: 'gray',
@@ -153,7 +241,28 @@ const styles = StyleSheet.create({
     color: '#FDB075',
   },
   image: {
-    height: 750,
+    height: windowHeight,
+  },
+  submitButton: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: '3%',
+    backgroundColor: 'purple',
+    borderRadius: 5,
+    marginTop: '4%',
+  },
+  loginText: {
+    fontSize: 15,
+    color: 'white',
+    fontWeight: '500',
+  },
+  errorText: {
+    fontSize: 10,
+    fontWeight: '400',
+    color: 'red',
   },
 });
 

@@ -66,7 +66,7 @@ export default function SubCategories({route}) {
                   <Pressable
                     onPress={
                       // () => console.log(item.uuid)
-                      navigation.navigate('ProductItem', {id: item.uuid})
+                      () => navigation.navigate('ProductItem', {id: item.uuid})
                     }>
                     <View style={styles.catLayout}>
                       <View style={styles.imageLayout}>

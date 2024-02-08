@@ -37,7 +37,7 @@ const FeaturedBrands = () => {
         style={{
           marginTop: 20,
         }}>
-        <ScrollView horizontal>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {categorylist.map((item, index) => (
             <Pressable
               onPress={() =>

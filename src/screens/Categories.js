@@ -57,27 +57,22 @@ export default function Categories() {
           <View style={styles.catLayout}>
             {(searchQuery.length < 1 ? categorylist : searchResults).map(
               (item, index) => (
-                <View>
-                  <Pressable
-                    onPress={() =>
-                      navigation.navigate('SubCategories', {id: item.uuid})
-                    }
-                    key={item.uuid}>
-                    <View style={styles.card}>
-                      <View style={styles.imageLayout}>
-                        <Image
-                          source={{uri: item.image}}
-                          style={styles.image}
-                        />
-                      </View>
-                      <View style={styles.text}>
-                        <Text style={styles.productname}>
-                          {item.name != null ? item.name : ''}
-                        </Text>
-                      </View>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('SubCategories', {id: item.uuid})
+                  }
+                  key={item.uuid}>
+                  <View style={styles.card}>
+                    <View style={styles.imageLayout}>
+                      <Image source={{uri: item.image}} style={styles.image} />
                     </View>
-                  </Pressable>
-                </View>
+                    <View style={styles.text}>
+                      <Text style={styles.productname}>
+                        {item.name != null ? item.name : ''}
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
               ),
             )}
           </View>

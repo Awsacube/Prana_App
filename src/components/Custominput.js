@@ -1,38 +1,83 @@
 import React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import {View, TextInput, StyleSheet, Pressable, Text} from 'react-native';
+import Entypo from 'react-native-vector-icons/Entypo';
 
-const Custominput = ({value, setValue, placeholder, secureTextEntry}) => {
+const Custominput = ({
+  label,
+  name,
+  placeholder,
+  isSecure,
+  secureText,
+  setSecureText,
+  onChangeText,
+  onBlur,
+  value,
+}) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.inputContainer}>
+      <Text style={styles.label}>{label}</Text>
       <TextInput
-        value={value}
-        onChangeText={setValue}
-        autoCorrect={false}
-        autoCapitalize="none"
-        placeholder={placeholder}
+        name={name}
         style={styles.input}
-        secureTextEntry={secureTextEntry}
-        placeholderTextColor="black"
+        placeholder={placeholder}
+        placeholderTextColor={'black'}
+        onChangeText={onChangeText}
+        onBlur={onBlur}
+        value={value}
+        secureTextEntry={secureText}
       />
+      <View style={styles.iconContainer}>
+        {isSecure &&
+          (secureText ? (
+            <Pressable onPress={() => setSecureText(false)}>
+              <Entypo name="eye" size={20} />
+            </Pressable>
+          ) : (
+            <Pressable onPress={() => setSecureText(!secureText)}>
+              <Entypo name="eye-with-line" size={20} />
+            </Pressable>
+          ))}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    height: 50,
+  inputContainer: {
     width: '100%',
-    borderColor: '#e8e8e8',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginVertical: 5,
+    position: 'relative',
+    display: 'flex',
+  },
+  iconContainer: {
+    position: 'absolute',
+    zIndex: 10,
+    top: '50%',
+    right: 10,
+    // width: '25%',
+    paddingHorizontal: '1%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  label: {
+    fontSize: 13,
+    color: 'black',
+    marginBottom: 2,
   },
   input: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 15,
+    color: 'black',
+    borderWidth: 1,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingHorizontal: 15,
+  },
+  icon: {
+    position: 'absolute',
+    right: 20,
+    bottom: 12,
     color: 'black',
   },
 });

@@ -28,6 +28,7 @@ import EditProfile from '../screens/Profile/EditProfile';
 import Profile from '../screens/Profile/Profile';
 import SubCategories from '../screens/SubCategories';
 import WishList from '../screens/wishlist';
+import StoresNearMe from '../screens/StoresNearMe';
 import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
@@ -82,6 +83,7 @@ const AppStack = () => {
       <Stack.Screen name="FeaturedBrands" component={FeaturedBrands} />
       <Stack.Screen name="FeaturedBrandItems" component={FeaturedBrandItems} />
       <Stack.Screen name="WishList" component={WishList} />
+      <Stack.Screen name="StoresNearMe" component={StoresNearMe} />
     </Stack.Navigator>
   );
 };

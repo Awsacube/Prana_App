@@ -129,6 +129,21 @@ export default function Profile() {
               }}
             />
           </Pressable>
+          <Pressable onPress={() => navigation.navigate('StoresNearMe')}>
+            <View style={styles.listItem}>
+              <View style={styles.iconDesign}>
+                <Icon name="heart-circle" size={25} color="#E73631" />
+              </View>
+
+              <Text style={styles.textDesign}>Stores Near Me</Text>
+            </View>
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 0.4,
+              }}
+            />
+          </Pressable>
           <View style={styles.listItem}>
             <View style={styles.iconDesign}>
               <Icon name="headphones" size={25} color="#E73631" />

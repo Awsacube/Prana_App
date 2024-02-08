@@ -24,9 +24,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Location = () => {
-  useEffect(() => {
-    getLocation();
-  }, []);
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
 
   console.log('plater', Platform.OS);
   // const [skip, setSkip] = useState(true)
@@ -112,20 +112,20 @@ const Location = () => {
   //  locationRes=useLocationQuery();
 
   // const getcitycode=useLocationQuery();
-  const {isLoading, error, data, isSuccess, isError} = useLocationQuery(
-    latlongdata,
-    {
-      skipState,
-    },
-  );
+  // const {isLoading, error, data, isSuccess, isError} = useLocationQuery(
+  //   latlongdata,
+  //   {
+  //     skipState,
+  //   },
+  // );
 
-  if (isSuccess) {
-    dispatch(setCity(data.items[0].address.city));
-    dispatch(setPostalCode(data.items[0].address.postalCode));
-    // console.log("city",data.items[0].address.city)
-    // console.log("postalCode",data.items[0].address.postalCode)
-    // console.log("data",data)
-  }
+  // if (isSuccess) {
+  //   dispatch(setCity(data.items[0].address.city));
+  //   dispatch(setPostalCode(data.items[0].address.postalCode));
+  //   // console.log("city",data.items[0].address.city)
+  //   // console.log("postalCode",data.items[0].address.postalCode)
+  //   // console.log("data",data)
+  // }
   return (
     <SafeAreaView>
       <View style={styles.container}>

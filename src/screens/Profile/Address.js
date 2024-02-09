@@ -5,80 +5,55 @@ import {
   Pressable,
   ScrollView,
   Text,
-  TextBase,
   View,
 } from 'react-native';
-import {Card} from 'react-native-elements';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {getToken} from '../../services/AsyncStorageService';
 import {useGetLoggedUserQuery} from '../../services/userAuthApi';
 import {StyleSheet} from 'react-native';
 import {colors} from '../../constants/colors';
 import {windowHeight} from '../../utils/dimensions';
 import Entypo from 'react-native-vector-icons/Entypo';
-// import ModalLayout from '../../components/ModalLayout';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import AddressModal from '../../components/modals/AddressModal';
+import {
+  handleDeleteUserAdditionalAddress,
+  handleDeleteUserAddress,
+} from '../../services/profileService';
 
 const Address = ({navigation}) => {
-  // const [userLToken, setUserLToken] = useState();
+  const [userLToken, setUserLToken] = useState();
+  const [profileData, setProfileData] = useState();
 
-  // useEffect(() => {
-  //   const getT = async () => {
-  //     const token = await getToken(); //getting token from storage
-  //     setUserLToken(token); //store token in local storage
-  //   };
-  //   getT();
-  // }, []);
+  const [method, setMethod] = useState();
+  const [additionalAddress, setAdditionalAddress] = useState(null);
 
-  // let Address = [];
+  useEffect(() => {
+    const getT = async () => {
+      const token = await getToken(); //getting token from storage
+      setUserLToken(token); //store token in local storage
+    };
+    getT();
+  }, []);
 
-  // const {data, isSuccess, isError, error} = useGetLoggedUserQuery(userLToken, {
-  //   refetchOnMountOrArgChange: true,
-  // });
+  const {data, isSuccess, isError, error, refetch} = useGetLoggedUserQuery(
+    userLToken,
+    {
+      refetchOnMountOrArgChange: true,
+    },
+  );
 
-  // isSuccess && Address.push(data.additional_address);
+  useEffect(() => {
+    if (isSuccess) {
+      setProfileData(data);
+    }
+  }, [isSuccess, data]);
 
-  // isError && console.log('errs', error);
+  isError && console.log('errs', error);
 
-  // if (isSuccess) {
-  //   console.log(Address[0], 'dataadd');
-  // }
+  if (isSuccess) {
+    console.log(data);
+  }
   const [isModalVisible, setModalVisible] = useState(false);
-  const addressData = [
-    {
-      id: '890156a6-508c-425d-98d0-7e4fab8ac364',
-      name: 'Mobile',
-      phoneNumber: '9998889998',
-      houseNumber: '8-12/A',
-      street: 'Hyper street',
-      city: 'Hyderabad',
-      state: 'Telangana',
-      pinCode: '500037',
-      place: 'Home',
-    },
-    {
-      id: '890156a6-508c-425d-98d0-7e4fab8ac363',
-      name: 'Mobile',
-      phoneNumber: '9998889998',
-      houseNumber: '8-12/A',
-      street: 'Hyper street',
-      city: 'Hyderabad',
-      state: 'Telangana',
-      pinCode: '500037',
-      place: 'Office',
-    },
-    {
-      id: '890156a6-508c-425d-98d0-7e4fab8ac362',
-      name: 'Mobile',
-      phoneNumber: '9998889998',
-      houseNumber: '8-12/A',
-      street: 'Hyper street',
-      city: 'Hyderabad',
-      state: 'Telangana',
-      pinCode: '500037',
-      place: 'Other',
-    },
-  ];
 
   const openModal = () => {
     setModalVisible(true);
@@ -107,13 +82,18 @@ const Address = ({navigation}) => {
     <ScrollView style={styles.container}>
       <View style={styles.row}>
         <Pressable onPress={() => navigation.navigate('Account')}>
-          <Text>Back</Text>
+          <AntDesign name="arrowleft" size={20} color={'black'} />
         </Pressable>
         <Text style={styles.title}>My Addresses</Text>
       </View>
       <View style={styles.margin}>
         <View style={styles.center}>
-          <Pressable style={styles.addButton} onPress={() => openModal()}>
+          <Pressable
+            style={styles.addButton}
+            onPress={() => {
+              openModal();
+              setMethod('add');
+            }}>
             <Entypo name="plus" size={25} />
             <Text style={styles.addText}>Add Address</Text>
           </Pressable>
@@ -125,49 +105,98 @@ const Address = ({navigation}) => {
         </View>
       </View>
       <View style={[styles.addressBook, styles.margin]}>
-        {addressData.map(address => (
-          <View key={address.id} style={styles.addressContainer}>
+        {profileData && Object.keys(profileData.address).length > 1 && (
+          <View key={profileData.address.id} style={styles.addressContainer}>
             <View style={styles.addressRowContainer}>
-              <Text style={styles.addressPlaceText}>{address.place}</Text>
+              <Text style={styles.addressPlaceText}>
+                {profileData.address.place}
+              </Text>
               <View style={styles.addressModalContainer}>
                 <Pressable
                   style={styles.addressIcon}
-                  onPress={() => openModal()}>
-                  <Entypo
-                    name="edit"
-                    size={16}
-                    color={colors.gray_600}
-                    // onClick={() => {
-                    //   setModalVisible(true);
-                    //   // setAdditionalAddress(address);
-                    //   // setMethod('editAdditionalAddress');
-                    // }}
-                  />
+                  onPress={() => {
+                    setMethod('edit');
+                    openModal();
+                  }}>
+                  <Entypo name="edit" size={16} color={colors.gray_600} />
                 </Pressable>
-                <Pressable style={styles.addressIcon}>
-                  <Entypo
-                    name="trash"
-                    size={16}
-                    color={colors.gray_600}
-                    // onClick={() => {
-                    //   handleDeleteUserAdditionalAddress(data, address.id);
-                    // }}
-                  />
+                <Pressable
+                  style={styles.addressIcon}
+                  onPress={() => handleDeleteUserAddress(userLToken, refetch)}>
+                  <Entypo name="trash" size={16} color={colors.gray_600} />
                 </Pressable>
               </View>
             </View>
             <View style={[styles.addressModalContainer, styles.mt2]}>
-              <Text style={styles.addressUserName}>{address.name}</Text>
-              <Text style={styles.addressPhoneText}>{address.phoneNumber}</Text>
+              <Text style={styles.addressUserName}>
+                {profileData.address.name}
+              </Text>
+              <Text style={styles.addressPhoneText}>
+                {profileData.address.phoneNumber}
+              </Text>
             </View>
             <View style={styles.mt}>
               <Text style={styles.addressCompleteText}>
-                {address.houseNumber}, {address.street}, {address.city}-
-                {address.pinCode}, {address.state}
+                {profileData.address.houseNumber}, {profileData.address.street},{' '}
+                {profileData.address.city}-{profileData.address.pinCode},{' '}
+                {profileData.address.state}
               </Text>
             </View>
           </View>
-        ))}
+        )}
+        {data &&
+          data.additional_address &&
+          data.additional_address.map(address => (
+            <View key={address.id} style={styles.addressContainer}>
+              <View style={styles.addressRowContainer}>
+                <Text style={styles.addressPlaceText}>{address.place}</Text>
+                <View style={styles.addressModalContainer}>
+                  <Pressable
+                    style={styles.addressIcon}
+                    onPress={() => {
+                      openModal();
+                      setAdditionalAddress(address);
+                      setMethod('editAdditionalAddress');
+                    }}>
+                    <Entypo name="edit" size={16} color={colors.gray_600} />
+                  </Pressable>
+                  <Pressable
+                    style={styles.addressIcon}
+                    onPress={() =>
+                      handleDeleteUserAdditionalAddress(
+                        profileData,
+                        address.id,
+                        userLToken,
+                        refetch,
+                      )
+                    }>
+                    <Entypo name="trash" size={16} color={colors.gray_600} />
+                  </Pressable>
+                </View>
+              </View>
+              <View style={[styles.addressModalContainer, styles.mt2]}>
+                <Text style={styles.addressUserName}>{address.name}</Text>
+                <Text style={styles.addressPhoneText}>
+                  {address.phoneNumber}
+                </Text>
+              </View>
+              <View style={styles.mt}>
+                <Text style={styles.addressCompleteText}>
+                  {address.houseNumber}, {address.street}, {address.city}-
+                  {address.pinCode}, {address.state}
+                </Text>
+              </View>
+            </View>
+          ))}
+        {profileData &&
+          Object.keys(profileData.address).length < 1 &&
+          profileData.additional_address.length < 1 && (
+            <View style={styles.mt2}>
+              <Text>
+                No Address Found ! <Text>Please Add one...</Text>
+              </Text>
+            </View>
+          )}
       </View>
       <Modal
         visible={isModalVisible}
@@ -177,8 +206,15 @@ const Address = ({navigation}) => {
         <Pressable style={styles.modalBackground} onPress={closeModal}>
           <View {...panResponder.panHandlers} style={styles.modalContainer}>
             <View style={styles.dragBar} />
-            <View style={{marginTop: 15}}>
-              <AddressModal />
+            <View style={styles.mt3}>
+              <AddressModal
+                data={profileData}
+                method={method}
+                additionalAddress={additionalAddress}
+                closeModal={closeModal}
+                token={userLToken}
+                refetch={refetch}
+              />
             </View>
           </View>
         </Pressable>
@@ -238,6 +274,9 @@ const styles = StyleSheet.create({
   mt2: {
     marginTop: 6,
     width: '100%',
+  },
+  mt3: {
+    marginTop: 15,
   },
   savedText: {
     width: '40%',

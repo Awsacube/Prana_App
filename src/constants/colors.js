@@ -39,4 +39,5 @@ export const colors = {
   textPurple: '#5C5470',
 
   azureBlue: '#1c738c',
+  backgroundBlue: '#F1FCFF',
 };

@@ -21,6 +21,8 @@ import {
   useGetAllCartItemsQuery,
   useAddToCartMutation,
 } from '../services/userAuthApi';
+import {colors} from '../constants/colors';
+import adjust from '../utils/responsive';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
@@ -43,8 +45,7 @@ export default function ProductDescription({route}) {
 
   const [addToCart] = useAddToCartMutation(); //send cart data to backend
   const [addToWishlist] = useAddToWishlistMutation(); //send cart data to backend
-  const {refecth} = useGetAllCartItemsQuery();
-  const {refecthWishlist} = useWishListQuery();
+  const {refetch: refetchWishlist} = useWishListQuery({token: userLToken});
   const cartData = {
     id: productid,
     quantity: quantity,
@@ -56,8 +57,8 @@ export default function ProductDescription({route}) {
   };
   const addToWishlistHandler = async () => {
     await addToWishlist(cartData);
-    console.log('added');
     ToastAndroid.show('Product added to Wishlist', ToastAndroid.SHORT);
+    refetchWishlist();
   };
 
   const productDesc = [];
@@ -67,6 +68,7 @@ export default function ProductDescription({route}) {
   let image;
   let uuid;
   let description;
+  let discount;
 
   if (res.isSuccess === true) {
     const data = res.data;
@@ -74,6 +76,7 @@ export default function ProductDescription({route}) {
     name = res.data.name;
     image = res.data.image;
     price = res.data.price;
+    discount = res.data.discount;
     uuid = res.data.uuid;
     description = res.data.description;
     productDesc.unshift({
@@ -81,6 +84,7 @@ export default function ProductDescription({route}) {
       image: image,
       uuid: uuid,
       price: price,
+      discount: discount,
       description: description,
     });
   }
@@ -92,6 +96,10 @@ export default function ProductDescription({route}) {
     if (quantity > 1) {
       setquantity(quantity - 1);
     }
+  };
+
+  const totalValue = item => {
+    return price - (price * discount) / 100;
   };
 
   return (
@@ -131,7 +139,13 @@ export default function ProductDescription({route}) {
               </View>
             </View>
           </View>
-          <Text style={styles.price}>MRP: ₹{price}</Text>
+          <View style={[styles.priceFlex]}>
+            <Text style={styles.mrp}>MRP</Text>
+            <Text style={styles.price}>₹{totalValue()}</Text>
+            <Text style={styles.priceOverline}>
+              ₹{parseFloat(price).toFixed(2)}
+            </Text>
+          </View>
           <Text style={styles.description}>{description}</Text>
           <View style={styles.buttonsContainer}>
             <Pressable
@@ -153,14 +167,16 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     alignContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.pearlWhite,
   },
   image: {
-    height: 300,
+    height: adjust(250),
     width: '100%',
   },
   infoContainer: {
-    padding: 16,
+    // padding: 16,
+    paddingVertical: adjust(3),
+    paddingHorizontal: adjust(10),
   },
   flexContainer: {
     flexDirection: 'row',
@@ -168,10 +184,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#000',
-    textTransform: 'uppercase',
+    fontSize: adjust(14),
+    fontWeight: '500',
+    color: colors.neutralBlack,
+    textTransform: 'capitalize',
   },
   evenly: {
     height: '10%',
@@ -182,61 +198,82 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    height: 35,
-    width: 35,
+    height: adjust(25),
+    width: adjust(25),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.pearlWhite,
     borderWidth: 1,
-    borderColor: '#1c738c',
-    borderRadius: 5,
+    borderColor: colors.azureBlue,
+    borderRadius: adjust(5),
   },
   bold: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#1c738c',
+    fontSize: adjust(13),
+    fontWeight: 'bold',
+    color: colors.azureBlue,
     width: '100%',
-    paddingHorizontal: 10,
+    paddingHorizontal: adjust(10),
   },
-
+  priceFlex: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginBottom: adjust(5),
+    borderRadius: adjust(5),
+  },
+  mrp: {
+    fontSize: adjust(12),
+    color: colors.azureBlue,
+    fontWeight: '400',
+    textAlign: 'center',
+    marginRight: adjust(5),
+  },
   price: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
+    fontSize: adjust(12),
+    color: colors.black,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  priceOverline: {
+    fontSize: adjust(10),
+    color: colors.gray_600,
+    fontWeight: '500',
+    textAlign: 'center',
+    textDecorationLine: 'line-through',
+    marginLeft: adjust(5),
   },
   description: {
-    fontSize: 16,
+    fontSize: adjust(11),
     fontWeight: '400',
-    color: '#787878',
-    marginBottom: 16,
+    color: colors.neutralBlack,
+    marginBottom: adjust(10),
   },
   button: {
-    marginVertical: 5,
-    paddingVertical: 10,
-    borderRadius: 5,
+    marginVertical: adjust(5),
+    paddingVertical: adjust(5),
+    borderRadius: adjust(5),
     textAlign: 'center',
-    backgroundColor: '#1c738c',
+    backgroundColor: colors.azureBlue,
     borderWidth: 1,
-    borderColor: '#1c738c',
+    borderColor: colors.azureBlue,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
+    color: colors.pearlWhite,
+    fontSize: adjust(12),
     fontWeight: '500',
     textAlign: 'center',
   },
   wishlistButton: {
-    marginVertical: 5,
-    paddingVertical: 10,
-    borderRadius: 5,
+    marginVertical: adjust(5),
+    paddingVertical: adjust(5),
+    borderRadius: adjust(5),
     textAlign: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.pearlWhite,
     borderWidth: 1,
-    borderColor: '#1c738c',
+    borderColor: colors.azureBlue,
   },
   wishlistText: {
-    color: '#1c738c',
-    fontSize: 18,
+    color: colors.azureBlue,
+    fontSize: adjust(14),
     fontWeight: '500',
     textAlign: 'center',
   },

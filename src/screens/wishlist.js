@@ -7,6 +7,7 @@ import {
   Pressable,
   PanResponder,
   Modal,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -18,6 +19,8 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {getToken} from '../services/AsyncStorageService';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import adjust from '../utils/responsive';
+import {colors} from '../constants/colors';
 
 export default function WishList({route}) {
   const [selected, setSelected] = useState();
@@ -51,8 +54,17 @@ export default function WishList({route}) {
       const image = element.product.image;
       const price = element.product.price;
       const uuid = element.uuid;
+      const productId = element.product.uuid;
+      const discount = element.product.discount;
       //   const description=element.description;
-      productList.unshift({name: name, image: image, uuid: uuid, price: price});
+      productList.unshift({
+        name: name,
+        image: image,
+        uuid: uuid,
+        price: price,
+        productId: productId,
+        discount: discount,
+      });
     });
   }
 
@@ -80,23 +92,26 @@ export default function WishList({route}) {
     }),
   ).current;
 
-  const handleDelete = id => {
-    setSelected(id);
+  const handleDelete = item => {
+    setSelected(item);
     openModal();
   };
 
   const [removeProduct] = useDeleteWishlistItemsMutation();
   const {refetch} = useWishListQuery(queryItems);
   const [addToCart] = useAddToCartMutation(); //send cart data to backend
-  const cartData = {
-    id: selected,
-    quantity: 1,
-    token: userLToken,
-  };
-  const handleCart = async id => {
-    console.log(cartData);
-    // await addToCart(cartData);
-    refetch();
+
+  const addToCartHandler = async wishlistItem => {
+    const cartData = {
+      id: wishlistItem.productId,
+      quantity: 1,
+      token: userLToken,
+    };
+    console.log(selected);
+    await addToCart(cartData);
+    handleRemoveWishlist(wishlistItem.uuid);
+    ToastAndroid.show('Product added to cart', ToastAndroid.SHORT);
+    // refetch();
     closeModal();
   };
 
@@ -106,122 +121,198 @@ export default function WishList({route}) {
       token: userLToken,
     };
     await removeProduct(remove);
-    console.log('removed');
     closeModal();
     refetch();
   };
 
+  const totalValue = item => {
+    return item.price - (item.price * item.discount) / 100;
+  };
+
   return (
-    <FlatList
-      data={productList}
-      keyExtractor={(item, index) => item.tc_id}
-      renderItem={({item, index}) => {
-        return (
-          <SafeAreaView>
-            <Pressable
-              onPress={() =>
-                navigation.navigate('ProductDescription', {
-                  productid: item.uuid,
-                })
-              }
-              style={styles.root}>
-              <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={productList}
+        keyExtractor={(item, index) => item.tc_id}
+        renderItem={({item, index}) => {
+          return (
+            <>
+              <Pressable
+                onPress={() =>
+                  navigation.navigate('ProductDescription', {
+                    productid: item.uuid,
+                  })
+                }
+                style={styles.mainContainer}>
                 <View>
                   <Image style={styles.image} source={{uri: item.image}} />
                 </View>
-                <View style={styles.rightCom}>
+                <View style={styles.details}>
                   <Text style={styles.title}>{item.name}</Text>
-                  <Text style={styles.price}>MRP:{item.price}</Text>
-                  <Text>{item.description}</Text>
+                  <View style={[styles.priceFlex]}>
+                    <Text style={styles.mrp}>MRP</Text>
+                    <Text style={styles.price}>₹{totalValue(item)}</Text>
+                    <Text style={styles.priceOverline}>
+                      ₹{parseFloat(item.price).toFixed(2)}
+                    </Text>
+                  </View>
                 </View>
                 <Pressable
-                  styles={styles.iconDesign}
-                  onPress={() => handleDelete(item.uuid)}>
-                  <Icon name="delete" size={40} color="#E73631" />
+                  style={styles.cartBtn}
+                  onPress={() => handleDelete(item)}>
+                  <Icon name="delete" style={styles.cartBtnText} />
                 </Pressable>
-              </View>
-            </Pressable>
-            <Modal
-              visible={isModalVisible}
-              transparent
-              animationType="slide"
-              statusBarTranslucent={true}>
-              <Pressable style={styles.modalBackground} onPress={closeModal}>
-                <View
-                  {...panResponder.panHandlers}
-                  style={styles.modalContainer}>
-                  <View style={styles.dragBar} />
-                  <View style={styles.modal}>
-                    <View style={styles.gap}>
-                      <Text style={styles.removeHeading}>
-                        Remove from cart?
-                      </Text>
-                      <Text style={styles.productModalText}>
-                        {/* {selected.product.name} */}
-                        sanju
-                      </Text>
-                      <View style={styles.rowContainer}>
-                        <Pressable
-                          onPress={() => handleRemoveWishlist(selected)}
-                          style={[styles.btn, styles.modalRemoveBtn]}>
-                          <Text
-                            style={[styles.btnText, styles.modalRemoveBtnText]}>
-                            Remove
+              </Pressable>
+              <Modal
+                visible={isModalVisible}
+                transparent
+                animationType="slide"
+                statusBarTranslucent={true}>
+                <Pressable style={styles.modalBackground} onPress={closeModal}>
+                  <View
+                    {...panResponder.panHandlers}
+                    style={styles.modalContainer}>
+                    <View style={styles.dragBar} />
+                    <View style={styles.modal}>
+                      <View style={styles.gap}>
+                        <Text style={styles.removeHeading}>
+                          Are You Sure you want to Remove
+                          <Text style={styles.productModalText}>
+                            {selected?.name}
                           </Text>
-                        </Pressable>
-                        <Pressable
-                          onPress={() => handleCart(selected)}
-                          style={[styles.btn, styles.modalSaveBtn]}>
-                          <Text
-                            style={[styles.btnText, styles.modalSaveBtnText]}>
-                            Add to cart
-                          </Text>
-                        </Pressable>
+                          from wishlist?
+                        </Text>
+
+                        <View style={styles.rowContainer}>
+                          <Pressable
+                            onPress={() => handleRemoveWishlist(selected.uuid)}
+                            style={[styles.btn, styles.modalRemoveBtn]}>
+                            <Text
+                              style={[
+                                styles.btnText,
+                                styles.modalRemoveBtnText,
+                              ]}>
+                              Remove
+                            </Text>
+                          </Pressable>
+                          <Pressable
+                            onPress={() => addToCartHandler(selected)}
+                            style={[styles.btn, styles.modalSaveBtn]}>
+                            <Text
+                              style={[styles.btnText, styles.modalSaveBtnText]}>
+                              Add to cart
+                            </Text>
+                          </Pressable>
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
-              </Pressable>
-            </Modal>
-          </SafeAreaView>
-        );
-      }}
-    />
+                </Pressable>
+              </Modal>
+            </>
+          );
+        }}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    // margin: 10,
-    // borderWidth:1,
-    // borderColor:'#d1d1d1',
-    // borderRadius:10,
-    // backgroundColor:'#fff',
-  },
   container: {
-    display: 'flex',
+    flex: 1,
+    backgroundColor: colors.pearlWhite,
+    padding: adjust(10),
+  },
+  mainContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    height: adjust(130),
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.gray_400,
+    padding: adjust(5),
+    borderRadius: 10,
+    backgroundColor: colors.pearlWhite,
+    marginVertical: adjust(3),
+    position: 'relative',
   },
-  rightCom: {},
   image: {
-    width: 100,
-    height: 100,
-    margin: 5,
+    width: adjust(110),
+    height: adjust(110),
+    borderRadius: adjust(5),
+    objectFit: 'scale-down',
+    marginHorizontal: adjust(5),
+    marginRight: adjust(15),
   },
-  title: {},
-  price: {},
-  iconDesign: {
-    width: 35,
-    height: 35,
-    borderRadius: 20,
-    backgroundColor: '#D6DBDF',
+  details: {
+    marginRight: adjust(10),
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '50%',
+    marginTop: adjust(-25),
+  },
+  title: {
+    fontSize: adjust(14),
+    color: colors.black,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    marginBottom: adjust(5),
+  },
+  priceFlex: {
+    flexDirection: 'row',
+    padding: adjust(5),
+    alignItems: 'flex-end',
+    marginBottom: adjust(5),
+    borderRadius: adjust(5),
+  },
+  mrp: {
+    fontSize: adjust(12),
+    color: colors.azureBlue,
+    fontWeight: '400',
+    textAlign: 'center',
+    marginRight: adjust(5),
+  },
+  price: {
+    fontSize: adjust(12),
+    color: colors.black,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  priceOverline: {
+    fontSize: adjust(10),
+    color: colors.gray_600,
+    fontWeight: '500',
+    textAlign: 'center',
+    textDecorationLine: 'line-through',
+    marginLeft: adjust(5),
+  },
+  cartBtn: {
+    // width: '100%',
+    backgroundColor: colors.red,
+    padding: adjust(5),
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 50,
+    borderRadius: adjust(50),
+    position: 'absolute',
+    // bottom: adjust(-25),
+    top: 0,
+    right: 0,
+  },
+  cartBtnText: {
+    color: colors.pearlWhite,
+    fontWeight: '500',
+    fontSize: adjust(15),
+  },
+  emptyImageContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  emptyImage: {
+    width: adjust(300),
+    height: adjust(300),
+    objectFit: 'contain',
   },
   modalBackground: {
     flex: 1,
@@ -230,64 +321,67 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: '#fff',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    paddingHorizontal: 15,
-    height: '20%', //  as needed
+    borderTopLeftRadius: adjust(10),
+    borderTopRightRadius: adjust(10),
+    paddingHorizontal: adjust(15),
+    height: '18%',
   },
   modal: {
     height: '100%',
-    paddingVertical: 10,
+    paddingVertical: adjust(10),
   },
   dragBar: {
     width: 40,
     height: 5,
     backgroundColor: 'gray',
-    borderRadius: 5,
+    borderRadius: adjust(5),
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: adjust(10),
   },
   productModalText: {
-    fontSize: 18,
-    color: '#000',
+    fontSize: adjust(14),
+    color: colors.azureBlue,
     fontWeight: '600',
-    textTransform: 'capitalize',
+    textTransform: 'uppercase',
     textAlign: 'center',
-    marginVertical: 2,
+    marginVertical: adjust(5),
   },
   removeHeading: {
-    fontSize: 20,
-    color: '#000',
+    fontSize: adjust(13),
+    color: colors.neutralBlack,
     fontWeight: '500',
     textAlign: 'center',
-    marginVertical: 2,
+    marginVertical: adjust(2),
   },
-  // gap: {
-  //   gap: 5,
-  // },
   btn: {
-    marginTop: 10,
+    marginTop: adjust(10),
     width: '45%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
-    borderRadius: 5,
+    paddingVertical: adjust(10),
+    borderRadius: adjust(5),
   },
   btnText: {
-    fontSize: 16,
+    fontSize: adjust(12),
     fontWeight: '500',
   },
   modalRemoveBtn: {
-    backgroundColor: '#E73639',
+    backgroundColor: colors.azureBlue,
   },
   modalSaveBtn: {
-    backgroundColor: '#E73639',
+    backgroundColor: colors.pearlWhite,
+    borderWidth: 1,
+    borderColor: colors.azureBlue,
   },
   modalRemoveBtnText: {
-    color: '#fff',
+    color: colors.pearlWhite,
+    fontWeight: '500',
+    fontSize: adjust(11),
   },
   modalSaveBtnText: {
-    color: '#fff',
+    color: colors.azureBlue,
+    fontWeight: '500',
+    fontSize: adjust(12),
   },
   rowContainer: {
     flexDirection: 'row',

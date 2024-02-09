@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../../components/Search';
 import Categories from '../Categories';
 import FeaturedBrands from '../FeaturedBrands';
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/LOGO.png';
 import Services from '../Services';
 import Calltoorder from '../Calltoorder';
 import Specialization from '../Doctors/Specialization';

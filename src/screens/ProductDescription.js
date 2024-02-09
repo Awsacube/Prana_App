@@ -4,64 +4,32 @@ import {
   Text,
   Image,
   ScrollView,
-  FlatList,
   StyleSheet,
-  Animated,
-  ImageBackground,
+  Pressable,
+  ToastAndroid,
 } from 'react-native';
-import {Select} from '@mui/material';
-import Modal from 'react-native-modal';
 import {Dimensions} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Button} from 'react-native-elements';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
 import {getToken} from '../services/AsyncStorageService';
-import {useGetProductQuery} from '../services/userAuthApi';
 import {
-  useDeleteCartItemsMutation,
+  useAddToWishlistMutation,
+  useGetProductQuery,
+  useWishListQuery,
+} from '../services/userAuthApi';
+import {
   useGetAllCartItemsQuery,
   useAddToCartMutation,
 } from '../services/userAuthApi';
-import QuantityModalPicker from './QuantityModalPicker';
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
-// import { iteratorSymbol } from 'immer/dist/internal';
-// import { Item } from 'react-native-paper/lib/typescript/components/List/List';
-import {ConstantId} from './token';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
-const scrollX = new Animated.Value(0);
-let position = Animated.divide(scrollX, screenwidth);
-import {useDispatch, useSelector} from 'react-redux';
-import {cartActions} from '../app/cart-slice';
-import Counter from 'react-native-counters';
-import {SelectCountry} from 'react-native-element-dropdown';
-import SelectDropdown from 'react-native-select-dropdown';
-
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
 
 export default function ProductDescription({route}) {
-  const [quantity, setquantity] = useState();
-
-  const countries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  const navigation = useNavigation();
+  const [quantity, setquantity] = useState(1);
 
   const {productid} = route.params;
 
   const [userLToken, setUserLToken] = useState();
-  // useEffect(()=>{
-  //   (async()=>{
-  //     const token=await getToken() //getting token from storage
-  //     setUserLToken(token) //store token in local storage
-  //   })()
-  //  }
-  // )
 
   useEffect(() => {
     const getT = async () => {
@@ -71,33 +39,12 @@ export default function ProductDescription({route}) {
     getT();
   }, []);
 
-  // const token =  ConstantId.accessToken ;
-
   const res = useGetProductQuery(productid);
 
-  console.warn(res);
-
-  const dispatch = useDispatch();
-
-  // const [cartQueryItems]=useAddToCartMutation(); //send cart data to backend
-
-  // const addToCart=()=>{
-  //   // dispatch(cartActions.addToCart({
-  //   //   name,
-  //   //   uuid,
-  //   //   price,
-  //   //   quantity,
-  //   // }))
-  //     cartData={
-  //       id:productid,
-  //       quantity:quantity, ///send cart data to bb\ackend
-  //       token:userLToken}
-  //     cartQueryItems(cartData);
-
-  // }
-
   const [addToCart] = useAddToCartMutation(); //send cart data to backend
+  const [addToWishlist] = useAddToWishlistMutation(); //send cart data to backend
   const {refecth} = useGetAllCartItemsQuery();
+  const {refecthWishlist} = useWishListQuery();
   const cartData = {
     id: productid,
     quantity: quantity,
@@ -105,7 +52,12 @@ export default function ProductDescription({route}) {
   };
   const addToCartHandler = async () => {
     await addToCart(cartData);
-    refecth();
+    ToastAndroid.show('Product added to cart', ToastAndroid.SHORT);
+  };
+  const addToWishlistHandler = async () => {
+    await addToWishlist(cartData);
+    console.log('added');
+    ToastAndroid.show('Product added to Wishlist', ToastAndroid.SHORT);
   };
 
   const productDesc = [];
@@ -133,213 +85,75 @@ export default function ProductDescription({route}) {
     });
   }
 
-  const categorylist = [
-    {
-      image:
-        'https://thumbs.dreamstime.com/b/medical-red-white-…-capsules-medicine-background-drugs-146820806.jpg',
-    },
-    {
-      image: 'https://source.unsplash.com/1024x768/?water',
-    },
-    {
-      image: 'https://source.unsplash.com/1024x768/?girl',
-    },
-    {
-      image: 'https://source.unsplash.com/1024x768/?tree',
-    },
-  ];
+  const increaseCartQuantity = () => {
+    setquantity(quantity + 1);
+  };
+  const decreaseCartQuantity = () => {
+    if (quantity > 1) {
+      setquantity(quantity - 1);
+    }
+  };
 
   return (
-    
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <Image style={styles.image} source={{uri: image}} />
         <View style={styles.infoContainer}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.price}>INR :{price}</Text>
-          <Text style={styles.description}>{description}</Text>
-          <SelectDropdown
-            data={countries}
-            onSelect={(selectedItem, index) => {
-              // console.log(selectedItem, index)
-              setquantity(selectedItem);
-            }}
-            defaultButtonText="Select Quantity"
-            buttonTextAfterSelection={(selectedItem, index) => {
-              // text represented after item is selected
-              // if data array is an array of objects then return selectedItem.property to render after item is selected
-              return `Quantity :${selectedItem}`;
-            }}
-            rowTextForSelection={(item, index) => {
-              // text represented for each item in dropdown
-              // if data array is an array of objects then return item.property to represent item in dropdown
-              return item;
-            }}
-          />
+          <View style={styles.flexContainer}>
+            <Text style={styles.name}>{name}</Text>
 
-          <Button onPress={addToCartHandler} title="Add to cart" />
+            <View style={[styles.evenly]}>
+              <View style={[styles.row, styles.gap3]}>
+                <Pressable
+                  onPress={decreaseCartQuantity}
+                  disabled={quantity === 1}
+                  style={[styles.box, {backgroundColor: '#fff'}]}>
+                  <AntDesign
+                    name="minus"
+                    color={'#1c738c'}
+                    size={18}
+                    strokeWidth={2.5}
+                  />
+                </Pressable>
+                <View>
+                  <Text style={styles.bold}>{quantity}</Text>
+                </View>
+                <Pressable
+                  onPress={increaseCartQuantity}
+                  style={[styles.box, {backgroundColor: '#fff'}]}>
+                  <AntDesign
+                    name="plus"
+                    color={'#1c738c'}
+                    size={18}
+                    strokeWidth={2.5}
+                  />
+                </Pressable>
+              </View>
+            </View>
+          </View>
+          <Text style={styles.price}>MRP: ₹{price}</Text>
+          <Text style={styles.description}>{description}</Text>
+          <View style={styles.buttonsContainer}>
+            <Pressable
+              style={styles.wishlistButton}
+              onPress={() => addToWishlistHandler()}>
+              <Text style={styles.wishlistText}>Add to wishlist</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={addToCartHandler}>
+              <Text style={styles.buttonText}>Add to cart</Text>
+            </Pressable>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-// );
-// }
-
-// onScroll={Animated.event([
-//   { nativeEvent: { contentOffset: { x: scrollX } } },
-// ],)}
-// />
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
     alignContent: 'center',
-    flexDirection: 'column',
     backgroundColor: '#fff',
-  },
-  cardView: {
-    flex: 1,
-    width: screenwidth - 20,
-    height: screenheight / 3.5,
-    margin: 10,
-  },
-  image: {
-    width: screenwidth - 20,
-    height: screenheight / 3.5,
-    marginTop: 60,
-  },
-  dotView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-  offerLayout: {
-    flexDirection: 'row',
-    backgroundColor: '#ffefef',
-    alignItems: 'center',
-    flex: 1,
-    paddingTop: 5,
-    paddingBottom: 5,
-    justifyContent: 'center',
-    borderRadius: 5,
-  },
-  mrp: {
-    marginLeft: 15,
-    marginTop: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    color: '#32a852',
-  },
-  productname: {
-    color: '#000',
-    margin: 55,
-    fontSize: 17,
-  },
-  offText: {
-    color: '#fff',
-    backgroundColor: '#ff7f7e',
-    padding: 3,
-    borderRadius: 3,
-    marginLeft: 10,
-  },
-  addToCart: {
-    color: '#fff',
-    backgroundColor: '#10857f',
-    width: 120,
-    height: 40,
-  },
-  memberText: {
-    color: '#8573e1',
-    fontSize: 12,
-    textAlign: 'center',
-    height: 30,
-    textAlignVertical: 'center',
-  },
-  orderText: {
-    backgroundColor: '#8573e1',
-    fontSize: 12,
-    textAlign: 'center',
-    height: 30,
-    color: '#fff',
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  orderLayout: {
-    borderRadius: 1,
-    borderStyle: 'dashed',
-    borderWidth: 1,
-    margin: 15,
-    borderRadius: 10,
-    borderColor: '#8573e1',
-  },
-  packText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderRadius: 1,
-    borderWidth: 1,
-    marginLeft: 15,
-    marginRight: 15,
-    borderRadius: 10,
-    height: 40,
-    alignItems: 'center',
-  },
-  mrpLayout: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    margin: 15,
-  },
-  addressLayout: {
-    backgroundColor: '#F4F7FC',
-    height: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 50,
-  },
-  offerDesign: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    marginLeft: 15,
-    marginRight: 15,
-  },
-  offer: {
-    color: '#000',
-    fontSize: 12,
-    marginLeft: 5,
-  },
-  //modal styles
-  centeredView: {
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
-    width: 150,
-    // height:0,
-    // backgroundColor:'#fff',
-    // marginLeft:100
-    // margin:50
-  },
-  quantityText: {
-    //  fontWeight:'bold'
-  },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    shadowColor: 'black',
-    shadowOffset: {
-      height: 0,
-      width: 0,
-    },
-    elevation: 1,
-    marginVertical: 20,
   },
   image: {
     height: 300,
@@ -348,10 +162,43 @@ const styles = StyleSheet.create({
   infoContainer: {
     padding: 16,
   },
+  flexContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   name: {
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#000',
+    textTransform: 'uppercase',
   },
+  evenly: {
+    height: '10%',
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  box: {
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#1c738c',
+    borderRadius: 5,
+  },
+  bold: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#1c738c',
+    width: '100%',
+    paddingHorizontal: 10,
+  },
+
   price: {
     fontSize: 16,
     fontWeight: '600',
@@ -362,5 +209,35 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#787878',
     marginBottom: 16,
+  },
+  button: {
+    marginVertical: 5,
+    paddingVertical: 10,
+    borderRadius: 5,
+    textAlign: 'center',
+    backgroundColor: '#1c738c',
+    borderWidth: 1,
+    borderColor: '#1c738c',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  wishlistButton: {
+    marginVertical: 5,
+    paddingVertical: 10,
+    borderRadius: 5,
+    textAlign: 'center',
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#1c738c',
+  },
+  wishlistText: {
+    color: '#1c738c',
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });

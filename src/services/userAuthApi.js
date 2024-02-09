@@ -155,6 +155,35 @@ export const userAuthApi = createApi({
         };
       },
     }),
+    addToWishlist: builder.mutation({
+      query: cartData => {
+        return {
+          url: '/wishlist',
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${cartData.token}`,
+          },
+          body: {
+            product_id: `${cartData.id}`,
+            quantity: `${cartData.quantity}`,
+          },
+        };
+      },
+    }),
+    deleteWishlistItems: builder.mutation({
+      query: remove => {
+        console.warn('deleteWishlist', remove);
+        return {
+          url: `/wishlist/${remove.id}`,
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${remove.token}`,
+          },
+        };
+      },
+    }),
     //Cart End Points//
     addToCart: builder.mutation({
       query: cartData => {
@@ -442,4 +471,6 @@ export const {
   useGetBrandItemQuery,
   useLocationQuery,
   useWishListQuery,
+  useAddToWishlistMutation,
+  useDeleteWishlistItemsMutation,
 } = userAuthApi;

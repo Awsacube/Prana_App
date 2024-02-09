@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    fontSize: 13,
+    fontSize: 14,
+    fontWeight: '400',
     color: 'black',
     marginBottom: 2,
   },
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'black',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: 'gray',
     backgroundColor: 'white',
     borderRadius: 5,
     paddingHorizontal: 15,

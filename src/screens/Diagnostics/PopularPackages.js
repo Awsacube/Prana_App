@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, FlatList} from 'react-native';
 import TestsSquareCard from './TestsSquareCard';
 import React from 'react';
 import {Dimensions} from 'react-native';
-import {brandColor} from '../../constants/constants';
+// import {brandColor} from '../../constants/constants';
 import {display} from '@mui/system';
 const screenwidth = Dimensions.get('window').width; //full width
 const screenheight = Dimensions.get('window').height; //full height
@@ -52,14 +52,12 @@ const PopularPackages = () => {
             // marginBottom:20,
             fontSize: 18,
             color: '#000',
-          }}
-        >
+          }}>
           Popular Health Packages
         </Text>
         <Text
           style={styles.vAll}
-          onPress={() => navigation.navigate('AllPackages')}
-        >
+          onPress={() => navigation.navigate('AllPackages')}>
           View All
         </Text>
       </View>

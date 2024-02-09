@@ -3,7 +3,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import React, {useState} from 'react';
 import Search from '../../components/Search';
 import HealthConcerns from './HealthConcerns';
-import {brandColor} from '../../constants/constants';
+// import {brandColor} from '../../constants/constants';
 import RecentSearches from './RecentSearches';
 import Test from './Test';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';

@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import React from 'react';
 import {Dimensions} from 'react-native';
-import {brandColor} from '../../constants/constants';
+// import {brandColor} from '../../constants/constants';
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
@@ -60,8 +60,7 @@ const RecentSearches = () => {
             marginBottom: 20,
             fontSize: 18,
             color: '#000',
-          }}
-        >
+          }}>
           Recent Searches By You
         </Text>
         <FlatList

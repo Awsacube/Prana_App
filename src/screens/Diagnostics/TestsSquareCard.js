@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Dimensions} from 'react-native';
 import CButton from '../../components/CButton';
-import {brandColor} from '../../constants/constants';
+// import {brandColor} from '../../constants/constants';
 
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height

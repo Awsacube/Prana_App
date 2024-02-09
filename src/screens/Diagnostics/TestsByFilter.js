@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import {Dimensions} from 'react-native';
 import CButton from '../../components/CButton';
 import {useNavigation} from '@react-navigation/native';
-import {brandColor} from '../../constants/constants';
+// import {brandColor} from '../../constants/constants';
 import {getToken} from '../../services/AsyncStorageService';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -120,8 +120,7 @@ const TestsByFilter = ({route}) => {
                     id: item.uuid,
                     TestorPackname: item.name,
                   })
-                }
-              >
+                }>
                 <View style={styles.splLayout}>
                   <View style={styles.layoutItems}>
                     <View style={styles.top}>

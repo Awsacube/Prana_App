@@ -1,5 +1,4 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {brandColor} from '../constants/constants';
 
 import React from 'react';
 
@@ -16,7 +15,7 @@ export default CButton;
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: brandColor,
+    backgroundColor: 'purple',
     padding: 10,
     paddingLeft: 40,
     paddingRight: 40,

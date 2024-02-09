@@ -4,7 +4,7 @@ import React from 'react';
 import {Dimensions} from 'react-native';
 import CButton from '../../components/CButton';
 import {useNavigation} from '@react-navigation/native';
-import {brandColor} from '../../constants/constants';
+// import {brandColor} from '../../constants/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useGetAllPackagesQuery} from '../../services/userAuthApi';
 var screenwidth = Dimensions.get('window').width; //full width

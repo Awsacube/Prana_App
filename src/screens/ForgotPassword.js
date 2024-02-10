@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/LOGO.png';
 import background from '../assets/signback.jpeg';
 import Custombutton from '../components/Custombutton';
 import Custominput from '../components/Custominput';

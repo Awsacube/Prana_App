@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/LOGO.png';
 import Custominput from '../components/Custominput';
 import Custombutton from '../components/Custombutton';
 import Toast from 'react-native-toast-message';

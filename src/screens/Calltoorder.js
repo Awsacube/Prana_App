@@ -1,5 +1,8 @@
 import React from 'react';
+import {Platform} from 'react-native';
 import {Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {colors} from '../constants/colors';
+import adjust from '../utils/responsive';
 
 const Calltoorder = props => {
   const call = () => {
@@ -14,7 +17,7 @@ const Calltoorder = props => {
 
   return (
     <View style={styles.Calltoorder}>
-      <Text style={styles.text}>Call o {props.text}</Text>
+      <Text style={styles.text}>Call to {props.text}</Text>
       <TouchableOpacity style={styles.button} onPress={call}>
         <Text style={styles.buttonTitle}>Call</Text>
       </TouchableOpacity>
@@ -26,32 +29,29 @@ export default Calltoorder;
 
 const styles = StyleSheet.create({
   Calltoorder: {
-    marginLeft: 12,
-    marginRight: 10,
-    backgroundColor: 'white',
-    display: 'flex',
+    backgroundColor: colors.pearlWhite,
     flexDirection: 'row',
-    height: 50,
-    borderRadius: 30,
+    borderRadius: adjust(5),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: adjust(5),
+    width: '80%',
   },
   text: {
-    color: '#000',
-    paddingTop: 15,
-    paddingLeft: 5,
+    color: colors.neutralBlack,
+    fontSize: adjust(12),
     fontWeight: 'bold',
   },
   button: {
-    marginLeft: 20,
-    marginTop: 15,
-    marginBottom: 7,
-    backgroundColor: '#E73631',
-    borderRadius: 10,
-    width: 50,
+    backgroundColor: colors.azureBlue,
+    borderRadius: adjust(5),
+    paddingVertical: adjust(5),
+    paddingHorizontal: adjust(15),
+    marginVertical: adjust(5),
   },
   buttonTitle: {
-    paddingLeft: 10,
-    paddingTop: 5,
-    color: '#ffffff',
+    textAlign: 'center',
+    color: colors.pearlWhite,
     fontWeight: 'bold',
   },
 });

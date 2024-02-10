@@ -2,6 +2,8 @@ import {StyleSheet, View, TextInput, Pressable} from 'react-native';
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
+import adjust from '../utils/responsive';
+import {colors} from '../constants/colors';
 
 const Search = props => {
   const navigation = useNavigation();
@@ -12,12 +14,17 @@ const Search = props => {
         navigation.navigate(props.navigate, {component: props.component})
       }>
       <View style={styles.box}>
-        <Feather name="search" size={20} color="#E73631" style={{padding: 8}} />
+        <Feather
+          name="search"
+          size={adjust(18)}
+          color={colors.gray_600}
+          style={{padding: adjust(5)}}
+        />
         <TextInput
           placeholder={props.placeholder}
           editable={props.editable}
           numberOfLines={1}
-          placeholderTextColor="#000"
+          placeholderTextColor={colors.gray_600}
         />
       </View>
     </Pressable>
@@ -29,10 +36,11 @@ export default Search;
 const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
-    borderColor: '#C6C6C6',
-    backgroundColor: '#ffffff',
+    borderColor: colors.gray_400,
+    backgroundColor: colors.pearlWhite,
     borderWidth: 1,
-    borderRadius: 8,
-    marginHorizontal: 13,
+    borderRadius: adjust(5),
+    marginHorizontal: adjust(5),
+    alignItems: 'center',
   },
 });

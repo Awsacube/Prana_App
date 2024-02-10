@@ -11,12 +11,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Search from '../../components/Search';
 import Categories from '../Categories';
 import FeaturedBrands from '../FeaturedBrands';
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/LOGO.png';
 import Services from '../Services';
 import Calltoorder from '../Calltoorder';
 import Specialization from '../Doctors/Specialization';
 import Location from '../Location';
 import ProductSearch from './ProductSearch';
+import adjust from '../../utils/responsive';
+import {colors} from '../../constants/colors';
 
 const HomeScreen = ({navigation}) => {
   const [placeholder, setPlaceholder] = useState('Search For Crocin');
@@ -42,7 +44,6 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.Header}>
         <View>
           <Image source={Logo} style={styles.Logo} />
-          {/* <Location style={styles.Loc} /> */}
         </View>
         <View>
           <TouchableOpacity onPress={gotocart}>
@@ -51,13 +52,20 @@ const HomeScreen = ({navigation}) => {
         </View>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Calltoorder text={'Order Medicine'} />
-        <Search
-          placeholder={placeholder}
-          editable={false}
-          navigate="EmptyPage"
-          component={<ProductSearch />}
-        />
+        <View>
+          <View style={styles.mainContainer}>
+            <Location style={styles.location} />
+            <View>
+              <Calltoorder text={'Book a Test'} />
+            </View>
+          </View>
+          <Search
+            placeholder={placeholder}
+            editable={false}
+            navigate="EmptyPage"
+            component={<ProductSearch />}
+          />
+        </View>
         <Services />
         <Specialization />
         <FeaturedBrands />
@@ -76,12 +84,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
   },
+  mainContainer: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: adjust(10),
+    marginHorizontal: adjust(5),
+    // backgroundColor: colors.pearlWhite,
+  },
   Logo: {
     width: 150,
     height: 50,
   },
-  Loc: {
-    marginTop: 50,
+  location: {
+    // padding: adjust(10),
+    backgroundColor: colors.red,
+    marginTop: adjust(50),
   },
   safeview: {
     flex: 1,

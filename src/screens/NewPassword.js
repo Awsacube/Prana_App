@@ -7,7 +7,6 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-// import Logo from '../../assets/images/Logo.png'
 import Custominput from '../components/Custominput';
 import Custombutton from '../components/Custombutton';
 import SocialSigninButton from '../components/SocialSigninButton';

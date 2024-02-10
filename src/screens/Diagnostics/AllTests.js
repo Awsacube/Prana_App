@@ -1,5 +1,5 @@
 //Test And Packages Screen Can Be Used Interchangeably
-import {StyleSheet, Text, View, FlatList, Pressable} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Pressable, Image} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Dimensions} from 'react-native';
 import CButton from '../../components/CButton';
@@ -11,6 +11,8 @@ import {
   useGetAllTestsQuery,
   useAddToLabCartMutation,
 } from '../../services/userAuthApi';
+import adjust from '../../utils/responsive';
+import {colors} from '../../constants/colors';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
@@ -94,6 +96,10 @@ const AllTests = () => {
     // refecth();
   };
 
+  const totalValue = item => {
+    return item.price - (item.price * item.discount) / 100;
+  };
+
   return (
     <SafeAreaView>
       <View>
@@ -112,37 +118,47 @@ const AllTests = () => {
           renderItem={({item, index}) => {
             return (
               <Pressable
+                style={styles.mainContainer}
                 onPress={() =>
                   navigation.navigate('TestsAndPackagesById', {
                     id: item.uuid,
                     TestorPackname: item.name,
                   })
                 }>
-                <View style={styles.splLayout}>
-                  <View style={styles.layoutItems}>
-                    <View style={styles.top}>
-                      <Text style={styles.name}>
-                        {item.name != null ? item.name : ''}
-                      </Text>
-                      <Text>{item.content}</Text>
-                      <Text>{item.description}</Text>
-                    </View>
-                    <Text style={styles.price}>
+                <View>
+                  <Image style={styles.image} source={{uri: item.image}} />
+                </View>
+                <View style={styles.details}>
+                  <Text style={styles.title}>{item.name}</Text>
+                  <Text style={styles.contentText}>{item.content}</Text>
+                  {/* <View>
+                    <Text style={styles.priceOverline}>{item.description}</Text>
+                    <Text style={styles.priceOverline}>
                       Report in {item.tat} {item.tatUnit}
                     </Text>
-                    <View style={styles.bottom}>
-                      <Text>₹ {item.price}</Text>
-                      {item.discount ? (
-                        <Text style={styles.discount}>
-                          Discount {item.discount}%
-                        </Text>
-                      ) : null}
-                      <CButton
-                        Text="Book"
-                        onPress={() => addToCartHandler(item.uuid)}
-                      />
-                    </View>
+                  </View> */}
+                  <View style={[styles.priceFlex]}>
+                    <Text style={styles.mrp}>MRP</Text>
+                    <Text style={styles.price}>₹{totalValue(item)}</Text>
+                    <Text style={styles.priceOverline}>
+                      ₹{parseFloat(item.price).toFixed(2)}
+                    </Text>
                   </View>
+
+                  <Pressable
+                    style={styles.cartBtn}
+                    // onPress={() => {
+                    //   dispatch(handleCart(product.id, 1));
+                    // }}>
+                    onPress={() =>
+                      addToCartHandler({
+                        id: item.uuid,
+                        quantity: 1,
+                        token: userLToken,
+                      })
+                    }>
+                    <Text style={styles.cartBtnText}>Add to cart</Text>
+                  </Pressable>
                 </View>
               </Pressable>
             );
@@ -156,52 +172,87 @@ const AllTests = () => {
 export default AllTests;
 
 const styles = StyleSheet.create({
-  vAll: {
-    marginLeft: 50,
-    fontSize: 18,
-    color: '#000',
-    textDecorationLine: 'underline',
-  },
-  splLayout: {
-    // margin:5,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // alignSelf: 'center',
-    // alignContent: 'center',
-    backgroundColor: '#fff',
-    marginBottom: 10,
-  },
-  layoutItems: {
-    padding: 15,
-  },
-  top: {
-    display: 'flex',
-  },
-  bottom: {
-    display: 'flex',
+  mainContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
+    height: adjust(130),
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.gray_400,
+    padding: adjust(5),
+    borderRadius: 10,
+    backgroundColor: colors.pearlWhite,
+    marginVertical: adjust(3),
+    marginHorizontal: adjust(5),
   },
-  name: {
-    fontSize: 20,
-    color: '#000',
+  image: {
+    width: adjust(110),
+    height: adjust(110),
+    borderRadius: adjust(5),
+    objectFit: 'scale-down',
+    marginHorizontal: adjust(5),
+    marginRight: adjust(15),
+  },
+  details: {
+    marginRight: adjust(10),
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '50%',
+    marginTop: adjust(-25),
+  },
+  title: {
+    fontSize: adjust(14),
+    color: colors.black,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+    marginBottom: adjust(2),
+  },
+  contentText: {
+    fontSize: adjust(12),
+    color: colors.gray_600,
+    fontWeight: '500',
+    textTransform: 'capitalize',
+  },
+  priceFlex: {
+    flexDirection: 'row',
+    padding: adjust(5),
+    alignItems: 'flex-end',
+    marginBottom: adjust(5),
+    borderRadius: adjust(5),
+  },
+  mrp: {
+    fontSize: adjust(12),
+    color: colors.azureBlue,
+    fontWeight: '400',
+    textAlign: 'center',
+    marginRight: adjust(5),
   },
   price: {
-    // marginTop:10,
-    // marginBottom:10
-    // display:'flex',
-    // flexDirection:'row',
+    fontSize: adjust(12),
+    color: colors.black,
+    fontWeight: '500',
+    textAlign: 'center',
   },
-  discount: {
-    // marginLeft:5
+  priceOverline: {
+    fontSize: adjust(10),
+    color: colors.gray_600,
+    fontWeight: '500',
+    textAlign: 'center',
+    textDecorationLine: 'line-through',
+    marginLeft: adjust(5),
   },
-  //   button: {
-  //     alignItems: "center",
-  //     backgroundColor: brandColor,
-  //     padding: 10,
-  //     paddingLeft:40,
-  //     paddingRight:40,
-  //     borderRadius:5
-  //   },
+  cartBtn: {
+    width: '100%',
+    backgroundColor: colors.azureBlue,
+    paddingVertical: adjust(5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: adjust(5),
+    position: 'absolute',
+    bottom: adjust(-25),
+  },
+  cartBtnText: {
+    color: colors.pearlWhite,
+    fontWeight: '500',
+    fontSize: adjust(12),
+  },
 });

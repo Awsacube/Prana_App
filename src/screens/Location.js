@@ -22,6 +22,8 @@ import {
 // import { setSkip } from '../app/location-slice'
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import adjust from '../utils/responsive';
+import {colors} from '../constants/colors';
 
 const Location = () => {
   // useEffect(() => {
@@ -144,17 +146,20 @@ const styles = StyleSheet.create({
     // marginLeft:12,
     // marginRight:10,
     // marginBottom:5,
-    marginTop: 20,
-    backgroundColor: 'white',
-    display: 'flex',
+    marginTop: adjust(-15),
+    // height: 50,
+    // borderRadius: 30,
+    // backgroundColor: colors.pearlWhite,
     flexDirection: 'row',
-    height: 50,
-    borderRadius: 30,
+    borderRadius: adjust(5),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: adjust(5),
+    paddingVertical: adjust(5),
   },
   text: {
-    color: '#000',
-    // paddingTop:15,
-    paddingLeft: 5,
+    color: colors.neutralBlack,
+    fontSize: adjust(12),
     fontWeight: 'bold',
   },
 });

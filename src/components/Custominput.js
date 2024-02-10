@@ -12,19 +12,21 @@ const Custominput = ({
   onChangeText,
   onBlur,
   value,
+  disabled = false,
 }) => {
   return (
     <View style={styles.inputContainer}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         name={name}
-        style={styles.input}
+        style={[styles.input, disabled && styles.disabledInput]}
         placeholder={placeholder}
         placeholderTextColor={'black'}
         onChangeText={onChangeText}
         onBlur={onBlur}
         value={value}
         secureTextEntry={secureText}
+        editable={!disabled}
       />
       <View style={styles.iconContainer}>
         {isSecure &&
@@ -80,6 +82,10 @@ const styles = StyleSheet.create({
     right: 20,
     bottom: 12,
     color: 'black',
+  },
+  disabledInput: {
+    backgroundColor: '#f2f2f2', // Change background color when disabled
+    color: '#999', // Change text color when disabled
   },
 });
 

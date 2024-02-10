@@ -30,8 +30,7 @@ const GetStarted = ({navigation}) => {
           bottom: heightToDp('20%'),
           justifyContent: 'center',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <View>
           <Image style={styles.logo} source={require('../assets/logo.png')} />
         </View>
@@ -42,15 +41,13 @@ const GetStarted = ({navigation}) => {
         <TouchableRipple
           onPress={() => navigation.navigate('Login')}
           style={styles.button}
-          rippleColor="#dfe4ea"
-        >
+          rippleColor="#dfe4ea">
           <Text
             style={{
               fontSize: widthToDp(3),
               fontFamily: 'keep-calm',
               color: 'white',
-            }}
-          >
+            }}>
             Get Started
           </Text>
         </TouchableRipple>

@@ -69,14 +69,6 @@ export const userAuthApi = createApi({
             first_name: newData.first_name,
             last_name: newData.last_name,
             phone_number: newData.phone_number,
-            address: {
-              street_1: newData.street_1,
-              street_2: newData.street_2,
-              city: newData.city,
-              district: newData.district,
-              state: newData.state,
-              pincode: newData.pincode,
-            },
           },
           headers: {
             Authorization: `Bearer ${newData.userLToken}`,

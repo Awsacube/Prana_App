@@ -14,7 +14,7 @@ import Custominput from '../components/Custominput';
 import Custombutton from '../components/Custombutton';
 import {useNavigation} from '@react-navigation/native';
 import background from '.././assets/signback.jpeg';
-import Logo from '../assets/LOGO.png';
+import Logo from '../assets/logo.png';
 
 import {useRegisterUserMutation} from '../services/userAuthApi';
 import {windowHeight} from '../utils/dimensions';

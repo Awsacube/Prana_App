@@ -47,6 +47,7 @@
     "react-native-modal": "^13.0.1",
     "react-native-pager-view": "^6.1.2",
     "react-native-paper": "^5.2.0",
+    "react-native-radio-buttons-group": "^3.0.7",
     "react-native-razorpay": "^2.2.9",
     "react-native-reanimated": "^2.9.1",
     "react-native-reanimated-carousel": "^3.0.3",

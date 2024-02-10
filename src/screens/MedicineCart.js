@@ -11,12 +11,7 @@ import {
   Modal,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useDispatch, useSelector} from 'react-redux';
-import CartItem from './CartItem';
-import {store} from '../app/store';
-import {clearCart} from '../features/cartSlice';
-import {Button} from 'react-native-elements';
-import {ScrollView} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
 import {
   useAddToCartMutation,
   useDeleteCartItemsMutation,
@@ -26,15 +21,14 @@ import {
 } from '../services/userAuthApi';
 import {getToken} from '../services/AsyncStorageService';
 // import { black } from 'react-native-paper/lib/typescript/styles/colors'
-import {ConstantId} from './token';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useFocusEffect} from '@react-navigation/native';
 import Spinner from '../components/Spinner';
 import adjust from '../utils/responsive';
 import {colors} from '../constants/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {subTotal, totalDiscount, totalValue} from '../utils/mathFunc';
 
-const MedicineCart = () => {
+const MedicineCart = ({navigation}) => {
   // const cart=useSelector((state)=>state.cart)
   const [selected, setSelected] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -185,19 +179,8 @@ const MedicineCart = () => {
     closeModal();
   };
 
-  // const handleRemoveWishlist = async id => {
-  //   const remove = {
-  //     id: id,
-  //     token: userLToken,
-  //   };
-  //   await removeProduct(remove);
-  //   closeModal();
-  //   refetchWishlist();
-  // };
-
-  const totalValue = item => {
-    return item.item.price - (item.item.price * item.item.discount) / 100;
-  };
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
+  const [couponValue, setCouponValue] = useState(null);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -319,20 +302,24 @@ const MedicineCart = () => {
       <View style={styles.billContainer}>
         <View style={styles.justify}>
           <Text style={styles.billText}>Total Price</Text>
-          <Text style={styles.billText}>₹{total}</Text>
+          <Text style={styles.billText}>₹{subTotal(data)}</Text>
         </View>
         <View style={styles.justify}>
           <Text style={styles.billText}>Discount</Text>
-          <Text style={styles.billText}>₹{total}</Text>
+          <Text style={styles.billText}>₹{totalDiscount(data)}</Text>
         </View>
         <View style={styles.border} />
         <View style={styles.justify}>
           <Text style={styles.billTotalText}>Cart Value</Text>
-          <Text style={styles.billTotalText}>₹{total}</Text>
+          <Text style={styles.billTotalText}>
+            ₹{subTotal(data) - totalDiscount(data)}
+          </Text>
         </View>
       </View>
-      <Pressable style={styles.placeButton}>
-        <Text style={styles.placeText}>Place Order</Text>
+      <Pressable
+        onPress={() => navigation.navigate('DeliveryAddress')}
+        style={styles.placeButton}>
+        <Text style={styles.placeText}>Proceed to Buy</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -347,7 +334,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flexDirection: 'row',
-    height: adjust(130),
+    height: adjust(120),
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.gray_400,
@@ -360,8 +347,8 @@ const styles = StyleSheet.create({
     marginTop: adjust(5),
   },
   image: {
-    width: adjust(110),
-    height: adjust(110),
+    width: adjust(100),
+    height: adjust(100),
     borderRadius: adjust(5),
     objectFit: 'scale-down',
     marginHorizontal: adjust(5),

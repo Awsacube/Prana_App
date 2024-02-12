@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.pearlWhite,
     borderWidth: 1,
     borderRadius: adjust(5),
-    marginHorizontal: adjust(5),
+    // marginHorizontal: adjust(10),
     alignItems: 'center',
+    alignSelf: 'center',
+    width: '100%',
   },
 });

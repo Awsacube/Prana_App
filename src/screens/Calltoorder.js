@@ -29,13 +29,15 @@ export default Calltoorder;
 
 const styles = StyleSheet.create({
   Calltoorder: {
+    width: adjust(310),
     backgroundColor: colors.pearlWhite,
     flexDirection: 'row',
     borderRadius: adjust(5),
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: adjust(5),
-    width: '80%',
+    // paddingHorizontal: adjust(5),
+    // paddingLeft: adjust(10),
+    marginBottom: adjust(5),
   },
   text: {
     color: colors.neutralBlack,

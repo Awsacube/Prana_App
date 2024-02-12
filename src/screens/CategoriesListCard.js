@@ -1,6 +1,8 @@
 import React from 'react';
 import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
+import adjust from '../utils/responsive';
+import {colors} from '../constants/colors';
 const screenwidth = Dimensions.get('window').width; //full width
 const screenheight = Dimensions.get('window').height; //full height
 
@@ -19,7 +21,7 @@ const CategoriesListCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    width: screenwidth / 4,
+    width: screenwidth / 4.1,
     height: screenheight / 7,
     alignItems: 'center',
     justifyContent: 'center',
@@ -30,14 +32,14 @@ const styles = StyleSheet.create({
     width: screenwidth / 5,
     height: screenheight / 10,
     alignSelf: 'center',
-    borderRadius: 50,
+    borderRadius: adjust(50),
   },
   productname: {
-    fontSize: 14,
-    color: '#000',
+    fontSize: adjust(11),
+    color: colors.neutralBlack,
     textAlign: 'center',
-    marginTop: 5,
-    marginBottom: 15,
+    marginTop: adjust(3),
+    marginBottom: adjust(10),
   },
 });
 

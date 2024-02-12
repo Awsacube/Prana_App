@@ -10,6 +10,8 @@ import {
   View,
 } from 'react-native';
 import {useGetConsultationSpecializationQuery} from '../../services/userAuthApi';
+import adjust from '../../utils/responsive';
+import {colors} from '../../constants/colors';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
@@ -31,11 +33,11 @@ const Specialization = () => {
   }
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <Text style={styles.headin}>Find Doctors By Specialization</Text>
       <View
         style={{
-          marginTop: 20,
+          marginTop: adjust(8),
         }}>
         <FlatList
           data={Specializations}
@@ -50,7 +52,6 @@ const Specialization = () => {
                 }>
                 <View style={styles.splLayout}>
                   <Image source={item.image} style={styles.splimage} />
-
                   <Text style={styles.splname}>
                     {item.name != null ? item.name : ''}
                   </Text>
@@ -67,6 +68,11 @@ const Specialization = () => {
 export default Specialization;
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    // width: '100%',
+    // alignItems: 'center',
+    paddingHorizontal: adjust(5),
+  },
   splLayout: {
     width: screenwidth / 4,
     alignItems: 'center',
@@ -75,22 +81,24 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   headin: {
-    marginLeft: 15,
+    // marginLeft: 15,
     color: '#000',
     fontSize: 20,
+    marginTop: adjust(-30),
   },
   splimage: {
-    width: screenwidth / 6,
-    height: screenheight / 11,
+    width: screenwidth / 3,
+    height: adjust(100),
     alignSelf: 'center',
-    backgroundColor: '#D6EAF8',
+    backgroundColor: colors.backgroundBlue,
+    borderRadius: adjust(8),
   },
   splname: {
-    fontSize: 12,
-    color: '#000',
+    fontSize: adjust(11),
+    color: colors.neutralBlack,
     textAlign: 'center',
-    marginTop: 5,
-    height: 40,
+    marginTop: adjust(5),
+    height: adjust(30),
     justifyContent: 'center',
     textAlignVertical: 'center',
   },

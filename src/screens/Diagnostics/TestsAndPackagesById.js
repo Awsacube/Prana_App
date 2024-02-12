@@ -32,33 +32,33 @@ const TestsAndPackagesById = ({route}) => {
   let HomeSample;
 
   {
-    isSuccess && console.log(data);
-    data.data.forEach(element => {
-      if (element.name === TestorPackname) {
-        uuid = element.uuid;
-        name = element.name;
-        image = element.image;
-        discount = element.discount;
-        price = element.price;
-        tat = element.report_tat;
-        tatUnit = element.report_tat_unit;
-        content = element.content;
-        description = element.description;
-        HomeSample = element.home_sample_charge;
-        SingleTestOrPackage.unshift({
-          name: name,
-          image: image,
-          uuid: uuid,
-          price: price,
-          discount: discount,
-          content: content,
-          tat: tat,
-          tatUnit: tatUnit,
-          description: description,
-          HomeSample: HomeSample,
-        });
-      }
-    });
+    isSuccess &&
+      data.data?.forEach(element => {
+        if (element.name === TestorPackname) {
+          uuid = element.uuid;
+          name = element.name;
+          image = element.image;
+          discount = element.discount;
+          price = element.price;
+          tat = element.report_tat;
+          tatUnit = element.report_tat_unit;
+          content = element.content;
+          description = element.description;
+          HomeSample = element.home_sample_charge;
+          SingleTestOrPackage.unshift({
+            name: name,
+            image: image,
+            uuid: uuid,
+            price: price,
+            discount: discount,
+            content: content,
+            tat: tat,
+            tatUnit: tatUnit,
+            description: description,
+            HomeSample: HomeSample,
+          });
+        }
+      });
   }
 
   const totalValue = item => {

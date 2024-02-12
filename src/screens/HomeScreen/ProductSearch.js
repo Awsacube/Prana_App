@@ -6,6 +6,8 @@ import {useSearchProductsQuery} from '../../services/userAuthApi';
 import Feather from 'react-native-vector-icons/Feather';
 import {useDispatch} from 'react-redux';
 import {setSearchResults} from '../../app/search-slice';
+import adjust from '../../utils/responsive';
+import {colors} from '../../constants/colors';
 
 const ProductSearch = () => {
   const navigation = useNavigation();
@@ -45,17 +47,15 @@ const ProductSearch = () => {
   }, [suggestion]);
 
   return (
-    <>
-      <View style={styles.row}>
-        <View>
-          <TextInput
-            placeholder={'Search Health Care Products'}
-            onChangeText={text => handleChange(text)}
-          />
-        </View>
-        <Feather name="search" size={30} color="#C6C6C6" />
+    <View style={styles.row}>
+      <View>
+        <TextInput
+          placeholder={'Search Health Care Products'}
+          onChangeText={text => handleChange(text)}
+        />
       </View>
-    </>
+      <Feather name="search" size={30} color="#C6C6C6" />
+    </View>
   );
 };
 
@@ -64,13 +64,13 @@ export default ProductSearch;
 const styles = StyleSheet.create({
   result: {
     color: '#000',
-    padding: 20,
+    padding: adjust(10),
   },
-  searchresult: {},
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '90%',
+    backgroundColor: colors.red,
   },
 });

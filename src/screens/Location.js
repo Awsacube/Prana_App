@@ -31,7 +31,7 @@ const Location = () => {
   // }, []);
 
   console.log('plater', Platform.OS);
-  // const [skip, setSkip] = useState(true)
+  const [skip, setSkip] = useState(true);
 
   const dispatch = useDispatch();
   const latlongdata = useSelector(state => state.location.latlong);
@@ -106,28 +106,28 @@ const Location = () => {
   if (latlongdata && skipState === false) {
   }
 
-  // if(!latlongdata){
-  //  const permission= requestLocationPermission()
-  // }
+  if (!latlongdata) {
+    const permission = requestLocationPermission();
+  }
 
   let res;
   //  locationRes=useLocationQuery();
 
-  // const getcitycode=useLocationQuery();
-  // const {isLoading, error, data, isSuccess, isError} = useLocationQuery(
-  //   latlongdata,
-  //   {
-  //     skipState,
-  //   },
-  // );
+  const getcitycode = useLocationQuery();
+  const {isLoading, error, data, isSuccess, isError} = useLocationQuery(
+    latlongdata,
+    {
+      skipState,
+    },
+  );
 
-  // if (isSuccess) {
-  //   dispatch(setCity(data.items[0].address.city));
-  //   dispatch(setPostalCode(data.items[0].address.postalCode));
-  //   // console.log("city",data.items[0].address.city)
-  //   // console.log("postalCode",data.items[0].address.postalCode)
-  //   // console.log("data",data)
-  // }
+  if (isSuccess) {
+    dispatch(setCity(data.items[0].address.city));
+    dispatch(setPostalCode(data.items[0].address.postalCode));
+    // console.log("city",data.items[0].address.city)
+    // console.log("postalCode",data.items[0].address.postalCode)
+    // console.log("data",data)
+  }
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -147,19 +147,22 @@ const styles = StyleSheet.create({
     // marginRight:10,
     // marginBottom:5,
     marginTop: adjust(-15),
+    // width: '0%',
     // height: 50,
     // borderRadius: 30,
-    // backgroundColor: colors.pearlWhite,
+    // backgroundColor: colors.red,
     flexDirection: 'row',
     borderRadius: adjust(5),
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: adjust(5),
+    // paddingHorizontal: adjust(5),
     paddingVertical: adjust(5),
+    paddingTop: adjust(10),
   },
   text: {
     color: colors.neutralBlack,
     fontSize: adjust(12),
     fontWeight: 'bold',
+    marginLeft: adjust(4),
   },
 });

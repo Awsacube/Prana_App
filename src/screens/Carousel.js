@@ -39,8 +39,8 @@ const Carousel = ({data}) => {
       <View>
         <FlatList
           data={data}
-          ref={flatList => {
-            this.flatList = flatList;
+          ref={flatListRef => {
+            flatList = flatListRef;
           }}
           keyExtractor={(item, index) => 'key' + index}
           horizontal

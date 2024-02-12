@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useCategoriesQuery} from '../services/userAuthApi';
+import {colors} from '../constants/colors';
+import adjust from '../utils/responsive';
 
 export default function Categories() {
   const navigation = useNavigation();
@@ -49,11 +51,10 @@ export default function Categories() {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor: '#fff'}}>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View style={styles.container}>
+        <View style={styles.innerContainer}>
           <Text style={styles.categoryText}>Shop By Category</Text>
-
           <View style={styles.catLayout}>
             {(searchQuery.length < 1 ? categorylist : searchResults).map(
               (item, index) => (
@@ -83,39 +84,60 @@ export default function Categories() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: colors.pearlWhite,
+  },
+  innerContainer: {},
   catLayout: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     // marginTop:0
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   card: {
-    flex: 1,
-    justifyContent: 'center',
-    alignContent: 'center',
-    width: 100,
-    margin: 14,
+    // backgroundColor: colors.red,
+    // justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: adjust(90),
+    height: adjust(110),
+    margin: adjust(8),
+    borderWidth: 1,
+    borderColor: colors.gray_400,
+    borderRadius: adjust(5),
+    padding: adjust(5),
+    paddingVertical: adjust(10),
   },
   image: {
-    flex: 1,
-    margin: 6,
+    margin: adjust(3),
+    width: adjust(50),
+    height: adjust(50),
   },
   imageLayout: {
     elevation: 0.5,
-    width: 80,
-    height: 80,
-    borderRadius: 10,
+    width: adjust(60),
+    height: adjust(60),
+    borderRadius: adjust(5),
+    // borderWidth: 1,
+    // borderColor: colors.red,
+    backgroundColor: colors.pearlWhite,
   },
 
   productname: {
-    // fontSize: 14,
-    color: '#000',
+    fontSize: adjust(10),
+    textAlign: 'justify',
+    color: colors.neutralBlack,
     // textAlign: 'center',
-    margin: 2,
+    // margin: 2,
+    marginTop: adjust(5),
   },
   categoryText: {
-    marginLeft: 15,
-    marginTop: 10,
-    fontSize: 20,
-    color: '#000',
+    marginLeft: adjust(10),
+    marginVertical: adjust(5),
+    fontSize: adjust(16),
+    color: colors.neutralBlack,
   },
 });

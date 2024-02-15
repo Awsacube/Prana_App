@@ -1,11 +1,19 @@
-import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Modal,
+  PanResponder,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {useGetLoggedUserQuery} from '../services/userAuthApi';
 import {getToken} from '../services/AsyncStorageService';
 import {colors} from '../constants/colors';
-import adjust from '../utils/responsive';
-import RadioButton from 'react-native-radio-buttons-group';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AddressModal from '../components/modals/AddressModal';
 
 const DeliveryAddress = ({navigation}) => {
   const [userLToken, setUserLToken] = useState();
@@ -42,6 +50,31 @@ const DeliveryAddress = ({navigation}) => {
       setAdditionalAddress(data.additional_address);
     }
   }, [isSuccess, data]);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  // PanResponder for handling modal drag
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (evt, gestureState) => {
+        // Implement dragging logic here if needed
+      },
+      onPanResponderRelease: (evt, gestureState) => {
+        if (gestureState.dy > 50) {
+          closeModal();
+        }
+      },
+    }),
+  ).current;
 
   const radioButtons = useMemo(() => {
     let allAddresses = [];
@@ -106,7 +139,9 @@ const DeliveryAddress = ({navigation}) => {
               Phone number: {buttonData.phoneNumber}
             </Text>
             {selected && (
-              <Pressable style={styles.deliverButton}>
+              <Pressable
+                onPress={() => navigation.navigate('Checkout')}
+                style={styles.deliverButton}>
                 <Text style={styles.deliverButtonText}>
                   Deliver to this address
                 </Text>
@@ -126,7 +161,7 @@ const DeliveryAddress = ({navigation}) => {
         </Pressable>
       </View>
       <View style={styles.addAddressButtonContainer}>
-        <Pressable style={styles.addAddressButton}>
+        <Pressable onPress={() => openModal()} style={styles.addAddressButton}>
           <Text style={styles.addAddressButtonText}>
             Add a delivery address
           </Text>
@@ -146,6 +181,27 @@ const DeliveryAddress = ({navigation}) => {
           />
         ))}
       </View>
+      <Modal
+        visible={isModalVisible}
+        transparent
+        animationType="slide"
+        statusBarTranslucent={true}>
+        <Pressable style={styles.modalBackground} onPress={closeModal}>
+          <View {...panResponder.panHandlers} style={styles.modalContainer}>
+            <View style={styles.dragBar} />
+            <View style={styles.mt3}>
+              <AddressModal
+                data={profileData}
+                method={'add'}
+                additionalAddress={additionalAddress}
+                closeModal={closeModal}
+                token={userLToken}
+                refetch={refetch}
+              />
+            </View>
+          </View>
+        </Pressable>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -238,5 +294,25 @@ const styles = StyleSheet.create({
     color: 'purple',
     fontWeight: '500',
     textTransform: 'uppercase',
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    padding: 20,
+    height: '85%', // Adjust as needed
+  },
+  dragBar: {
+    width: 40,
+    height: 5,
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    alignSelf: 'center',
+    marginBottom: 10,
   },
 });

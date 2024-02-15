@@ -31,6 +31,7 @@ import WishList from '../screens/wishlist';
 import StoresNearMe from '../screens/StoresNearMe';
 import TabNavigator from './TabNavigator';
 import DeliveryAddress from '../screens/DeliveryAddress';
+import Checkout from '../screens/Checkout';
 
 const Stack = createNativeStackNavigator();
 
@@ -86,6 +87,7 @@ const AppStack = () => {
       <Stack.Screen name="WishList" component={WishList} />
       <Stack.Screen name="StoresNearMe" component={StoresNearMe} />
       <Stack.Screen name="DeliveryAddress" component={DeliveryAddress} />
+      <Stack.Screen name="Checkout" component={Checkout} />
     </Stack.Navigator>
   );
 };

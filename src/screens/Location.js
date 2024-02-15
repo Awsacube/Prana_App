@@ -26,9 +26,9 @@ import adjust from '../utils/responsive';
 import {colors} from '../constants/colors';
 
 const Location = () => {
-  // useEffect(() => {
-  //   getLocation();
-  // }, []);
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   console.log('plater', Platform.OS);
   // const [skip, setSkip] = useState(true)
@@ -106,28 +106,28 @@ const Location = () => {
   if (latlongdata && skipState === false) {
   }
 
-  // if(!latlongdata){
-  //  const permission= requestLocationPermission()
-  // }
+  if (!latlongdata) {
+    const permission = requestLocationPermission();
+  }
 
   let res;
-  //  locationRes=useLocationQuery();
+  // locationRes = useLocationQuery();
 
-  // const getcitycode=useLocationQuery();
-  // const {isLoading, error, data, isSuccess, isError} = useLocationQuery(
-  //   latlongdata,
-  //   {
-  //     skipState,
-  //   },
-  // );
+  const getcitycode = useLocationQuery();
+  const {isLoading, error, data, isSuccess, isError} = useLocationQuery(
+    latlongdata,
+    {
+      skipState,
+    },
+  );
 
-  // if (isSuccess) {
-  //   dispatch(setCity(data.items[0].address.city));
-  //   dispatch(setPostalCode(data.items[0].address.postalCode));
-  //   // console.log("city",data.items[0].address.city)
-  //   // console.log("postalCode",data.items[0].address.postalCode)
-  //   // console.log("data",data)
-  // }
+  if (isSuccess) {
+    dispatch(setCity(data.items[0].address.city));
+    dispatch(setPostalCode(data.items[0].address.postalCode));
+    // console.log("city",data.items[0].address.city)
+    // console.log("postalCode",data.items[0].address.postalCode)
+    // console.log("data",data)
+  }
   return (
     <SafeAreaView>
       <View style={styles.container}>

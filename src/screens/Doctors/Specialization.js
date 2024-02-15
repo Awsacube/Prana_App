@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     // marginLeft: 15,
     color: '#000',
     fontSize: 20,
-    marginTop: adjust(-30),
+    marginTop: adjust(0),
   },
   splimage: {
     width: screenwidth / 3,

@@ -16,6 +16,7 @@ import {
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import searchSlice from './search-slice';
+import orderSlice from './orderSlice';
 
 const persistConfig = {
   key: 'root',
@@ -33,6 +34,7 @@ export const store = configureStore({
     auth: persistedReducer,
     location: locationSlice.reducer,
     search: searchSlice.reducer,
+    order: orderSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

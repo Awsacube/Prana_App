@@ -285,6 +285,17 @@ export const userAuthApi = createApi({
         };
       },
     }),
+    getOrderById: builder.query({
+      query: queryItems => {
+        return {
+          url: `/orders/${queryItems.id}`,
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${queryItems.token}`,
+          },
+        };
+      },
+    }),
     //Diagnostics End Points//
     getDiagnosticsHealthConcerns: builder.query({
       query: () => {
@@ -465,4 +476,5 @@ export const {
   useWishListQuery,
   useAddToWishlistMutation,
   useDeleteWishlistItemsMutation,
+  useGetOrderByIdQuery,
 } = userAuthApi;

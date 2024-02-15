@@ -28,8 +28,7 @@ const DoctorCard = props => {
             // let discount=item.discount
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate('DoctorDetails')}
-              >
+                onPress={() => navigation.navigate('DoctorDetails')}>
                 <View style={styles.splLayout}>
                   <View style={styles.top}>
                     <Image source={item.image} style={styles.img} />
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   splLayout: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
     // backgroundColor:'red',
     margin: 6,
     borderRadius: 10,
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-evenly',
   },
-  name: {
-    fontWeight: 'bold',
-  },
+  // name: {
+  //   fontWeight: 'bold',
+  // },
 });

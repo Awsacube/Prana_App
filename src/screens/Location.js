@@ -31,7 +31,7 @@ const Location = () => {
   }, []);
 
   console.log('plater', Platform.OS);
-  // const [skip, setSkip] = useState(true)
+  const [skip, setSkip] = useState(true);
 
   const dispatch = useDispatch();
   const latlongdata = useSelector(state => state.location.latlong);
@@ -147,19 +147,22 @@ const styles = StyleSheet.create({
     // marginRight:10,
     // marginBottom:5,
     marginTop: adjust(-15),
+    // width: '0%',
     // height: 50,
     // borderRadius: 30,
-    // backgroundColor: colors.pearlWhite,
+    // backgroundColor: colors.red,
     flexDirection: 'row',
     borderRadius: adjust(5),
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: adjust(5),
+    // paddingHorizontal: adjust(5),
     paddingVertical: adjust(5),
+    paddingTop: adjust(10),
   },
   text: {
     color: colors.neutralBlack,
     fontSize: adjust(12),
     fontWeight: 'bold',
+    marginLeft: adjust(4),
   },
 });

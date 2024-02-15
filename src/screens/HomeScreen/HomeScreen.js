@@ -53,18 +53,20 @@ const HomeScreen = ({navigation}) => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
+          <View style={styles.searchContainer}>
+            <Search
+              placeholder={placeholder}
+              editable={false}
+              navigate="EmptyPage"
+              component={<ProductSearch />}
+            />
+          </View>
           <View style={styles.mainContainer}>
-            <Location style={styles.location} />
+            <Location />
             <View>
               <Calltoorder text={'Book a Test'} />
             </View>
           </View>
-          <Search
-            placeholder={placeholder}
-            editable={false}
-            navigate="EmptyPage"
-            component={<ProductSearch />}
-          />
         </View>
         <Services />
         <Specialization />
@@ -77,37 +79,43 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   Header: {
-    marginTop: 7,
+    marginTop: adjust(5),
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: adjust(5),
   },
   mainContainer: {
-    width: '90%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    width: '100%',
+    // flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
     marginTop: adjust(10),
     marginHorizontal: adjust(5),
-    // backgroundColor: colors.pearlWhite,
   },
   Logo: {
-    width: 150,
-    height: 50,
-  },
-  location: {
-    // padding: adjust(10),
-    backgroundColor: colors.red,
-    marginTop: adjust(50),
+    width: adjust(130),
+    height: adjust(40),
   },
   safeview: {
-    flex: 1,
-    backgroundColor: '#fff',
-    flexDirection: 'column',
-    alignItems: 'center',
+    // flex: 1,
+    width: '100%',
+    height: '100%',
+    backgroundColor: colors.pearlWhite,
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    paddingHorizontal: adjust(5),
+  },
+  searchContainer: {
+    width: '100%',
+    // alignItems: 'center',
+    // alignSelf: 'center',
+    // marginLeft: adjust(5),
+    marginRight: adjust(15),
     justifyContent: 'center',
+    // backgroundColor: colors.red,
   },
 });
 export default HomeScreen;

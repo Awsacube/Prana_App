@@ -13,6 +13,8 @@ import doctor from '../assets/pillboxservices/doctor.jpeg';
 import hproducts from '../assets/pillboxservices/healthproducts.png';
 import medicineImagepng from '../assets/pillboxservices/medicenes.png';
 import CategoriesListCard from './CategoriesListCard';
+import {colors} from '../constants/colors';
+import adjust from '../utils/responsive';
 var screenwidth = Dimensions.get('window').width; //full width
 var screenheight = Dimensions.get('window').height; //full height
 
@@ -49,41 +51,26 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          marginLeft: 15,
-          marginTop: 15,
-          marginBottom: 15,
-          fontSize: 20,
-          fontWeight: 'bold',
-          color: '#000',
-        }}>
-        Health Care
-      </Text>
-      <View
-        style={{
-          marginTop: 4,
-        }}>
-        <FlatList
-          data={categorylist}
-          keyExtractor={(item, index) => item.tc_id}
-          vertical
-          numColumns={4}
-          renderItem={({item, index}) => {
-            const goto = () => {
-              navigation.navigate(item.navigateTo);
-            };
+      <Text style={styles.header}>Health Care</Text>
+      <FlatList
+        data={categorylist}
+        keyExtractor={(item, index) => item.tc_id}
+        vertical
+        numColumns={4}
+        renderItem={({item, index}) => {
+          const goto = () => {
+            navigation.navigate(item.navigateTo);
+          };
 
-            return (
-              <CategoriesListCard
-                icon={item.image}
-                productname={item.name}
-                onPress={goto}
-              />
-            );
-          }}
-        />
-      </View>
+          return (
+            <CategoriesListCard
+              icon={item.image}
+              productname={item.name}
+              onPress={goto}
+            />
+          );
+        }}
+      />
     </View>
   );
 }
@@ -93,10 +80,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     flexDirection: 'column',
-    backgroundColor: '#fff',
-    marginBottom: 20,
+    backgroundColor: colors.pearlWhite,
+    paddingVertical: adjust(5),
+    // marginBottom: 20,
   },
-
+  header: {
+    marginLeft: adjust(5),
+    // marginTop: adjust(5),
+    marginBottom: adjust(10),
+    fontSize: adjust(16),
+    fontWeight: 'bold',
+    color: colors.neutralBlack,
+  },
   searchSection: {
     flex: 1,
     flexDirection: 'row',

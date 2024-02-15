@@ -33,6 +33,7 @@ import TabNavigator from './TabNavigator';
 import DeliveryAddress from '../screens/DeliveryAddress';
 import Checkout from '../screens/Checkout';
 import OrderById from '../screens/OrderById';
+import PaymentType from '../screens/PaymentType';
 
 const Stack = createNativeStackNavigator();
 
@@ -89,6 +90,7 @@ const AppStack = () => {
       <Stack.Screen name="WishList" component={WishList} />
       <Stack.Screen name="StoresNearMe" component={StoresNearMe} />
       <Stack.Screen name="DeliveryAddress" component={DeliveryAddress} />
+      <Stack.Screen name="PaymentType" component={PaymentType} />
       <Stack.Screen name="Checkout" component={Checkout} />
     </Stack.Navigator>
   );

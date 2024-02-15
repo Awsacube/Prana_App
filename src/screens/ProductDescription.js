@@ -109,7 +109,6 @@ export default function ProductDescription({route}) {
         <View style={styles.infoContainer}>
           <View style={styles.flexContainer}>
             <Text style={styles.name}>{name}</Text>
-
             <View style={[styles.evenly]}>
               <View style={[styles.row, styles.gap3]}>
                 <Pressable

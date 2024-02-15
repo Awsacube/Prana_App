@@ -140,7 +140,8 @@ const DeliveryAddress = ({navigation}) => {
             </Text>
             {selected && (
               <Pressable
-                onPress={() => navigation.navigate('Checkout')}
+                onPress={() => navigation.navigate('PaymentType')}
+                // onPress={() => console.log(value, buttonData)}
                 style={styles.deliverButton}>
                 <Text style={styles.deliverButtonText}>
                   Deliver to this address

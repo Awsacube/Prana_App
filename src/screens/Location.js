@@ -26,9 +26,9 @@ import adjust from '../utils/responsive';
 import {colors} from '../constants/colors';
 
 const Location = () => {
-  // useEffect(() => {
-  //   getLocation();
-  // }, []);
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   console.log('plater', Platform.OS);
   const [skip, setSkip] = useState(true);
@@ -111,7 +111,7 @@ const Location = () => {
   }
 
   let res;
-  //  locationRes=useLocationQuery();
+  // locationRes = useLocationQuery();
 
   const getcitycode = useLocationQuery();
   const {isLoading, error, data, isSuccess, isError} = useLocationQuery(

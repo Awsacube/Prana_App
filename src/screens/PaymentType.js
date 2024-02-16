@@ -60,7 +60,7 @@ const PaymentType = () => {
         onPress={() => navigation.navigate('Checkout')}
         // onPress={() => console.log(value, buttonData)}
         style={styles.deliverButton}>
-        <Text style={styles.deliverButtonText}>Deliver to this address</Text>
+        <Text style={styles.deliverButtonText}>Proceed To Place Order</Text>
       </Pressable>
     </SafeAreaView>
   );

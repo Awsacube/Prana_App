@@ -2,11 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   loading: false,
-  orderItems: [],
-  couponItems: [],
-  orderByIdItems: {},
   orderId: '',
-  error: {},
+  address: '',
 };
 
 export const orderSlice = createSlice({
@@ -37,6 +34,9 @@ export const orderSlice = createSlice({
     setOrderId: (state, action) => {
       state.orderId = action.payload.orderId;
     },
+    setAddress: (state, action) => {
+      state.selectedAddress = action.payload.address;
+    },
     // couponSuccess: (state, action) => {
     //   state.loading = false;
     //   state.couponItems = action.payload.couponItems;
@@ -50,6 +50,6 @@ export const orderSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {setOrderId} = orderSlice.actions;
+export const {setOrderId, setAddress} = orderSlice.actions;
 
 export default orderSlice;

@@ -17,11 +17,13 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import adjust from '../utils/responsive';
+import {useSelector} from 'react-redux';
 
 const Checkout = ({navigation, buttonData}) => {
   const [userLToken, setUserLToken] = useState();
   const [profileData, setProfileData] = useState();
   const [quantity, setquantity] = useState(1);
+  const address = useSelector(state => state.order.address);
 
   useEffect(() => {
     const getT = async () => {
@@ -45,6 +47,7 @@ const Checkout = ({navigation, buttonData}) => {
   }, [isSuccess, data]);
 
   isError && console.log('errs', error);
+  isError && console.log('datam', address);
 
   const increaseCartQuantity = () => {
     setquantity(quantity + 1);
@@ -66,7 +69,7 @@ const Checkout = ({navigation, buttonData}) => {
         <Text style={styles.title}>Order now</Text>
         <View style={styles.cardContainer}>
           <Text style={styles.text}>
-            Shipping to:<Text style={styles.boldText}>addr</Text>
+            Shipping to:<Text style={styles.boldText}>{address}</Text>
           </Text>
           <View style={styles.border} />
           <View style={styles.flexContainer}>

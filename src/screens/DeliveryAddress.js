@@ -14,6 +14,8 @@ import {colors} from '../constants/colors';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AddressModal from '../components/modals/AddressModal';
+import {useDispatch, useSelector} from 'react-redux';
+import {setAddress} from '../app/orderSlice';
 
 const DeliveryAddress = ({navigation}) => {
   const [userLToken, setUserLToken] = useState();
@@ -109,8 +111,14 @@ const DeliveryAddress = ({navigation}) => {
     return allAddresses;
   }, [additionalAddress, data, userLToken]);
 
+  const dispatch = useDispatch();
+  const address = useSelector(state => state.order.address);
+
   const handleAddressSelect = selectedAddress => {
+    // setSelectedAddress(selectedAddress);
+    dispatch(setAddress(selectedAddress)); // Dispatching setAddress action
     setSelectedAddress(selectedAddress);
+    console.log(setSelectedAddress(selectedAddress));
   };
 
   const AddressCard = ({buttonData, value, selected, onPress}) => {

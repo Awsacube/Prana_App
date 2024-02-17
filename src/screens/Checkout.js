@@ -47,7 +47,6 @@ const Checkout = ({navigation, buttonData}) => {
   }, [isSuccess, data]);
 
   isError && console.log('errs', error);
-  isError && console.log('datam', address);
 
   const increaseCartQuantity = () => {
     setquantity(quantity + 1);
@@ -110,10 +109,7 @@ const Checkout = ({navigation, buttonData}) => {
               <Text style={[styles.padding, styles.boldText]}>
                 {/* {buttonData.name} */}
               </Text>
-              <Text style={[styles.boldText, styles.padding]}>
-                AddressAddressAddressAddressAddressAddressAddressAddressAddressAddress
-                AddressAddressAddress
-              </Text>
+              <Text style={[styles.boldText, styles.padding]}>{address}</Text>
             </View>
             <Entypo
               name={'chevron-small-right'}

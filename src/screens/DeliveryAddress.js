@@ -115,10 +115,9 @@ const DeliveryAddress = ({navigation}) => {
   const address = useSelector(state => state.order.address);
 
   const handleAddressSelect = selectedAddress => {
-    // setSelectedAddress(selectedAddress);
-    dispatch(setAddress(selectedAddress)); // Dispatching setAddress action
+    dispatch(setAddress({address: selectedAddress}));
     setSelectedAddress(selectedAddress);
-    console.log(setSelectedAddress(selectedAddress));
+    console.log(address);
   };
 
   const AddressCard = ({buttonData, value, selected, onPress}) => {

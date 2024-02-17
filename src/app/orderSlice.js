@@ -35,7 +35,7 @@ export const orderSlice = createSlice({
       state.orderId = action.payload.orderId;
     },
     setAddress: (state, action) => {
-      state.selectedAddress = action.payload.address;
+      state.address = action.payload.address;
     },
     // couponSuccess: (state, action) => {
     //   state.loading = false;

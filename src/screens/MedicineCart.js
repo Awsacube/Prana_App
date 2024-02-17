@@ -302,17 +302,21 @@ const MedicineCart = ({navigation}) => {
       <View style={styles.billContainer}>
         <View style={styles.justify}>
           <Text style={styles.billText}>Total Price</Text>
-          <Text style={styles.billText}>₹{subTotal(data)}</Text>
+          <Text style={styles.billText}>
+            ₹{parseFloat(subTotal(data)).toFixed(2)}
+          </Text>
         </View>
         <View style={styles.justify}>
           <Text style={styles.billText}>Discount</Text>
-          <Text style={styles.billText}>₹{totalDiscount(data)}</Text>
+          <Text style={styles.billText}>
+            ₹{parseFloat(totalDiscount(data)).toFixed(2)}
+          </Text>
         </View>
         <View style={styles.border} />
         <View style={styles.justify}>
           <Text style={styles.billTotalText}>Cart Value</Text>
           <Text style={styles.billTotalText}>
-            ₹{subTotal(data) - totalDiscount(data)}
+            ₹{parseFloat(subTotal(data) - totalDiscount(data)).toFixed(2)}
           </Text>
         </View>
       </View>

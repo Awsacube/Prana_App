@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   orderId: '',
   address: '',
+  paymentType: '',
 };
 
 export const orderSlice = createSlice({
@@ -37,6 +38,9 @@ export const orderSlice = createSlice({
     setAddress: (state, action) => {
       state.address = action.payload.address;
     },
+    setPaymentType: (state, action) => {
+      state.paymentType = action.payload.type;
+    },
     // couponSuccess: (state, action) => {
     //   state.loading = false;
     //   state.couponItems = action.payload.couponItems;
@@ -50,6 +54,6 @@ export const orderSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {setOrderId, setAddress} = orderSlice.actions;
+export const {setOrderId, setAddress, setPaymentType} = orderSlice.actions;
 
 export default orderSlice;

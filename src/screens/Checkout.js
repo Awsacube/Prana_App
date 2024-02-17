@@ -1,13 +1,5 @@
-import {
-  Modal,
-  PanResponder,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useEffect, useMemo, useState} from 'react';
+import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {useGetLoggedUserQuery} from '../services/userAuthApi';
 import {getToken} from '../services/AsyncStorageService';
 import {colors} from '../constants/colors';
@@ -15,7 +7,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Entypo from 'react-native-vector-icons/Entypo';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import adjust from '../utils/responsive';
 import {useSelector} from 'react-redux';
 
@@ -24,6 +15,7 @@ const Checkout = ({navigation, buttonData}) => {
   const [profileData, setProfileData] = useState();
   const [quantity, setquantity] = useState(1);
   const address = useSelector(state => state.order.address);
+  const paymentType = useSelector(state => state.order.paymentType);
 
   useEffect(() => {
     const getT = async () => {
@@ -68,7 +60,8 @@ const Checkout = ({navigation, buttonData}) => {
         <Text style={styles.title}>Order now</Text>
         <View style={styles.cardContainer}>
           <Text style={styles.text}>
-            Shipping to:<Text style={styles.boldText}>{address}</Text>
+            Shipping to:{' '}
+            <Text style={styles.boldText}>{address.split(':')[1]}</Text>
           </Text>
           <View style={styles.border} />
           <View style={styles.flexContainer}>
@@ -92,7 +85,7 @@ const Checkout = ({navigation, buttonData}) => {
         </View>
         <View style={styles.cardContainer}>
           <View style={styles.flexContainer}>
-            <Text style={styles.text}>COD</Text>
+            <Text style={styles.text}>{paymentType}</Text>
             <Entypo
               name={'chevron-small-right'}
               size={adjust(24)}
@@ -107,9 +100,14 @@ const Checkout = ({navigation, buttonData}) => {
             <View>
               <Text style={styles.text}>Delivery to</Text>
               <Text style={[styles.padding, styles.boldText]}>
-                {/* {buttonData.name} */}
+                {address.split(':')[0]}
               </Text>
-              <Text style={[styles.boldText, styles.padding]}>{address}</Text>
+              <Text style={[styles.padding, styles.boldText]}>
+                {address.split(':')[1]}
+              </Text>
+              <Text style={[styles.boldText, styles.padding]}>
+                {address.split(':')[2]}
+              </Text>
             </View>
             <Entypo
               name={'chevron-small-right'}
@@ -129,7 +127,7 @@ const Checkout = ({navigation, buttonData}) => {
 
               <View style={[styles.priceFlex]}>
                 <Text style={styles.mrp}>MRP</Text>
-                <Text style={styles.price}>₹item}</Text>
+                <Text style={styles.price}>₹item</Text>
                 <Text style={styles.priceOverline}>
                   {/* ₹{parseFloat(item.price).toFixed(2)} */}
                   12

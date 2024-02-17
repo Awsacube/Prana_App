@@ -54,7 +54,7 @@ const Signin = () => {
     res = await loginUser(formData);
     console.log('resss', res);
     if (res.data.message === 'User logged in successfully') {
-      dispatch(login());
+      dispatch(login(true));
       console.log('logged in success');
     }
   };

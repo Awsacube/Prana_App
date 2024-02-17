@@ -96,7 +96,7 @@ const DeliveryAddress = ({navigation}) => {
       allAddresses = [
         ...allAddresses,
         ...additionalAddress.map((address, index) => ({
-          value: `${address.houseNumber}, ${address.street}, ${address.city} - ${address.pinCode}, ${address.state}`,
+          value: `${address.name} :${address.houseNumber}, ${address.street}, ${address.city} - ${address.pinCode}, ${address.state}:${address.phoneNumber}`,
           place: address.place,
           name: address.name,
           houseNumber: address.houseNumber,

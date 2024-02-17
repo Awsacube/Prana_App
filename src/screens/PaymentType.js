@@ -4,10 +4,13 @@ import {useNavigation} from '@react-navigation/native';
 import {colors} from '../constants/colors';
 import RadioButton from 'react-native-radio-buttons-group';
 import adjust from '../utils/responsive';
+import {setPaymentType} from '../app/orderSlice';
+import {useDispatch} from 'react-redux';
 
 const PaymentType = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
+  const dispatch = useDispatch();
 
   const radioButtons = useMemo(() => {
     const properties = {
@@ -57,7 +60,10 @@ const PaymentType = () => {
         />
       </View>
       <Pressable
-        onPress={() => navigation.navigate('Checkout')}
+        onPress={() => {
+          dispatch(setPaymentType({type: radioButtons[selected].value}));
+          navigation.navigate('Checkout');
+        }}
         // onPress={() => console.log(value, buttonData)}
         style={styles.deliverButton}>
         <Text style={styles.deliverButtonText}>Proceed To Place Order</Text>

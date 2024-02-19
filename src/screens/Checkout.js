@@ -22,6 +22,7 @@ import {
   totalValue,
 } from '../utils/mathFunc';
 import {ScrollView} from 'react-native';
+import {placeHealthCareCartOrder} from '../services/healthCareOrderService';
 
 const Checkout = ({navigation, buttonData}) => {
   const [userLToken, setUserLToken] = useState();
@@ -51,9 +52,7 @@ const Checkout = ({navigation, buttonData}) => {
   {
     error && console.log('cart error', error);
   }
-  {
-    isSuccess && console.log('cart data', data);
-  }
+
   {
     isSuccess &&
       data.forEach(element => {
@@ -91,14 +90,14 @@ const Checkout = ({navigation, buttonData}) => {
   const [placeOrder] = useHandlePlaceOrderMutation();
 
   const handlePlaceOrder = async () => {
-    // console.log(cartItemUuid);
-    // const placeOrderData = {
-    //   product_ids: [products],
-    //   shipping_address: shippingAddress,
-    //   billing_Address: billingAddress,
-    //   payment_method: paymentType,
-    // };
-    // await placeOrder(placeOrderData);
+    const response = await placeHealthCareCartOrder(
+      address.split(':')[1],
+      paymentType,
+      cart,
+      userLToken,
+    );
+    console.log('Response:', response); // Log the response to inspect it
+    // Handle the response accordingly
   };
 
   return (
@@ -240,9 +239,7 @@ const Checkout = ({navigation, buttonData}) => {
           />
         </View>
       </ScrollView>
-      <Pressable
-        style={styles.placeOrderContainer}
-        onPress={handlePlaceOrder()}>
+      <Pressable style={styles.placeOrderContainer} onPress={handlePlaceOrder}>
         <Text style={styles.placeOrder}>Place Order</Text>
       </Pressable>
     </SafeAreaView>

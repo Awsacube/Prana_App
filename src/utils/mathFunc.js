@@ -12,6 +12,16 @@ export const subTotal = data => {
   return value;
 };
 
+export const deliveryCharges = data => {
+  const value = data?.reduce((sum, product) => {
+    return (subTotal(data) - totalDiscount(data)) * 0.1;
+  }, 0);
+
+  return value;
+};
+
+// {Math.ceil((subTotal - discount - couponValue) * 0.1).toFixed(2)}
+
 export const totalDiscount = data => {
   const value = data?.reduce((sum, product) => {
     return (

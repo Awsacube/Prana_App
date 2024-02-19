@@ -274,6 +274,28 @@ export const userAuthApi = createApi({
       },
     }),
     //orders End Points
+    handlePlaceOrder: builder.mutation({
+      query: (products, shippingAddress, billingAddress, paymentMethod) => {
+        console.log(
+          'formData',
+          products,
+          shippingAddress,
+          billingAddress,
+          paymentMethod,
+        );
+        return {
+          url: '/orders',
+          method: 'POST',
+          // body: formData,
+          // body: {
+          //   token: `${token}`,
+          // },
+          headers: {
+            'Content-type': 'application/json',
+          },
+        };
+      },
+    }),
     getOrderHistory: builder.query({
       query: token => {
         return {
@@ -443,6 +465,7 @@ export const {
   useAddToCartMutation,
   useRegisterUserMutation,
   useLoginUserMutation,
+  useHandlePlaceOrderMutation,
   useGetLoggedUserQuery,
   useUserLogOutMutation,
   useProductsQuery,

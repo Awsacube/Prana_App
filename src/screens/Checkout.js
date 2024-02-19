@@ -1,6 +1,10 @@
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useGetLoggedUserQuery} from '../services/userAuthApi';
+import {
+  useGetAllCartItemsQuery,
+  useGetLoggedUserQuery,
+  useHandlePlaceOrderMutation,
+} from '../services/userAuthApi';
 import {getToken} from '../services/AsyncStorageService';
 import {colors} from '../constants/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -9,6 +13,15 @@ import Entypo from 'react-native-vector-icons/Entypo';
 
 import adjust from '../utils/responsive';
 import {useSelector} from 'react-redux';
+import {FlatList} from 'react-native';
+import {Image} from 'react-native';
+import {
+  deliveryCharges,
+  subTotal,
+  totalDiscount,
+  totalValue,
+} from '../utils/mathFunc';
+import {ScrollView} from 'react-native';
 
 const Checkout = ({navigation, buttonData}) => {
   const [userLToken, setUserLToken] = useState();
@@ -16,6 +29,8 @@ const Checkout = ({navigation, buttonData}) => {
   const [quantity, setquantity] = useState(1);
   const address = useSelector(state => state.order.address);
   const paymentType = useSelector(state => state.order.paymentType);
+
+  let cart = [];
 
   useEffect(() => {
     const getT = async () => {
@@ -25,20 +40,41 @@ const Checkout = ({navigation, buttonData}) => {
     getT();
   }, []);
 
-  const {data, isSuccess, isError, error, refetch} = useGetLoggedUserQuery(
-    userLToken,
-    {
-      refetchOnMountOrArgChange: true,
-    },
-  );
-
-  useEffect(() => {
-    if (isSuccess) {
-      setProfileData(data);
-    }
-  }, [isSuccess, data]);
-
-  isError && console.log('errs', error);
+  const {data, isLoading, isFetching, error, isSuccess, refetch} =
+    useGetAllCartItemsQuery(userLToken, {refetchOnMountOrArgChange: true});
+  // {
+  //   isLoading && console.log('Loading');
+  // }
+  // {
+  //   isFetching && console.log('fetching');
+  // }
+  {
+    error && console.log('cart error', error);
+  }
+  {
+    isSuccess && console.log('cart data', data);
+  }
+  {
+    isSuccess &&
+      data.forEach(element => {
+        const cartItemUuid = element.uuid;
+        const quantity = element.quantity;
+        const name = element.product.name;
+        const image = element.product.image;
+        const uuid = element.product.uuid;
+        const price = element.product.price;
+        const discount = element.product.discount;
+        cart.unshift({
+          name: name,
+          image: image,
+          uuid: uuid,
+          price: price,
+          quantity: quantity,
+          cartItemUuid: cartItemUuid,
+          discount: discount,
+        });
+      });
+  }
 
   const increaseCartQuantity = () => {
     setquantity(quantity + 1);
@@ -49,6 +85,22 @@ const Checkout = ({navigation, buttonData}) => {
     }
   };
 
+  const billingAddress = address;
+  const shippingAddress = address;
+
+  const [placeOrder] = useHandlePlaceOrderMutation();
+
+  const handlePlaceOrder = async () => {
+    // console.log(cartItemUuid);
+    // const placeOrderData = {
+    //   product_ids: [products],
+    //   shipping_address: shippingAddress,
+    //   billing_Address: billingAddress,
+    //   payment_method: paymentType,
+    // };
+    // await placeOrder(placeOrderData);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cancelContainer}>
@@ -56,116 +108,141 @@ const Checkout = ({navigation, buttonData}) => {
           <Text style={styles.cancelText}>CANCEL</Text>
         </Pressable>
       </View>
-      <View style={styles.billContainer}>
-        <Text style={styles.title}>Order now</Text>
-        <View style={styles.cardContainer}>
-          <Text style={styles.text}>
-            Shipping to:{' '}
-            <Text style={styles.boldText}>{address.split(':')[1]}</Text>
-          </Text>
-          <View style={styles.border} />
-          <View style={styles.flexContainer}>
-            <Text style={styles.text}>Items:</Text>
-            <Text style={styles.text}>₹665</Text>
-          </View>
-          <View style={styles.flexContainer}>
-            <Text style={styles.text}>Delivery:</Text>
-            <Text style={styles.text}>₹665</Text>
-          </View>
-          <View style={[styles.flexContainer, styles.padding]}>
-            <Text style={styles.boldText}>Order Total:</Text>
-            <Text style={styles.boldText}>₹665</Text>
-          </View>
-          <View style={styles.border} />
-          <Text style={[styles.text, styles.center]}>
-            You Are Saving{' '}
-            <Text style={[styles.boldText, styles.color]}>₹665</Text> On This
-            Order
-          </Text>
-        </View>
-        <View style={styles.cardContainer}>
-          <View style={styles.flexContainer}>
-            <Text style={styles.text}>{paymentType}</Text>
-            <Entypo
-              name={'chevron-small-right'}
-              size={adjust(24)}
-              color={colors.gray_600}
-            />
-          </View>
-        </View>
-        <Pressable
-          style={styles.cardContainer}
-          onPress={() => navigation.navigate('DeliveryAddress')}>
-          <View style={[styles.flexContainer]}>
-            <View>
-              <Text style={styles.text}>Delivery to</Text>
-              <Text style={[styles.padding, styles.boldText]}>
-                {address.split(':')[0]}
-              </Text>
-              <Text style={[styles.padding, styles.boldText]}>
-                {address.split(':')[1]}
-              </Text>
-              <Text style={[styles.boldText, styles.padding]}>
-                {address.split(':')[2]}
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.billContainer}>
+          <Text style={styles.title}>Order now</Text>
+          <View style={styles.cardContainer}>
+            <Text style={styles.text}>
+              Shipping to:{' '}
+              <Text style={styles.boldText}>{address.split(':')[1]}</Text>
+            </Text>
+            <View style={styles.border} />
+            <View style={styles.flexContainer}>
+              <Text style={styles.text}>Items:</Text>
+              <Text style={styles.text}>
+                ₹{parseFloat(subTotal(data)).toFixed(2)}
               </Text>
             </View>
-            <Entypo
-              name={'chevron-small-right'}
-              size={adjust(24)}
-              color={colors.gray_600}
-            />
+            <View style={styles.flexContainer}>
+              <Text style={styles.text}>Delivery:</Text>
+              <Text style={styles.text}>
+                {/* // {Math.ceil((subTotal - discount - couponValue) * 0.1).toFixed(2)} */}
+                ₹{parseFloat(deliveryCharges(data)).toFixed(2)}
+              </Text>
+            </View>
+            <View style={[styles.flexContainer, styles.padding]}>
+              <Text style={styles.boldText}>Order Total:</Text>
+              <Text style={styles.boldText}>
+                ₹
+                {parseFloat(
+                  subTotal(data) - totalDiscount(data) + deliveryCharges(data),
+                ).toFixed(2)}
+              </Text>
+            </View>
+            <View style={styles.border} />
+            <Text style={[styles.text, styles.center]}>
+              You Are Saving{' '}
+              <Text style={[styles.boldText, styles.color]}>
+                ₹{parseFloat(totalDiscount(data)).toFixed(2)}
+              </Text>{' '}
+              On This Order
+            </Text>
           </View>
-        </Pressable>
-        <Text style={styles.title}>Shipping Items</Text>
-        <View style={styles.mainContainer}>
-          <View style={styles.image}>
-            {/* <Image style={styles.image} source={{uri: item.image}} /> */}
+          <View style={styles.cardContainer}>
+            <View style={styles.flexContainer}>
+              <Text style={styles.text}>{paymentType}</Text>
+              <Entypo
+                name={'chevron-small-right'}
+                size={adjust(24)}
+                color={colors.gray_600}
+              />
+            </View>
           </View>
-          <View>
-            <View style={styles.details}>
-              <Text style={styles.productText}>name</Text>
-
-              <View style={[styles.priceFlex]}>
-                <Text style={styles.mrp}>MRP</Text>
-                <Text style={styles.price}>₹item</Text>
-                <Text style={styles.priceOverline}>
-                  {/* ₹{parseFloat(item.price).toFixed(2)} */}
-                  12
+          <Pressable
+            style={styles.cardContainer}
+            onPress={() => navigation.navigate('DeliveryAddress')}>
+            <View style={[styles.flexContainer]}>
+              <View>
+                <Text style={styles.text}>Delivery to</Text>
+                <Text style={[styles.padding, styles.boldText]}>
+                  {address.split(':')[0]}
+                </Text>
+                <Text style={[styles.padding, styles.boldText]}>
+                  {address.split(':')[1]}
+                </Text>
+                <Text style={[styles.boldText, styles.padding]}>
+                  {address.split(':')[2]}
                 </Text>
               </View>
+              <Entypo
+                name={'chevron-small-right'}
+                size={adjust(24)}
+                color={colors.gray_600}
+              />
             </View>
-            <View style={[styles.evenly]}>
-              <View style={[styles.row, styles.gap3]}>
-                <Pressable
-                  onPress={decreaseCartQuantity}
-                  // disabled={quantity === 1}
-                  style={[styles.box, {backgroundColor: '#fff'}]}>
-                  <AntDesign
-                    name="minus"
-                    color={'#1c738c'}
-                    size={18}
-                    strokeWidth={2.5}
-                  />
-                </Pressable>
-                <View>
-                  <Text style={styles.bold}>{quantity}</Text>
+          </Pressable>
+          <Text style={styles.title}>Shipping Items</Text>
+          <FlatList
+            data={cart}
+            // keyExtractor={item => item.item.uuid}
+            renderItem={item => {
+              return (
+                <View style={styles.mainContainer}>
+                  <View style={styles.image}>
+                    <Image
+                      style={styles.image}
+                      source={{uri: item.item.image}}
+                    />
+                  </View>
+                  <View>
+                    <View style={styles.details}>
+                      <Text style={styles.productText}>{item.item.name}</Text>
+                      <View style={[styles.priceFlex]}>
+                        <Text style={styles.mrp}>MRP</Text>
+                        <Text style={styles.price}>₹{totalValue(item)}</Text>
+                        <Text style={styles.priceOverline}>
+                          ₹{parseFloat(item.item.price).toFixed(2)}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={[styles.evenly]}>
+                      <View style={[styles.row, styles.gap3]}>
+                        <Pressable
+                          onPress={decreaseCartQuantity}
+                          // disabled={quantity === 1}
+                          style={[styles.box, {backgroundColor: '#fff'}]}>
+                          <AntDesign
+                            name="minus"
+                            color={'#1c738c'}
+                            size={18}
+                            strokeWidth={2.5}
+                          />
+                        </Pressable>
+                        <View>
+                          <Text style={styles.bold}>{item.item.quantity}</Text>
+                        </View>
+                        <Pressable
+                          onPress={increaseCartQuantity}
+                          style={[styles.box, {backgroundColor: '#fff'}]}>
+                          <AntDesign
+                            name="plus"
+                            color={'#1c738c'}
+                            size={18}
+                            strokeWidth={2.5}
+                          />
+                        </Pressable>
+                      </View>
+                    </View>
+                  </View>
                 </View>
-                <Pressable
-                  onPress={increaseCartQuantity}
-                  style={[styles.box, {backgroundColor: '#fff'}]}>
-                  <AntDesign
-                    name="plus"
-                    color={'#1c738c'}
-                    size={18}
-                    strokeWidth={2.5}
-                  />
-                </Pressable>
-              </View>
-            </View>
-          </View>
+              );
+            }}
+          />
         </View>
-      </View>
-      <Pressable style={styles.placeOrderContainer}>
+      </ScrollView>
+      <Pressable
+        style={styles.placeOrderContainer}
+        onPress={handlePlaceOrder()}>
         <Text style={styles.placeOrder}>Place Order</Text>
       </Pressable>
     </SafeAreaView>
@@ -175,6 +252,10 @@ const Checkout = ({navigation, buttonData}) => {
 export default Checkout;
 
 const styles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1,
+    paddingBottom: adjust(50),
+  },
   container: {
     backgroundColor: colors.pearlWhite,
     flex: 1,
@@ -227,8 +308,8 @@ const styles = StyleSheet.create({
     color: colors.neutralBlack,
     overflow: 'hidden',
     textAlign: 'justify',
-    width: adjust(270),
-    marginVertical: adjust(3),
+    // width: adjust(270),
+    // marginVertical: adjust(3),
   },
   flexContainer: {
     width: '100%',
@@ -263,7 +344,7 @@ const styles = StyleSheet.create({
     marginRight: adjust(10),
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    width: '50%',
+    width: '100%',
     marginTop: adjust(-25),
   },
   productText: {

@@ -321,7 +321,9 @@ const MedicineCart = ({navigation}) => {
         </View>
       </View>
       <Pressable
-        onPress={() => navigation.navigate('DeliveryAddress')}
+        onPress={() =>
+          navigation.navigate('DeliveryAddress', {screen: 'medicine'})
+        }
         style={styles.placeButton}>
         <Text style={styles.placeText}>Proceed to Buy</Text>
       </Pressable>

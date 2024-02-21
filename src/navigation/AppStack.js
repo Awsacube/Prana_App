@@ -34,6 +34,7 @@ import DeliveryAddress from '../screens/DeliveryAddress';
 import Checkout from '../screens/Checkout';
 import OrderById from '../screens/OrderById';
 import PaymentType from '../screens/PaymentType';
+import LabCheckout from '../screens/LabCheckout';
 
 const Stack = createNativeStackNavigator();
 
@@ -92,6 +93,7 @@ const AppStack = () => {
       <Stack.Screen name="DeliveryAddress" component={DeliveryAddress} />
       <Stack.Screen name="PaymentType" component={PaymentType} />
       <Stack.Screen name="Checkout" component={Checkout} />
+      <Stack.Screen name="LabCheckout" component={LabCheckout} />
     </Stack.Navigator>
   );
 };

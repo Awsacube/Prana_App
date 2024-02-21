@@ -35,3 +35,44 @@ export const totalDiscount = data => {
   }, 0);
   return value;
 };
+
+//LAB BILL
+
+// Calculate subTotal based on items in the Lab cart
+
+export const labSubTotal = data => {
+  const value = data?.reduce((sum, product) => {
+    return sum + product.lab_test.price * product.quantity;
+  }, 0);
+
+  return value;
+};
+
+export const sampleCollectionCharges = data => {
+  const value = data?.reduce((sum, product) => {
+    return sum + parseFloat(product.lab_test.home_sample_charge);
+  }, 0);
+
+  return value;
+};
+
+export const labTotalDiscount = data => {
+  const value = data?.reduce((sum, product) => {
+    return (
+      sum +
+      parseFloat(
+        product.lab_test.price *
+          (product.lab_test.discount / 100) *
+          product.quantity,
+      )
+    );
+  }, 0);
+  return value;
+};
+
+export const labDiscount = data => {
+  const value = data?.reduce((sum, product) => {
+    return sum + parseFloat(product.lab_test.discount);
+  }, 0);
+  return value;
+};

@@ -1,6 +1,9 @@
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useGetAllCartItemsQuery} from '../services/userAuthApi';
+import {
+  useGetAllCartItemsQuery,
+  useGetAllLabCartItemsQuery,
+} from '../services/userAuthApi';
 import {getToken} from '../services/AsyncStorageService';
 import {colors} from '../constants/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -13,6 +16,10 @@ import {FlatList} from 'react-native';
 import {Image} from 'react-native';
 import {
   deliveryCharges,
+  labDiscount,
+  labSubTotal,
+  labTotalDiscount,
+  sampleCollectionCharges,
   subTotal,
   totalDiscount,
   totalValue,
@@ -20,7 +27,7 @@ import {
 import {ScrollView} from 'react-native';
 import {placeHealthCareCartOrder} from '../services/healthCareOrderService';
 
-const Checkout = ({navigation, buttonData}) => {
+const LabCheckout = ({navigation, buttonData}) => {
   const [userLToken, setUserLToken] = useState();
   const [quantity, setquantity] = useState(1);
   const address = useSelector(state => state.order.address);
@@ -36,29 +43,32 @@ const Checkout = ({navigation, buttonData}) => {
     getT();
   }, []);
 
-  const {data, error, isSuccess} = useGetAllCartItemsQuery(userLToken, {
-    refetchOnMountOrArgChange: true,
-  });
-  // {
-  //   isLoading && console.log('Loading');
-  // }
-  // {
-  //   isFetching && console.log('fetching');
-  // }
+  const increaseCartQuantity = () => {
+    setquantity(quantity + 1);
+  };
+  const decreaseCartQuantity = () => {
+    if (quantity > 1) {
+      setquantity(quantity - 1);
+    }
+  };
+
+  const {data, isLoading, isFetching, error, isSuccess, refetch} =
+    useGetAllLabCartItemsQuery(userLToken, {refetchOnMountOrArgChange: true});
+
   {
-    error && console.log('cart error', error);
+    isSuccess && console.log('cart data', data);
   }
 
   {
     isSuccess &&
-      data.forEach(element => {
+      data.data.forEach(element => {
         const cartItemUuid = element.uuid;
         const quantity = element.quantity;
-        const name = element.product.name;
-        const image = element.product.image;
-        const uuid = element.product.uuid;
-        const price = element.product.price;
-        const discount = element.product.discount;
+        const name = element.lab_test.name;
+        const image = element.lab_test.image;
+        const uuid = element.lab_test.uuid;
+        const price = element.lab_test.price;
+        const discount = element.lab_test.discount;
         cart.unshift({
           name: name,
           image: image,
@@ -71,23 +81,8 @@ const Checkout = ({navigation, buttonData}) => {
       });
   }
 
-  const increaseCartQuantity = () => {
-    setquantity(quantity + 1);
-  };
-  const decreaseCartQuantity = () => {
-    if (quantity > 1) {
-      setquantity(quantity - 1);
-    }
-  };
-
   const handlePlaceOrder = async () => {
-    const response = await placeHealthCareCartOrder(
-      address.split(':')[1],
-      paymentType,
-      cart,
-      userLToken,
-    );
-    console.log('Response:', response);
+    console.log('lab');
   };
 
   return (
@@ -109,14 +104,23 @@ const Checkout = ({navigation, buttonData}) => {
             <View style={styles.flexContainer}>
               <Text style={styles.text}>Items:</Text>
               <Text style={styles.text}>
-                ₹{parseFloat(subTotal(data)).toFixed(2)}
+                ₹{data && parseFloat(labSubTotal(data?.data)).toFixed(2)}
               </Text>
             </View>
             <View style={styles.flexContainer}>
-              <Text style={styles.text}>Delivery:</Text>
+              <Text style={styles.text}>Sample Collection Charges:</Text>
               <Text style={styles.text}>
-                {/* // {Math.ceil((subTotal - discount - couponValue) * 0.1).toFixed(2)} */}
-                ₹{parseFloat(deliveryCharges(data)).toFixed(2)}
+                ₹
+                {data &&
+                  parseFloat(sampleCollectionCharges(data?.data)).toFixed(2)}
+              </Text>
+            </View>
+            <View style={styles.flexContainer}>
+              <Text style={styles.text}>
+                Discount ({labDiscount(data?.data)}%)
+              </Text>
+              <Text style={styles.text}>
+                ₹{data && parseFloat(labTotalDiscount(data?.data)).toFixed(2)}
               </Text>
             </View>
             <View style={[styles.flexContainer, styles.padding]}>
@@ -124,7 +128,9 @@ const Checkout = ({navigation, buttonData}) => {
               <Text style={styles.boldText}>
                 ₹
                 {parseFloat(
-                  subTotal(data) - totalDiscount(data) + deliveryCharges(data),
+                  labSubTotal(data?.data) +
+                    sampleCollectionCharges(data?.data) -
+                    labTotalDiscount(data?.data),
                 ).toFixed(2)}
               </Text>
             </View>
@@ -132,7 +138,7 @@ const Checkout = ({navigation, buttonData}) => {
             <Text style={[styles.text, styles.center]}>
               You Are Saving{' '}
               <Text style={[styles.boldText, styles.color]}>
-                ₹{parseFloat(totalDiscount(data)).toFixed(2)}
+                ₹{data && parseFloat(labTotalDiscount(data?.data)).toFixed(2)}
               </Text>{' '}
               On This Order
             </Text>
@@ -194,7 +200,11 @@ const Checkout = ({navigation, buttonData}) => {
                         </Text>
                       </View>
                     </View>
-                    <View style={[styles.evenly]}>
+                    <View style={[styles.priceFlex]}>
+                      <Text style={styles.productText}>Qty:</Text>
+                      <Text style={styles.bold}>{item.item.quantity}</Text>
+                    </View>
+                    {/* <View style={[styles.evenly]}>
                       <View style={[styles.row, styles.gap3]}>
                         <Pressable
                           onPress={decreaseCartQuantity}
@@ -207,9 +217,7 @@ const Checkout = ({navigation, buttonData}) => {
                             strokeWidth={2.5}
                           />
                         </Pressable>
-                        <View>
-                          <Text style={styles.bold}>{item.item.quantity}</Text>
-                        </View>
+                        
                         <Pressable
                           onPress={increaseCartQuantity}
                           style={[styles.box, {backgroundColor: '#fff'}]}>
@@ -221,7 +229,7 @@ const Checkout = ({navigation, buttonData}) => {
                           />
                         </Pressable>
                       </View>
-                    </View>
+                    </View> */}
                   </View>
                 </View>
               );
@@ -238,7 +246,7 @@ const Checkout = ({navigation, buttonData}) => {
   );
 };
 
-export default Checkout;
+export default LabCheckout;
 
 const styles = StyleSheet.create({
   scrollViewContent: {

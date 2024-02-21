@@ -21,6 +21,7 @@ import {
   useTestsAndPackagesByIdQuery,
   useDeleteLabCartItemsMutation,
   useAddToCartMutation,
+  useAddToLabCartMutation,
 } from '../services/userAuthApi';
 import {getToken} from '../services/AsyncStorageService';
 // import { black } from 'react-native-paper/lib/typescript/styles/colors'
@@ -32,11 +33,19 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import adjust from '../utils/responsive';
 import {colors} from '../constants/colors';
+import {
+  labDiscount,
+  labSubTotal,
+  labTotalDiscount,
+  sampleCollectionCharges,
+  subTotal,
+} from '../utils/mathFunc';
 
-const LabCart = () => {
+const LabCart = ({navigation}) => {
   // const cart=useSelector((state)=>state.cart)
   const [selected, setSelected] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
+  // const navigation =useNavigation()
 
   let total = 0;
 
@@ -66,7 +75,7 @@ const LabCart = () => {
     useGetAllLabCartItemsQuery(userLToken, {refetchOnMountOrArgChange: true});
 
   {
-    isSuccess && console.warn('cart data', data.data);
+    isSuccess && console.log('cart data', data);
   }
 
   {
@@ -120,6 +129,16 @@ const LabCart = () => {
     openModal();
   };
 
+  const [addToCart] = useAddToLabCartMutation(); //send cart data to backend
+  const addToCartHandler = async productid => {
+    console.warn('productid', productid);
+    const cartData = {
+      id: productid,
+      token: userLToken,
+    };
+    await addToCart(cartData);
+  };
+
   const [deleteCartItems] = useDeleteLabCartItemsMutation();
   const removeFromCartHandler = async cartItemid => {
     const remove = {
@@ -160,6 +179,38 @@ const LabCart = () => {
                         ₹{parseFloat(item.item.price).toFixed(2)}
                       </Text>
                     </View>
+                    {/* <>
+                      <View style={[styles.evenly]}>
+                        <View style={[styles.row, styles.gap3]}>
+                          <Pressable
+                            onPress={() => addToCartHandler(item, -1)}
+                            disabled={item.item.quantity === 1}
+                            style={[styles.box, {backgroundColor: '#fff'}]}>
+                            <AntDesign
+                              name="minus"
+                              color={'#1c738c'}
+                              size={18}
+                              strokeWidth={2.5}
+                            />
+                          </Pressable>
+                          <View>
+                            <Text style={styles.bold}>
+                              {item.item.quantity}
+                            </Text>
+                          </View>
+                          <Pressable
+                            onPress={() => addToCartHandler(item, 1)}
+                            style={[styles.box, {backgroundColor: '#fff'}]}>
+                            <AntDesign
+                              name="plus"
+                              color={'#1c738c'}
+                              size={18}
+                              strokeWidth={2.5}
+                            />
+                          </Pressable>
+                        </View>
+                      </View>
+                    </> */}
                   </View>
                   <Pressable
                     style={styles.cartBtn}
@@ -221,25 +272,43 @@ const LabCart = () => {
       )}
       <View style={styles.billContainer}>
         <View style={styles.justify}>
-          <Text style={styles.billText}>Total</Text>
-          <Text style={styles.billText}>₹{total}</Text>
+          <Text style={styles.billText}>Sub Total</Text>
+          <Text style={styles.billText}>
+            ₹{data && parseFloat(labSubTotal(data?.data)).toFixed(2)}
+          </Text>
         </View>
         <View style={styles.justify}>
           <Text style={styles.billText}>Sample Collection Charges</Text>
-          <Text style={styles.billText}>₹{total}</Text>
+          <Text style={styles.billText}>
+            ₹
+            {data && parseFloat(sampleCollectionCharges(data?.data)).toFixed(2)}
+          </Text>
         </View>
         <View style={styles.justify}>
-          <Text style={styles.billText}>Place Order</Text>
-          <Text style={styles.billText}>₹{total}</Text>
+          <Text style={styles.billText}>
+            Discount({labDiscount(data?.data)}%)
+          </Text>
+          <Text style={styles.billText}>
+            ₹{data && parseFloat(labTotalDiscount(data?.data)).toFixed(2)}
+          </Text>
         </View>
         <View style={styles.border} />
         <View style={styles.justify}>
           <Text style={styles.billTotalText}>Cart Value</Text>
-          <Text style={styles.billTotalText}>₹{total}</Text>
+          <Text style={styles.billTotalText}>
+            ₹
+            {parseFloat(
+              labSubTotal(data?.data) +
+                sampleCollectionCharges(data?.data) -
+                labTotalDiscount(data?.data),
+            ).toFixed(2)}
+          </Text>
         </View>
       </View>
-      <Pressable style={styles.placeButton}>
-        <Text style={styles.placeText}>Place Order</Text>
+      <Pressable
+        style={styles.placeButton}
+        onPress={() => navigation.navigate('DeliveryAddress', {screen: 'lab'})}>
+        <Text style={styles.placeText}>Proceed To Buy</Text>
       </Pressable>
     </SafeAreaView>
   );

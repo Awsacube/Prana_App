@@ -17,9 +17,12 @@ import AddressModal from '../components/modals/AddressModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {setAddress} from '../app/orderSlice';
 
-const DeliveryAddress = ({navigation}) => {
+const DeliveryAddress = ({navigation, route}) => {
   const [userLToken, setUserLToken] = useState();
   const [profileData, setProfileData] = useState();
+  const {screen} = route.params;
+
+  console.log(screen);
 
   const [additionalAddress, setAdditionalAddress] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -147,7 +150,9 @@ const DeliveryAddress = ({navigation}) => {
             </Text>
             {selected && (
               <Pressable
-                onPress={() => navigation.navigate('PaymentType')}
+                onPress={() =>
+                  navigation.navigate('PaymentType', {screen: screen})
+                }
                 // onPress={() => console.log(value, buttonData)}
                 style={styles.deliverButton}>
                 <Text style={styles.deliverButtonText}>

@@ -19,8 +19,9 @@ import {
   handleDeleteUserAdditionalAddress,
   handleDeleteUserAddress,
 } from '../../services/profileService';
+import adjust from '../../utils/responsive';
 
-const Address = ({navigation}) => {
+const Address = ({navigation, route}) => {
   const [userLToken, setUserLToken] = useState();
   const [profileData, setProfileData] = useState();
 
@@ -276,12 +277,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   mt3: {
-    marginTop: 15,
+    marginTop: adjust(10),
   },
   savedText: {
-    width: '40%',
+    width: '41%',
     textTransform: 'uppercase',
-    fontSize: 16,
+    fontSize: adjust(13),
     color: colors.gray_600,
     letterSpacing: 1,
     marginRight: '2%',

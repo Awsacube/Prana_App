@@ -7,9 +7,12 @@ import adjust from '../utils/responsive';
 import {setPaymentType} from '../app/orderSlice';
 import {useDispatch} from 'react-redux';
 
-const PaymentType = () => {
+const PaymentType = ({route}) => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(0);
+  const {screen} = route.params;
+
+  console.log(screen);
   const dispatch = useDispatch();
 
   const radioButtons = useMemo(() => {
@@ -62,7 +65,11 @@ const PaymentType = () => {
       <Pressable
         onPress={() => {
           dispatch(setPaymentType({type: radioButtons[selected].value}));
-          navigation.navigate('Checkout');
+          {
+            screen === 'lab'
+              ? navigation.navigate('LabCheckout')
+              : navigation.navigate('Checkout', {screen: screen});
+          }
         }}
         // onPress={() => console.log(value, buttonData)}
         style={styles.deliverButton}>
